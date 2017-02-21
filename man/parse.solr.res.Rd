@@ -4,12 +4,14 @@
 \alias{parse.solr.res}
 \title{Parse the result from a solr search}
 \usage{
-parse.solr.res(solr.res, pagesize)
+parse.solr.res(solr.res, pagesize, source)
 }
 \arguments{
 \item{solr.res}{The return value from the GET request}
 
 \item{pagesize}{solr pagesize}
+
+\item{source}{passed through from query}
 }
 \value{
 The parsed search result
