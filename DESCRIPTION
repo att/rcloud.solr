@@ -1,6 +1,6 @@
 Package: rcloud.solr
 Title: Build requests for solr from rcloud
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre"))
 Description: Support the solr searching and updating.
 Depends: R (>= 3.1.2)
