@@ -1,0 +1,20 @@
+{
+  "query": "Species",
+  "URLdecodequery": "Species",
+  "sol.query": {
+    "q": "Species",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "response": "{\"QTime\":\"9\",\"notebook\":\"Test9\",\"id\":\"0c9cf888aac4fe1a82c5\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T14:30:58Z\",\"user\":\"rcloud\",\"numFound\":\"1\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(iris[iris$<b style=\\\\\\\"background:yellow\\\\\\\">Species<\/b> == \\\\\\\"versicolor\\\\\\\", \\\\\\\"Petal.Length\\\\\\\"])|-|2line_no#hello|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"
+}

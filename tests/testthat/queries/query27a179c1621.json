@@ -14,5 +14,7 @@
     "hl.fl": "content,comments",
     "sort": "starcount desc"
   },
+  "pagesize": 10,
+  "all_sources": false,
   "response": []
 }

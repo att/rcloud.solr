@@ -1,0 +1,20 @@
+{
+  "query": "cars",
+  "URLdecodequery": "cars",
+  "sol.query": {
+    "q": "cars",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "response": "{\"QTime\":\"4\",\"notebook\":\"Test4\",\"id\":\"a4839ec392949098f861\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:50:49Z\",\"user\":\"rcloud\",\"numFound\":\"1\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">cars<\/b>$speed)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"part2.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">cars<\/b>$dist)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"
+}

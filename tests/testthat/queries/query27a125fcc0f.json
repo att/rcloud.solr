@@ -1,0 +1,20 @@
+{
+  "query": "http%3A%2F%2Fexample.com",
+  "URLdecodequery": "http://example.com",
+  "sol.query": {
+    "q": "http://example.com",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "response": ["error", "{\n  \"responseHeader\":{\n    \"status\":400,\n    \"QTime\":2,\n    \"params\":{\n      \"hl.fragsize\":\"0\",\n      \"sort\":\"starcount desc\",\n      \"indent\":\"true\",\n      \"hl.fl\":\"content,comments\",\n      \"hl.maxAnalyzedChars\":\"-1\",\n      \"wt\":\"json\",\n      \"hl\":\"true\",\n      \"rows\":\"10\",\n      \"fl\":\"description,id,user,updated_at,starcount\",\n      \"json\":\"\",\n      \"start\":\"0\",\n      \"q\":\"http://example.com\",\n      \"hl.preserveMulti\":\"true\"}},\n  \"error\":{\n    \"metadata\":[\n      \"error-class\",\"org.apache.solr.common.SolrException\",\n      \"root-error-class\",\"org.apache.solr.parser.TokenMgrError\"],\n    \"msg\":\"org.apache.solr.search.SyntaxError: Cannot parse 'http://example.com': Lexical error at line 1, column 7.  Encountered: \\\"/\\\" (47), after : \\\"/\\\"\",\n    \"code\":400}}\n"]
+}
