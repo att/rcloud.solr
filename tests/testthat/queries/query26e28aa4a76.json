@@ -1,0 +1,47 @@
+{
+  "query": "at%26t",
+  "URLdecodequery": "at&t",
+  "sol.query": {
+    "q": "at&t",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "solr.res": {
+    "responseHeader": {
+      "status": 0,
+      "QTime": 2,
+      "params": {
+        "hl.fragsize": "0",
+        "sort": "starcount desc",
+        "indent": "true",
+        "hl.fl": "content,comments",
+        "hl.maxAnalyzedChars": "-1",
+        "wt": "json",
+        "hl": "true",
+        "rows": "10",
+        "fl": "description,id,user,updated_at,starcount",
+        "json": "",
+        "start": "0",
+        "q": "at&t",
+        "hl.preserveMulti": "true"
+      }
+    },
+    "response": {
+      "numFound": 0,
+      "start": 0,
+      "docs": []
+    },
+    "highlighting": []
+  },
+  "response": []
+}

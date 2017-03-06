@@ -1,0 +1,59 @@
+{
+  "query": "1%2B1",
+  "URLdecodequery": "1+1",
+  "sol.query": {
+    "q": "1+1",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "solr.res": {
+    "responseHeader": {
+      "status": 0,
+      "QTime": 6,
+      "params": {
+        "hl.fragsize": "0",
+        "sort": "starcount desc",
+        "indent": "true",
+        "hl.fl": "content,comments",
+        "hl.maxAnalyzedChars": "-1",
+        "wt": "json",
+        "hl": "true",
+        "rows": "10",
+        "fl": "description,id,user,updated_at,starcount",
+        "json": "",
+        "start": "0",
+        "q": "1+1",
+        "hl.preserveMulti": "true"
+      }
+    },
+    "response": {
+      "numFound": 1,
+      "start": 0,
+      "docs": [
+        {
+          "id": "3fbd8409ff4fb50e5120",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:49:19Z",
+          "description": "AAA Reindex",
+          "starcount": 1
+        }
+      ]
+    },
+    "highlighting": {
+      "3fbd8409ff4fb50e5120": {
+        "content": "[{\"filename\":\"part2.R\",\"content\":\"users <- rcloud.get.users()\\n\"},{\"filename\":\"part3.R\",\"content\":\"notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\\\"rcloud\\\"))\"},{\"filename\":\"part4.R\",\"content\":\"for (i in notebooks) {\\n        print(paste0(\\\"Indexing \\\", i))\\n    result = tryCatch({\\n    x = rcloud.get.notebook(i)\\n         rcloud.support:::update.solr(x,rcloud.notebook.star.count(i))\\n    }, warning = function(w) {\\n   print(paste0(w,\\\" \\\",i))\\n    }, error = function(e) {\\n   print(paste0(e,\\\" \\\",i))\\n    }, finally = {\\n    print(paste0(\\\"Success \\\",i))\\n    })\\n    Sys.sleep(open_b_close1open_/b_close)\\n}\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      }
+    }
+  },
+  "response": "{\"QTime\":\"6\",\"notebook\":\"AAA Reindex\",\"id\":\"3fbd8409ff4fb50e5120\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:49:19Z\",\"user\":\"rcloud\",\"numFound\":\"1\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part2.R\\\",\\\"content\\\":\\\"\\\"},{\\\"filename\\\":\\\"part3.R\\\",\\\"content\\\":\\\"\\\"},{\\\"filename\\\":\\\"part4.R\\\",\\\"content\\\":\\\"12line_no    })|-|13line_no    Sys.sleep(<b style=\\\\\\\"background:yellow\\\\\\\">1<\/b>)|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"
+}

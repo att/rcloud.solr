@@ -1,0 +1,89 @@
+{
+  "query": "iris%2C%20Petal",
+  "URLdecodequery": "iris, Petal",
+  "sol.query": {
+    "q": "iris, Petal",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "solr.res": {
+    "responseHeader": {
+      "status": 0,
+      "QTime": 16,
+      "params": {
+        "hl.fragsize": "0",
+        "sort": "starcount desc",
+        "indent": "true",
+        "hl.fl": "content,comments",
+        "hl.maxAnalyzedChars": "-1",
+        "wt": "json",
+        "hl": "true",
+        "rows": "10",
+        "fl": "description,id,user,updated_at,starcount",
+        "json": "",
+        "start": "0",
+        "q": "iris, Petal",
+        "hl.preserveMulti": "true"
+      }
+    },
+    "response": {
+      "numFound": 4,
+      "start": 0,
+      "docs": [
+        {
+          "id": "0c9cf888aac4fe1a82c5",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T14:30:58Z",
+          "description": "Test9",
+          "starcount": 1
+        },
+        {
+          "id": "1e53b4edfca6d6c0ba6e",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:52:36Z",
+          "description": "Test8",
+          "starcount": 1
+        },
+        {
+          "id": "710f9d799d84ff04cc83",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:51:38Z",
+          "description": "Test6",
+          "starcount": 1
+        },
+        {
+          "id": "f49f595cce499445f999",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:52:18Z",
+          "description": "Test7",
+          "starcount": 1
+        }
+      ]
+    },
+    "highlighting": {
+      "0c9cf888aac4fe1a82c5": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closeirisopen_/b_close[open_b_closeirisopen_/b_close$Species == \\\"versicolor\\\", \\\"Petal.Length\\\"])\\n#hello\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      },
+      "1e53b4edfca6d6c0ba6e": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closeirisopen_/b_close$Sepal.Length)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      },
+      "710f9d799d84ff04cc83": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closeirisopen_/b_close$Petal.Length)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      },
+      "f49f595cce499445f999": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closeirisopen_/b_close$Petal.Width)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      }
+    }
+  },
+  "response": ["{\"QTime\":\"16\",\"notebook\":\"Test9\",\"id\":\"0c9cf888aac4fe1a82c5\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T14:30:58Z\",\"user\":\"rcloud\",\"numFound\":\"4\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">iris<\/b>[<b style=\\\\\\\"background:yellow\\\\\\\">iris<\/b>$Species == \\\\\\\"versicolor\\\\\\\", \\\\\\\"Petal.Length\\\\\\\"])|-|2line_no#hello|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}", "{\"QTime\":\"16\",\"notebook\":\"Test8\",\"id\":\"1e53b4edfca6d6c0ba6e\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:52:36Z\",\"user\":\"rcloud\",\"numFound\":\"4\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">iris<\/b>$Sepal.Length)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}", "{\"QTime\":\"16\",\"notebook\":\"Test6\",\"id\":\"710f9d799d84ff04cc83\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:51:38Z\",\"user\":\"rcloud\",\"numFound\":\"4\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">iris<\/b>$Petal.Length)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}", "{\"QTime\":\"16\",\"notebook\":\"Test7\",\"id\":\"f49f595cce499445f999\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:52:18Z\",\"user\":\"rcloud\",\"numFound\":\"4\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">iris<\/b>$Petal.Width)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"]
+}

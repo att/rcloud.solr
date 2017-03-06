@@ -1,0 +1,59 @@
+{
+  "query": "hello",
+  "URLdecodequery": "hello",
+  "sol.query": {
+    "q": "hello",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "solr.res": {
+    "responseHeader": {
+      "status": 0,
+      "QTime": 5,
+      "params": {
+        "hl.fragsize": "0",
+        "sort": "starcount desc",
+        "indent": "true",
+        "hl.fl": "content,comments",
+        "hl.maxAnalyzedChars": "-1",
+        "wt": "json",
+        "hl": "true",
+        "rows": "10",
+        "fl": "description,id,user,updated_at,starcount",
+        "json": "",
+        "start": "0",
+        "q": "hello",
+        "hl.preserveMulti": "true"
+      }
+    },
+    "response": {
+      "numFound": 1,
+      "start": 0,
+      "docs": [
+        {
+          "id": "0c9cf888aac4fe1a82c5",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T14:30:58Z",
+          "description": "Test9",
+          "starcount": 1
+        }
+      ]
+    },
+    "highlighting": {
+      "0c9cf888aac4fe1a82c5": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(iris[iris$Species == \\\"versicolor\\\", \\\"Petal.Length\\\"])\\n#open_b_closehelloopen_/b_close\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      }
+    }
+  },
+  "response": "{\"QTime\":\"5\",\"notebook\":\"Test9\",\"id\":\"0c9cf888aac4fe1a82c5\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T14:30:58Z\",\"user\":\"rcloud\",\"numFound\":\"1\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(iris[iris$Species == \\\\\\\"versicolor\\\\\\\", \\\\\\\"Petal.Length\\\\\\\"])|-|2line_no#<b style=\\\\\\\"background:yellow\\\\\\\">hello<\/b>|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"
+}

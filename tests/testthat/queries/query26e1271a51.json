@@ -1,0 +1,79 @@
+{
+  "query": "mtcars",
+  "URLdecodequery": "mtcars",
+  "sol.query": {
+    "q": "mtcars",
+    "start": 0,
+    "rows": 10,
+    "indent": "true",
+    "hl": "true",
+    "hl.preserveMulti": "true",
+    "hl.fragsize": 0,
+    "hl.maxAnalyzedChars": -1,
+    "fl": "description,id,user,updated_at,starcount",
+    "hl.fl": "content,comments",
+    "sort": "starcount desc"
+  },
+  "pagesize": 10,
+  "all_sources": false,
+  "solr.res": {
+    "responseHeader": {
+      "status": 0,
+      "QTime": 7,
+      "params": {
+        "hl.fragsize": "0",
+        "sort": "starcount desc",
+        "indent": "true",
+        "hl.fl": "content,comments",
+        "hl.maxAnalyzedChars": "-1",
+        "wt": "json",
+        "hl": "true",
+        "rows": "10",
+        "fl": "description,id,user,updated_at,starcount",
+        "json": "",
+        "start": "0",
+        "q": "mtcars",
+        "hl.preserveMulti": "true"
+      }
+    },
+    "response": {
+      "numFound": 3,
+      "start": 0,
+      "docs": [
+        {
+          "id": "846df905503b3499b653",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:51:14Z",
+          "description": "Test5",
+          "starcount": 1
+        },
+        {
+          "id": "010b0b4451ff152e6c62",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:42:38Z",
+          "description": "Test2",
+          "starcount": 1
+        },
+        {
+          "id": "fc0037a649b022751c46",
+          "user": "rcloud",
+          "updated_at": "2017-03-03T13:53:46Z",
+          "description": "Test10",
+          "starcount": 1
+        }
+      ]
+    },
+    "highlighting": {
+      "846df905503b3499b653": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closemtcarsopen_/b_close$mpg)\"},{\"filename\":\"part2.R\",\"content\":\"plot(mpg ~ wt, data = open_b_closemtcarsopen_/b_close)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      },
+      "010b0b4451ff152e6c62": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closemtcarsopen_/b_close$disp)\\n\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      },
+      "fc0037a649b022751c46": {
+        "content": "[{\"filename\":\"part1.R\",\"content\":\"hist(open_b_closemtcarsopen_/b_close$wt)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+      }
+    }
+  },
+  "response": ["{\"QTime\":\"7\",\"notebook\":\"Test5\",\"id\":\"846df905503b3499b653\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:51:14Z\",\"user\":\"rcloud\",\"numFound\":\"3\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">mtcars<\/b>$mpg)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"part2.R\\\",\\\"content\\\":\\\"1line_noplot(mpg ~ wt, data = <b style=\\\\\\\"background:yellow\\\\\\\">mtcars<\/b>)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}", "{\"QTime\":\"7\",\"notebook\":\"Test2\",\"id\":\"010b0b4451ff152e6c62\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:42:38Z\",\"user\":\"rcloud\",\"numFound\":\"3\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">mtcars<\/b>$disp)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}", "{\"QTime\":\"7\",\"notebook\":\"Test10\",\"id\":\"fc0037a649b022751c46\",\"starcount\":\"1\",\"updated_at\":\"2017-03-03T13:53:46Z\",\"user\":\"rcloud\",\"numFound\":\"3\",\"pagesize\":\"10\",\"parts\":\"[{\\\"filename\\\":\\\"part1.R\\\",\\\"content\\\":\\\"1line_nohist(<b style=\\\\\\\"background:yellow\\\\\\\">mtcars<\/b>$wt)|-|2line_noNA|-|\\\"},{\\\"filename\\\":\\\"scratch.R\\\",\\\"content\\\":\\\"\\\"}]\",\"source\":\"\"}"]
+}
