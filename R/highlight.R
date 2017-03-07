@@ -71,3 +71,13 @@ style.highlighting <- function(part.content) {
 
   part.content
 }
+
+stitch.search.result <- function(splitted, type,k) {
+  #Using '|-|' as delimitter here as <br>,/n or anything else might be the content of HTML
+  switch(type,
+         optA = paste0(k-1,'line_no',splitted[k-1],'|-|',k,'line_no',splitted[k],'|-|',k+1,'line_no',splitted[k+1],sep='|-|'),
+         optB = paste0(k,'line_no',splitted[k],'|-|',k+1,'line_no',splitted[k+1],sep='|-|'),
+         optC = paste0(k-1,'line_no',splitted[k-1],'|-|',k,'line_no',splitted[k],sep='|-|'),
+         optD = paste0(k-1,'line_no',splitted[k-1],sep='|-|'),
+         default = paste0(k,'line_no',splitted[k],sep='|-|'))
+}
