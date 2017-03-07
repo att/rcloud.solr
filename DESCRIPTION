@@ -10,5 +10,6 @@ LazyData: true
 Imports: rjson,
     rcloud.support,
     httr
+Remotes: mangothecat/rcloud.support
 RoxygenNote: 6.0.1
 Suggests: testthat
