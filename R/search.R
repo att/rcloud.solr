@@ -39,42 +39,7 @@ parse.response.high <- function(high) {
 
   if(length(high) != 0) {
     if(!is.null(high$content)) {
-      parts.content <- rjson::fromJSON(high$content)
-      for(j in 1:length(parts.content)) {
-        splitted <-strsplit(parts.content[[j]]$content,'\n')[[1]]
-        res <-list()
-        for(k in 1: length(splitted)) {
-          is_match <- grep("open_b_close",splitted[[k]])
-          is_match_next <- NULL
-          is_match_next2 <- NULL
-          if(k < length(splitted)){
-            is_match_next <- grep("open_b_close",splitted[[k+1]])
-          }
-          if(k < (length(splitted) -2)){
-            is_match_next2 <- grep("open_b_close",splitted[[k+2]])
-          }
-          if(as.logical(length(is_match))) {
-            if(!as.logical(length(is_match_next)) && !as.logical(length(is_match_next2)) ) {
-              if(as.logical(length(splitted[k-1]) == "") | k ==1) {
-                res[k] <- stitch.search.result(splitted,'optB',k)
-              } else {
-                if(as.logical(length(splitted[k-1]) != "")) {
-                  res[k] <- stitch.search.result(splitted,'optC',k)
-                }
-              }
-            } else if (as.logical(length(is_match_next)) && !as.logical(length(is_match_next2)) ) {
-              if(k !=1)
-                res[k] <- stitch.search.result(splitted,'optD',k)
-            } else {
-              res[k] <- stitch.search.result(splitted,'default',k)
-            }
-          }
-          if(k == length(splitted)) {
-            res[sapply(res, is.null)] <- NULL
-            parts.content[[j]]$content <- paste0(toString(res))
-          }
-        }
-      }
+      parts.content <- lapply(rjson::fromJSON(high$content), style.highlighting)
     } else {
       high$content <- "[{\"filename\":\"part1.R\",\"content\":[]}]"
       parts.content <- rjson::fromJSON(high$content)
@@ -101,6 +66,46 @@ parse.response.high <- function(high) {
     high$content <-"[{\"filename\":\"part1.R\",\"content\":[]}]"
 
   high
+}
+
+# This is the bit of the code that styles the highlighting
+style.highlighting <- function(part.content) {
+
+  splitted <-strsplit(part.content$content,'\n')[[1]]
+  res <-list()
+  for(k in 1: length(splitted)) {
+    is_match <- grep("open_b_close",splitted[[k]])
+    is_match_next <- NULL
+    is_match_next2 <- NULL
+    if(k < length(splitted)){
+      is_match_next <- grep("open_b_close",splitted[[k+1]])
+    }
+    if(k < (length(splitted) -2)){
+      is_match_next2 <- grep("open_b_close",splitted[[k+2]])
+    }
+    if(as.logical(length(is_match))) {
+      if(!as.logical(length(is_match_next)) && !as.logical(length(is_match_next2)) ) {
+        if(as.logical(length(splitted[k-1]) == "") | k ==1) {
+          res[k] <- stitch.search.result(splitted,'optB',k)
+        } else {
+          if(as.logical(length(splitted[k-1]) != "")) {
+            res[k] <- stitch.search.result(splitted,'optC',k)
+          }
+        }
+      } else if (as.logical(length(is_match_next)) && !as.logical(length(is_match_next2)) ) {
+        if(k !=1)
+          res[k] <- stitch.search.result(splitted,'optD',k)
+      } else {
+        res[k] <- stitch.search.result(splitted,'default',k)
+      }
+    }
+    if(k == length(splitted)) {
+      res[sapply(res, is.null)] <- NULL
+      part.content$content <- paste0(toString(res))
+    }
+  }
+
+  part.content
 }
 
 create.json.output <- function(response.docs, response.high, solr.res, pagesize, source) {
