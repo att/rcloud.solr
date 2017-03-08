@@ -15,9 +15,6 @@
 #'
 rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
 
-  qid <- tempfile(pattern = "query", fileext = ".json") # TESTING_REMOVE
-  res <- list(query = query)                            # TESTING_REMOVE
-
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
 
@@ -39,9 +36,13 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 
-  res$sol.query <- solr.query # TESTING_REMOVE
-  res$pagesize <- pagesize    # TESTING_REMOVE
-  res$all_sources <- all_sources  # TESTING_REMOVE
+  ################## TESTING REMOVE #################################
+  qid <- tempfile(pattern = "query", fileext = ".json")
+  res <- list(query = query,
+              sol.query = solr.query,
+              pagesize = pagesize,
+              all_sources = all_sources)
+  ###################################################################
 
   query <- function(solr.url,source='',solr.auth.user=NULL,solr.auth.pwd=NULL) {
     solr.res <- .solr.get(solr.url=solr.url,query=solr.query,solr.auth.user=solr.auth.user,solr.auth.pwd=solr.auth.pwd)
@@ -65,8 +66,12 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
                   solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                   solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
   }
-  res$response <- resp  # TESTING_REMOVE
-  json <- jsonlite::toJSON(res, pretty = TRUE, auto_unbox = TRUE)  # TESTING_REMOVE
-  writeLines(json, qid)  # TESTING_REMOVE
+
+  ######################### TESTING REMOVE ###########################
+  res$response <- resp
+  json <- jsonlite::toJSON(res, pretty = TRUE, auto_unbox = TRUE)
+  writeLines(json, qid)
+  ####################################################################
+
   resp
 }
