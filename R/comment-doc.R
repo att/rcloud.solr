@@ -1,4 +1,11 @@
-.solr.post.comment <- function(id, content, comment.id) {
+#' Index a New Comment
+#'
+#' @param id Notebook ID
+#' @param content The new comment content
+#' @param comment.id The comment ID
+#'
+#' @export
+solr.post.comment <- function(id, content, comment.id) {
 
   ## Post comments to only notebooks with visibility flag true or non encrypted notebooks
   if(rcloud.support::rcloud.is.notebook.visible(id) && !(rcloud.support:::is.notebook.encrypted(id))){
@@ -24,7 +31,14 @@
   }
 }
 
-.solr.modify.comment <- function(id, content, cid) {
+#' Modify Index for a Comment
+#'
+#' @param id Notebook ID
+#' @param content New comment content
+#' @param cid Comment ID
+#'
+#' @export
+solr.modify.comment <- function(id, content, cid) {
 
   query <- list(q=paste0("id:",id),start=0,rows=1000)
   solr.res <- .solr.get(query=query)
@@ -32,7 +46,7 @@
   cids <- trimws(unlist(lapply(solr.res$response$docs,function(o){lapply(o$comments,function(p){strsplit(p,":")[[1]][1]})})))
   index <- match(cid,cids)
   # If comment does not exist in the index create a new entry
-  if(is.na(index)) {.solr.post.comment(id,content,cid)} else {
+  if(is.na(index)) {solr.post.comment(id,content,cid)} else {
     solr.res$response$docs[[1]]$comments[[index]] <- paste(cid, ':::' ,
                                                            fromJSON(content)$body, ':::' ,
                                                            rcloud.support:::.session$username)
@@ -44,7 +58,13 @@
   }
 }
 
-.solr.delete.comment <- function(id, cid) {
+#' Delete Comment from Index
+#'
+#' @param id Notebook ID
+#' @param cid Comment ID
+#'
+#' @export
+solr.delete.comment <- function(id, cid) {
   query <- list(q=paste0("id:",id),start=0,rows=1000)
   solr.res <- .solr.get(query=query)
   index <- grep(cid, solr.res$response$docs[[1]]$comments)
@@ -53,7 +73,12 @@
   .solr.post(data=metadata)
 }
 
-.solr.delete.doc <- function(id){
+#' Delete Notebook from Index
+#'
+#' @param id Notebook ID
+#'
+#' @export
+solr.delete.doc <- function(id){
   metadata <- paste0('<delete><id>',id,'</id></delete>')
   .solr.post(data=metadata, isXML=TRUE)
 }
