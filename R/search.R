@@ -8,7 +8,7 @@
 #' @param starcount notebook starcount
 #'
 #' @export
-update.solr <- function(notebook, starcount){
+update_solr <- function(notebook, starcount){
   #Update only notebooks which are visible
   if(rcloud.support::rcloud.is.notebook.visible(notebook$content$id) &&
      !(rcloud.support:::is.notebook.encrypted(notebook$content$id))){
@@ -68,11 +68,12 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
 
+  # TESTING REMOVE
+  q0 <- query
+
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
   ## Check if search terms are already URL encoded?
   if(nchar(query) > nchar(utils::URLdecode(query))) query <- utils::URLdecode(query)
-
-  res$URLdecodequery <- query  # TESTING_REMOVE
 
   solr.query <- list(q=query,
                      start=start,
@@ -88,7 +89,8 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
 
   ################## TESTING REMOVE #################################
   qid <- tempfile(pattern = "query", fileext = ".json")
-  res <- list(query = query,
+  res <- list(query = q0,
+              URLdecodequery = query,
               sol.query = solr.query,
               pagesize = pagesize,
               all_sources = all_sources)

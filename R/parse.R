@@ -5,8 +5,6 @@
 #' @param source passed through from query
 #' @return The parsed search result
 #' @import rjson
-#'
-#' @export
 parse.solr.res <- function(solr.res, pagesize, source) {
 
   if (!is.null(solr.res$error)) paste0(solr.res$error$code,": ",solr.res$error$msg)
