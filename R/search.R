@@ -101,7 +101,7 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
 
     res$solr.res <<- solr.res  # TESTING_REMOVE
 
-    rcloud.solr::parse.solr.res(solr.res, pagesize = pagesize, source = source)
+    parse.solr.res(solr.res, pagesize = pagesize, source = source)
   }
   if (isTRUE(all_sources)) {
     main <- query(url,
