@@ -12,7 +12,7 @@ changes$rcloud$search <- make.oc(rcloud.search)
 
 ### Updating solr
 
-The main function to update a notebook in the solr index is `update.solr`. This is called in a number of places but most commonly from `rcloud.update.notebook` which itself is mapped to an OCAP in `update_notebook`.
+The main function to update a notebook in the solr index is `update_solr`. This is called in a number of places but most commonly from `rcloud.update.notebook` which itself is mapped to an OCAP in `update_notebook`.
 
 Only notebooks with `NULL` group are updated. Private or encrypted notebooks have none-null groups.
 
@@ -20,13 +20,13 @@ Only notebooks with `NULL` group are updated. Private or encrypted notebooks hav
 
 ### Cells
 
-When a cell is updated `update.solr` is called near the end of the `rcloud.update.notebook` function.
+When a cell is updated `update_solr` is called near the end of the `rcloud.update.notebook` function.
 
 ### Adding and Removing
 
 The function `solr.delete.doc` is called when a document is requested to be invisible by `rcloud.set.notebook.visibility` function or when it is encrypted by `rcloud.set.notebook.cryptgroup`.
 
-New docs seem to be added ith the `update.solr` function.
+New docs seem to be added ith the `update_solr` function.
 
 
 ### Comments
