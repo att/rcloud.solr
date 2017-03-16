@@ -1,8 +1,8 @@
 Package: rcloud.solr
 Title: Build requests for solr from rcloud
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre"))
-Description: Support the solr searching and updating.
+Description: Support solr searches and updating the index for notebooks and comments.
 Depends: R (>= 3.1.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
