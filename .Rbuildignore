@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 notes.md
 ^\.travis\.yml$
+Dockerfile
