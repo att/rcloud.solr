@@ -97,8 +97,7 @@ process_metadata_list <- function(li) {
   if(is.list(li)) {
     lapply(li, process_metadata_list)
   } else {
-    unname(li)
-    # ifelse(is.null(li), "", unname(li))
+    if(is.null(li)) "" else unname(li)
   }
 }
 

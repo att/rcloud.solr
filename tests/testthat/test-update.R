@@ -20,3 +20,47 @@ test_that("Add a document", {
 
   expect_equal(response_content$responseHeader$status, 0)
 })
+
+test_that("Build meta data", {
+
+  nb <- readRDS("notebooks/notebook01.rds")
+
+  metadata <- build_update_metadata(nb, starcount = 2)
+
+  # Lists or vectors
+  # Vectors shouldn't be named
+  for(i in seq_along(metadata)) {
+    if(!is.list(metadata[[i]])) {
+      expect_true(is.vector(metadata[[i]]), info = names(metadata)[i])
+
+      expect_null(names(metadata[[i]]))
+    }
+  }
+
+  # Check a few values
+  expect_equal(metadata$id, "010b0b4451ff152e6c62")
+  expect_equal(metadata$user, "rcloud")
+
+  # Check that the content is valid when fromJSON'd
+  content_files <- rjson::fromJSON(metadata$content$set)
+
+  expect_is(content_files, "list")
+
+  # Also checks that any names were stripped off
+  expect_equal(content_files[[1]], list(filename = "part1.R", content = "hist(mtcars$disp)\n"))
+
+})
+
+
+test_that("Recursive metadata process", {
+
+  test_list <- list(a = 1, b = c(q=1,w=2), c = list(c=1, d=c(r="r", t="t")), d = NULL)
+
+  exp_result <- list(a = 1, b = c(1, 2), c = list(c=1, d=c("r", "t")), d = "")
+
+  test_result <- lapply(test_list, process_metadata_list)
+
+  expect_equal(test_result, exp_result)
+
+})
+
