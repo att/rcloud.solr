@@ -6,7 +6,7 @@ test_that("Add a document", {
 
   nb <- readRDS("notebooks/notebook01.rds")
 
-  response <- update_solr(nb, 0)
+  response <- update_solr(nb, 1)
 
   # Is there any other way to check it worked?!
   search_response <- rcloud.search("hist", all_sources = FALSE,
@@ -14,4 +14,5 @@ test_that("Add a document", {
                                    sortby = "starcount desc",
                                    start = 0, pagesize = 10)
 
+  search_response
 })

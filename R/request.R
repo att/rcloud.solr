@@ -22,7 +22,7 @@
     solr.post.url$query <- list(commit = "true")
 
     parallel::mcparallel(httr::POST(httr::build_url(solr.post.url) , body=body,
-                                    httr::add_headers('Content-Type'=content_type),
+                                    httr::content_type(content_type),
                                     config=httpConfig) ,detach=TRUE)
   }
 }
