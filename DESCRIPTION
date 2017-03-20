@@ -11,9 +11,9 @@ Imports: rjson,
     rcloud.support,
     httr,
     parallel,
-    jsonlite,
     utils,
     tools
 Remotes: mangothecat/rcloud.support
 RoxygenNote: 6.0.1
-Suggests: testthat
+Suggests: testthat,
+    jsonlite

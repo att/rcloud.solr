@@ -42,6 +42,9 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
                      sort=paste(sortby,orderby))
 
   ################## TESTING REMOVE #################################
+  if(!requireNamespace("jsonlite", quietly = TRUE)) {
+    stop("Need jsonlite to output search query, response")
+  }
   qid <- tempfile(pattern = "query", fileext = ".json")
   res <- list(query = q0,
               URLdecodequery = query,
