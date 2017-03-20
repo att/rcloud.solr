@@ -47,11 +47,12 @@ test_that("Build meta data", {
 
 })
 
+
 test_that("Recursive metadata process", {
 
-  test_list <- list(a = 1, b = c(q=1,w=2), c = list(c=1, d=c(r="r", t="t")))
+  test_list <- list(a = 1, b = c(q=1,w=2), c = list(c=1, d=c(r="r", t="t")), d = NULL)
 
-  exp_result <- list(a = 1, b = c(1, 2), c = list(c=1, d=c("r", "t")))
+  exp_result <- list(a = 1, b = c(1, 2), c = list(c=1, d=c("r", "t")), d = "")
 
   test_result <- lapply(test_list, process_metadata_list)
 
