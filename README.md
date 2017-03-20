@@ -17,6 +17,12 @@ source("https://install-github.me/mangothecat/rcloud.solr")
 
 You will also need to setup RCloud to work with solr the usual way.
 
+## Testing
+
+Some of the unit tests require a connection to a solr instance to work. The [docker-compose.yml]("docker-compose.yaml") file lays out a configuration that will allow testing. There needs to be a solr instance, setup for RCloud, running on `http://solr:8983/`. It is recommnded to use this [docker image](https://hub.docker.com/r/mangothecat/rcloud-solr/).
+
+Also note that this package will not work in Windows due to use of parallel forks.
+
 ## Usage
 
 Nothing just yet.
