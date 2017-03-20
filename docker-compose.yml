@@ -1,7 +1,7 @@
 version: '2'
 services:
   solr:
-    image: rcsolr
+    image: mangothecat/rcloud-solr
     ports:
       - "8984:8983"
   rstudio:
