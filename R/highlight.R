@@ -20,7 +20,7 @@ parse.response.high <- function(high) {
       high$comments <- final_res
       parts.content[[length(parts.content)+1]] <- list(filename="comments", content=high$comments)
     }
-    high$content <- toJSON(parts.content)
+    high$content <- rjson::toJSON(parts.content)
     #Handling HTML content
     high$content <- gsub("<","&lt;",high$content)
     high$content <- gsub(">","&gt;",high$content)

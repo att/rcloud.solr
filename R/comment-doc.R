@@ -26,7 +26,7 @@ solr.post.comment <- function(id, content, comment.id) {
     if(is.null(solr.res$response$docs[[1]]$comments)) {res$comments$set <- body } else { res$comments$add <- body }
 
     ## send the update request
-    metadata <- toJSON(res)
+    metadata <- rjson::toJSON(res)
     .solr.post(data=metadata)
   }
 }
@@ -53,7 +53,7 @@ solr.modify.comment <- function(id, content, cid) {
     res <- list()
     res$id <- id
     res$comments$set <- solr.res$response$docs[[1]]$comments
-    metadata <- toJSON(res)
+    metadata <- rjson::toJSON(res)
     .solr.post(data=metadata)
   }
 }

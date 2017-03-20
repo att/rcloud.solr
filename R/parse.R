@@ -4,7 +4,6 @@
 #' @param pagesize solr pagesize
 #' @param source passed through from query
 #' @return The parsed search result
-#' @import rjson
 parse.solr.res <- function(solr.res, pagesize, source) {
 
   if (!is.null(solr.res$error)) paste0(solr.res$error$code,": ",solr.res$error$msg)
@@ -44,7 +43,7 @@ create.json.output <- function(response.docs, response.high, solr.res, pagesize,
     updated.at <- response.docs[[i]]$updated_at
     user <- response.docs[[i]]$user
     parts <- response.high[[i]]$content
-    json[i] <- toJSON(c(QTime=time,notebook=notebook,id=id,starcount=starcount,updated_at=updated.at,user=user,numFound=count,pagesize=pagesize,parts=parts,source=as.vector(source)))
+    json[i] <- rjson::toJSON(c(QTime=time,notebook=notebook,id=id,starcount=starcount,updated_at=updated.at,user=user,numFound=count,pagesize=pagesize,parts=parts,source=as.vector(source)))
   }
 
   json
