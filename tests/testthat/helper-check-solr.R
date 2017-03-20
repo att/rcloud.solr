@@ -9,7 +9,7 @@ check_solr_instance <- function(hostname = "http://localhost",
   url <- c(url, list(...))
   class(url) <- "url"
 
-  response <- tryCatch(httr::GET(url, timeout(1)),
+  response <- tryCatch(httr::GET(url, httr::timeout(1)),
                        error = function(e) list(status_code=-1))
 
   isTRUE(response$status_code == 200)
