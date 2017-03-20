@@ -6,13 +6,17 @@ test_that("Add a document", {
 
   nb <- readRDS("notebooks/notebook01.rds")
 
-  response <- update_solr(nb, 1)
+  response <- update_solr(nb, 1, detach = FALSE)
 
-  # Is there any other way to check it worked?!
-  search_response <- rcloud.search("hist", all_sources = FALSE,
-                                   orderby = NULL,
-                                   sortby = "starcount desc",
-                                   start = 0, pagesize = 10)
+  on.exit(solr.delete.doc(nb$content$id)) # relies on this function working...
 
-  search_response
+  # Check for the http response status
+  response <- parallel::mccollect(response)[[1]]
+
+  expect_equal(response$status_code, 200)
+
+  # Find the solr exit code
+  response_content <- rjson::fromJSON(httr::content(response))
+
+  expect_equal(response_content$responseHeader$status, 0)
 })

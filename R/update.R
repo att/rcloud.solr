@@ -3,11 +3,12 @@
 
 #' Update the index after a notebook change
 #'
-#' @param notebook The notebook object as stored by rcloud.support
-#' @param starcount notebook starcount
+#' @param notebook [notebook] The notebook object as stored by rcloud.support
+#' @param starcount [numeric] notebook starcount
+#' @param detach [logical] Should parallel process be detached? Use FALSE for testing
 #'
 #' @export
-update_solr <- function(notebook, starcount){
+update_solr <- function(notebook, starcount, detach = TRUE){
   #Update only notebooks which are visible
   if(!rcloud.support::rcloud.is.notebook.visible(notebook$content$id) ||
      (rcloud.support:::is.notebook.encrypted(notebook$content$id))){
@@ -16,7 +17,7 @@ update_solr <- function(notebook, starcount){
 
   metadata.list <- build_update_metadata(notebook, starcount)
   completedata <- rjson::toJSON(metadata.list)
-  .solr.post(data=completedata)
+  .solr.post(data=completedata, detach = detach)
 
 }
 

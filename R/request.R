@@ -5,7 +5,8 @@
                        solr.url=rcloud.support:::getConf("solr.url"),
                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"),
-                       isXML=FALSE) {
+                       isXML=FALSE,
+                       detach = TRUE) {
   content_type <- "application/json"
   body = paste("[",data,"]",sep='')
   httpConfig <- httr::config()
@@ -23,7 +24,7 @@
 
     parallel::mcparallel(httr::POST(httr::build_url(solr.post.url) , body=body,
                                     httr::content_type(content_type),
-                                    config=httpConfig) ,detach=TRUE)
+                                    config=httpConfig) ,detach=detach)
   }
 }
 
