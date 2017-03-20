@@ -56,7 +56,7 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
   query <- function(solr.url,source='',solr.auth.user=NULL,solr.auth.pwd=NULL) {
     solr.res <- .solr.get(solr.url=solr.url,query=solr.query,solr.auth.user=solr.auth.user,solr.auth.pwd=solr.auth.pwd)
 
-    res$solr.res <<- solr.res  # TESTING_REMOVE
+    res$solr.res <<- solr.res  ######### TESTING_REMOVE
 
     parse.solr.res(solr.res, pagesize = pagesize, source = source)
   }
