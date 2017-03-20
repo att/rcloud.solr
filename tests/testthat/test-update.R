@@ -37,6 +37,10 @@ test_that("Build meta data", {
     }
   }
 
+  # Check a few values
+  expect_equal(metadata$id, "010b0b4451ff152e6c62")
+  expect_equal(metadata$user, "rcloud")
+
   # Check that the content is valid when fromJSON'd
   content_files <- rjson::fromJSON(metadata$content$set)
 
