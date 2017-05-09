@@ -64,8 +64,8 @@ build_update_metadata <- function(notebook, starcount) {
 # Refactored out. TODO - work out what this is doing
 build_update_description <- function(desc) {
 
-  desc  <- gsub("^\"*|\"*$", "", desc)
-  desc <- gsub("^\\\\*|\\\\*$", "", desc)
+  desc  <- gsub("^\"*|\"*$", "", desc)                 # Remove quotes from start and end
+  desc <- gsub("^\\\\*|\\\\*$", "", desc)              # Remove slashes from start and end
   if (length(grep("\"",desc) == 1)) {
     notebook.description <- strsplit(desc,'\"')
     desc <- paste(notebook.description[[1]],collapse="\\\"")
