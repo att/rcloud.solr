@@ -16,8 +16,8 @@ update_solr <- function(notebook, starcount, detach = TRUE){
   }
 
   metadata.list <- build_update_metadata(notebook, starcount)
-  completedata <- rjson::toJSON(metadata.list)
-  .solr.post(data=completedata, detach = detach)
+
+  .solr.post(data=metadata.list, detach = detach)
 
 }
 
@@ -34,35 +34,29 @@ build_update_metadata <- function(notebook, starcount) {
 
   if (!length(content.files)) return(NULL)
 
-  sizes <- as.numeric(sapply(content.files, function(o) o$size))
-  size <- sum(sizes, na.rm=TRUE)
-
   desc <- build_update_description(notebook$content$description)
 
   session.content <- notebook$content
   ## FIXME: followers is not in the notebook, set to 0 for now
   metadata.list <- list(
       "id"= session.content$id,
+      "doc_type" = "notebook",
       "user"= session.content$user$login,
       "created_at"= session.content$created_at,
       "updated_at"= session.content$updated_at,
       "description"= desc,
       "user_url"= session.content$user$url,
       "avatar_url"= session.content$user$avatar_url,
-      "size"= size,
       "commited_at"= session.content$updated_at,
       "followers"= "0",
       "public"= session.content$public,
-      "starcount"= starcount,
-      "content"=list(set = "")
+      "starcount"= starcount
   )
-  # Looks like for now like we do really have to encode the content as a JSON string
-  # May want to look at the schema to see if this is definitely necessary
 
   # This will handle named vectors and potentially NULL values
   metadata.list <- lapply(metadata.list, process_metadata_list)
 
-  metadata.list$content$set <- build_json_content_files(content.files)
+  metadata.list$`_childDocuments_` <- build_content_files(content.files, notebook_id = metadata.list$id)
 
   metadata.list
 }
@@ -83,14 +77,22 @@ build_update_description <- function(desc) {
   desc
 }
 
-build_json_content_files <- function(content.files) {
+build_content_files <- function(content.files, notebook_id) {
   # Select only filename and content
-  content.files <- lapply(content.files, `[`, c('filename', 'content'))
+  content.files <- lapply(content.files, build_one_content_file, notebook_id)
   # Remove names
-  content.files <- unname(content.files)
-  # Convert to JSON (because this is what solr wants)
-  content.files <- rjson::toJSON(content.files)
-  content.files
+  unname(content.files)
+
+}
+
+build_one_content_file <- function(content, notebook_id) {
+
+  id <- paste(unname(notebook_id), content$filename, sep = "-")
+
+  content <- c(list(id = id, doc_type = "cell"),
+               content[c('filename', 'language', 'raw_url', 'size', 'content')])
+
+  content
 }
 
 process_metadata_list <- function(li) {

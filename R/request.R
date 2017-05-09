@@ -8,7 +8,7 @@
                        isXML=FALSE,
                        detach = TRUE) {
   content_type <- "application/json"
-  body = paste("[",data,"]",sep='')
+  body <- rjson::toJSON(list(data))
   httpConfig <- httr::config()
 
   # Check if Authentication info exists in the parameters
