@@ -28,6 +28,40 @@
   }
 }
 
+.solr.post.search <- function(query,
+                              solr.url=rcloud.support:::getConf("solr.url"),
+                              solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
+                              solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd")){
+
+  content_type <- "application/json"
+  httpConfig <- httr::config()
+
+  body <-  list(q = paste0("{!parent which=doc_type:notebook}", query),
+                fl = paste0("id,[child parentFilter=doc_type:notebook childFilter='", query, "']"),
+                hl = "true",
+                hl.fl = "text")
+
+
+  # Check if Authentication info exists in the parameters
+  if(!is.null(solr.auth.user)) httpConfig <- c(httpConfig,httr::authenticate(solr.auth.user,solr.auth.pwd))
+
+  resp <- tryCatch({
+
+    solr.post.url <- httr::parse_url(solr.url)
+    solr.post.url$path <- paste(solr.post.url$path,"query",sep="/")
+
+    httr::POST(httr::build_url(solr.post.url) ,
+               body = body,
+               httr::accept(content_type),
+               config=httpConfig)
+  },
+  error = function(e) {solr.res$error$msg = e},
+  warnings = function(w) {solr.res$error$msg = w}
+  )
+
+  resp
+}
+
 .solr.get <- function(query,
                       solr.url=rcloud.support:::getConf("solr.url"),
                       solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
