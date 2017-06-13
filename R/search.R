@@ -13,11 +13,12 @@
 #' @param orderby Passed to solr for sorting
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
+#' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
 #'
 #' @return Search response after parsing
 #' @export
 #'
-rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
+rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize, group.limit = 4) {
 
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
@@ -33,6 +34,9 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize) {
                      start=start,
                      rows=pagesize,
                      indent="true",
+                     group="true",
+                     group.field="notebook_id",
+                     group.limit=group.limit,
                      hl="true",
                      hl.preserveMulti="true",
                      hl.fragsize=0,
