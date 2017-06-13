@@ -53,15 +53,16 @@ build_update_metadata <- function(notebook, starcount) {
       "starcount"= starcount
   )
 
+  metadata.list$`_childDocuments_` <- build_json_content_files(content.files, session.content$id)
+
   # This will handle named vectors and potentially NULL values
   metadata.list <- lapply(metadata.list, process_metadata_list)
-
-  metadata.list$`_childDocuments_` <- build_content_files(content.files, notebook_id = metadata.list$id)
 
   metadata.list
 }
 
 # Refactored out. TODO - work out what this is doing
+# I'm pretty sure it's to do with removing leading slashes
 build_update_description <- function(desc) {
 
   desc  <- gsub("^\"*|\"*$", "", desc)                 # Remove quotes from start and end
@@ -77,24 +78,27 @@ build_update_description <- function(desc) {
   desc
 }
 
-build_content_files <- function(content.files, notebook_id) {
-  # Select only filename and content
-  content.files <- lapply(content.files, build_one_content_file, notebook_id)
-  # Remove names
-  unname(content.files)
+
+# Process all of the cells
+build_json_content_files <- function(content.files, notebook_id) {
+  notebook_id <- unname(notebook_id)
+  lapply(unname(content.files), build_one_content_file, notebook_id)
+}
+
+
+# Add a reference to parent document for grouping purposes
+# Each cell goes in as a separate document so it must have all
+# required fields
+build_one_content_file <- function(file, notebook_id) {
+
+    c(list(id = paste0(notebook_id, file$filename),
+           notebook_id = notebook_id,
+           doc_type = "cell"),
+      file[c("filename", "language", "raw_url", "size", "content")])
 
 }
 
-build_one_content_file <- function(content, notebook_id) {
-
-  id <- paste(unname(notebook_id), content$filename, sep = "-")
-
-  content <- c(list(id = id, doc_type = "cell"),
-               content[c('filename', 'language', 'raw_url', 'size', 'content')])
-
-  content
-}
-
+# Recursively replace NULL with "" and unname named vectors
 process_metadata_list <- function(li) {
   if(is.list(li)) {
     lapply(li, process_metadata_list)
