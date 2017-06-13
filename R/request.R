@@ -90,7 +90,7 @@
   )
 
   if(!is.null(resp$message)) solr.res$error$msg <- paste0(solr.get.url$hostname," : ",resp$message)
-  else if(!httr::http_error(resp)) solr.res <- fromJSON(httr::content(resp, "parsed"))
+  else if(!httr::http_error(resp)) solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
   else solr.res$error$msg <- rawToChar(resp$content)
   return(solr.res)
 }
