@@ -37,11 +37,12 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize, g
                      group="true",
                      group.field="notebook_id",
                      group.limit=group.limit,
+                     group.ngroups="true",
                      hl="true",
                      hl.preserveMulti="true",
                      hl.fragsize=0,
                      hl.maxAnalyzedChars=-1,
-                     fl="description,id,user,updated_at,starcount",
+                     fl="description,id,user,updated_at,starcount,filename",
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 

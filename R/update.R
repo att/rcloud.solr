@@ -53,7 +53,18 @@ build_update_metadata <- function(notebook, starcount) {
       "starcount"= starcount
   )
 
-  metadata.list$`_childDocuments_` <- build_json_content_files(content.files, session.content$id)
+  # We add a lot of info about the notebook to each cell because
+  # otherwise we'd need a second query after the grouping to reattach notebook information.
+
+  # Ideally I'd like to use block join queries but the problem (in solr 5 at least) is that
+  # we can't get the right highlighting. Explore this as future solr releases become available
+  notebook_info <- list(notebook_id = unname(session.content$id),
+                        starcount = starcount,
+                        description = desc,
+                        user = session.content$user$login,
+                        updated_at = session.content$updated_at)
+
+  metadata.list$`_childDocuments_` <- build_json_content_files(content.files, notebook_info)
 
   # This will handle named vectors and potentially NULL values
   metadata.list <- lapply(metadata.list, process_metadata_list)
@@ -80,21 +91,20 @@ build_update_description <- function(desc) {
 
 
 # Process all of the cells
-build_json_content_files <- function(content.files, notebook_id) {
-  notebook_id <- unname(notebook_id)
-  lapply(unname(content.files), build_one_content_file, notebook_id)
+build_json_content_files <- function(content.files, notebook_info) {
+  lapply(unname(content.files), build_one_content_file, notebook_info)
 }
 
 
 # Add a reference to parent document for grouping purposes
 # Each cell goes in as a separate document so it must have all
 # required fields
-build_one_content_file <- function(file, notebook_id) {
+build_one_content_file <- function(file, notebook_info) {
 
-    c(list(id = paste0(notebook_id, file$filename),
-           notebook_id = notebook_id,
-           doc_type = "cell"),
-      file[c("filename", "language", "raw_url", "size", "content")])
+  c(list(id = paste0(notebook_info$notebook_id, file$filename)),
+    notebook_info,
+    doc_type = "cell",
+    file[c("filename", "language", "raw_url", "size", "content")])
 
 }
 

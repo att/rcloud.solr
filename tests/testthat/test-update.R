@@ -42,16 +42,17 @@ test_that("Build meta data", {
   expect_equal(metadata$user, "rcloud")
 
   # Check that the content is valid when fromJSON'd
-  content_files <- metadata$`_childDocuments_`
+  content_files <- metadata[["_childDocuments_"]]
 
   expect_is(content_files, "list")
 
   # Also checks that any names were stripped off
-  expect_equal(content_files[[1]], list(id = "010b0b4451ff152e6c62-part1.R", doc_type = "cell",
-                                        filename = "part1.R", language = "R", raw_url = "", size = 18L,
-                                        content = "hist(mtcars$disp)\n"))
+  expected_list <- list(id = "010b0b4451ff152e6c62part1.R", filename = "part1.R", content = "hist(mtcars$disp)\n")
+  test_list <- content_files[[1]][c("id", "filename", "content")]
+  expect_equal(test_list, expected_list)
 
 })
+
 
 
 test_that("Recursive metadata process", {

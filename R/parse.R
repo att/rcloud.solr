@@ -6,45 +6,83 @@
 #' @return The parsed search result
 parse.solr.res <- function(solr.res, pagesize, source) {
 
-  if (!is.null(solr.res$error)) paste0(solr.res$error$code,": ",solr.res$error$msg)
-  response.docs <- solr.res$response$docs
-  response.high <- solr.res$highlighting
-
   # Return error message if there is one
   if(!is.null(solr.res$error)) {
     return(c("error",solr.res$error$msg))
   }
 
+  matches <- solr.res$grouped$notebook_id$matches
+
   # Detect empty response
-  if(length(response.docs) <= 0) {
-    return(solr.res$response$docs)
+  if(matches <= 0) {
+    return(stop("what to return?"))
   }
 
-  # Process the highlighting
-  response.high <- lapply(response.high, parse.response.high)
+  response_docs <- solr.res$grouped$notebook_id$groups
+  response_high <- solr.res$highlighting
+
+  response_joined <- join_docs_high(response_docs, response_high)
 
   # Build the output object
-  json <- create.json.output(response.docs, response.high, solr.res, pagesize, source)
+  response <- create_search_response(solr.res = solr.res, response_joined = response_joined, pagesize = pagesize, source = source)
 
-  return(json)
+  return(response)
 }
 
-create.json.output <- function(response.docs, response.high, solr.res, pagesize, source) {
+#' Join the grouped documents to the highlighted documents
+#'
+#' @param docs The groups object from the solr response object
+#' @param highlight The highlighting object from the solr response object
+#'
+#' @return A list similar to \code{docs} but with highlighting added in
+join_docs_high <- function(docs, highlight) {
 
-  count <- solr.res$response$numFound
-  rows <- solr.res$params$rows
+  lapply(docs, join_one_doc_high, highlight)
 
-  json <- ""
-  for(i in 1:length(response.docs)){
-    time <- solr.res$responseHeader$QTime
-    notebook <- response.docs[[i]]$description
-    id <- response.docs[[i]]$id
-    starcount <- response.docs[[i]]$starcount
-    updated.at <- response.docs[[i]]$updated_at
-    user <- response.docs[[i]]$user
-    parts <- response.high[[i]]$content
-    json[i] <- rjson::toJSON(c(QTime=time,notebook=notebook,id=id,starcount=starcount,updated_at=updated.at,user=user,numFound=count,pagesize=pagesize,parts=parts,source=as.vector(source)))
-  }
+}
 
-  json
+# Join a single document to the highlighting
+# Supports join_docs_high
+join_one_doc_high <- function(doc, highlight) {
+
+  # Retrieve some notebook
+  top_doc <- doc$doclist$docs[[1]]
+
+  # rename groupValue to id
+  out_doc <- c(list(id = doc$groupValue),
+               top_doc[which(names(top_doc) %in% c("description", "updated_at", "user"))])
+
+
+  # Copy the doc list
+  out_doc$doclist <- doc$doclist
+
+  # lookup the highlighting for each doc
+  out_doc$doclist$docs <- lapply(doc$doclist$docs, join_highlight, highlight)
+
+  out_doc
+}
+
+# Lookup the highlighting for a match and add it in
+join_highlight <- function(doc, highlight) {
+
+  # Drop the notebook-specific content
+  out <- doc[which(names(doc) %in% c("id", "filename"))]
+
+  # Attach the highlighting (this is a linear lookup)
+  out$highlighting <- highlight[[doc$id]]
+
+  out
+}
+
+create_search_response <- function(solr.res, response_joined, pagesize, source) {
+
+
+  response <- list(QTime = solr.res$responseHeader$QTime,
+                   status = solr.res$responseHeader$status,
+                   source =unname(as.vector(source)),
+                   matches = solr.res$grouped$notebook_id$matches,
+                   ngroups = solr.res$grouped$notebook_id$ngroups,
+                   groups = response_joined)
+
+  response
 }
