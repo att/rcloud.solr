@@ -58,13 +58,13 @@ build_update_metadata <- function(notebook, starcount) {
 
   # Ideally I'd like to use block join queries but the problem (in solr 5 at least) is that
   # we can't get the right highlighting. Explore this as future solr releases become available
-  notebook_info <- list(notebook_id = unname(session.content$id),
-                        starcount = starcount,
-                        description = desc,
-                        user = session.content$user$login,
-                        updated_at = session.content$updated_at)
+  notebook_info <- build_notebook_info(notebook, starcount = starcount)
 
-  metadata.list$`_childDocuments_` <- build_json_content_files(content.files, notebook_info)
+  comments <- build_comments(notebook_info)
+
+  files <- build_json_content_files(content.files, notebook_info)
+
+  metadata.list$`_childDocuments_` <- c(files, comments)
 
   # This will handle named vectors and potentially NULL values
   metadata.list <- lapply(metadata.list, process_metadata_list)
@@ -89,6 +89,18 @@ build_update_description <- function(desc) {
   desc
 }
 
+build_notebook_info <- function(notebook, starcount = 0) {
+
+  session.content <- notebook$content
+
+  desc <- build_update_description(notebook$content$description)
+
+  list(notebook_id = unname(session.content$id),
+       starcount = starcount,
+       description = desc,
+       user = session.content$user$login,
+       updated_at = session.content$updated_at)
+}
 
 # Process all of the cells
 build_json_content_files <- function(content.files, notebook_info) {
