@@ -15,13 +15,14 @@ parse.solr.res <- function(solr.res, pagesize, source) {
 
   # Detect empty response
   if(matches <= 0) {
-    return(stop("what to return?"))
+    response_joined <- NULL
+  } else {
+
+    response_docs <- solr.res$grouped$notebook_id$groups
+    response_high <- solr.res$highlighting
+
+    response_joined <- join_docs_high(response_docs, response_high)
   }
-
-  response_docs <- solr.res$grouped$notebook_id$groups
-  response_high <- solr.res$highlighting
-
-  response_joined <- join_docs_high(response_docs, response_high)
 
   # Build the output object
   response <- create_search_response(solr.res = solr.res, response_joined = response_joined, pagesize = pagesize, source = source)
