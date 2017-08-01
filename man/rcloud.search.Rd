@@ -4,7 +4,8 @@
 \alias{rcloud.search}
 \title{Search RCloud Notebooks}
 \usage{
-rcloud.search(query, all_sources, sortby, orderby, start, pagesize)
+rcloud.search(query, all_sources, sortby, orderby, start, pagesize,
+  group.limit = 4)
 }
 \arguments{
 \item{query}{Search string}
@@ -18,6 +19,8 @@ rcloud.search(query, all_sources, sortby, orderby, start, pagesize)
 \item{start}{Passed to solr}
 
 \item{pagesize}{Passed to solr}
+
+\item{group.limit}{Passed to solr. Controls how many cells to highlight for each notebook hit.}
 }
 \value{
 Search response after parsing
