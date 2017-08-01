@@ -18,7 +18,7 @@
         "language": "R",
         "raw_url": "",
         "size": 18,
-        "content": "hist(mtcars$disp)\n"
+        "content": "waht if\na document\nis spread over\n a number of lines\nhist(mtcars$disp)\n"
       },
       {
         "id": "010b0b4451ff152e6c62scratch.R",
