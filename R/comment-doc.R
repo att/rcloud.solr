@@ -32,11 +32,13 @@ solr.delete.comment <- function(id, cid) {
 
 #' Delete Notebook from Index
 #'
+#' Delete this notebook and all its child docs
+#'
 #' @param id Notebook ID
 #'
 #' @export
 solr.delete.doc <- function(id){
-  metadata <- paste0('<delete><id>',id,'</id></delete>')
+  metadata <- paste0('<delete><query>id:',id,' OR notebook_id:', id,'</query></delete>')
   .solr.post(data=metadata, isXML=TRUE)
 }
 
