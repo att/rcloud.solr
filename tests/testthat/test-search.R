@@ -14,6 +14,8 @@ if(check_solr_instance("http://solr")) {
 
 test_that("rcloud.search", {
 
+  if(!check_solr_instance("http://solr")) skip("Needs solr instance")
+
   res <- rcloud.search("hist", all_sources = FALSE, sortby = "starcount",
                        orderby = "desc", start = 0, pagesize = 10, group.limit = 4)
 
