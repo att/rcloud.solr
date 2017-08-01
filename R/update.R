@@ -7,6 +7,7 @@
 #' Thin wrapper around \code{update_solr}
 #'
 #' @param id Character vector. The notebook id
+#' @param detach Logical. Passed on to \code{update_solr}
 #'
 #' @export
 update_solr_id <- function(id, detach = TRUE) {
