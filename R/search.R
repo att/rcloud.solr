@@ -37,8 +37,10 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                      group.ngroups="true",
                      hl="true",
                      hl.preserveMulti="true",
-                     hl.fragsize=0,
+                     hl.fragsize=80,
                      hl.maxAnalyzedChars=-1,
+                     hl.simple.pre = "<span class=\"solr-highlight\">",
+                     hl.simple.post = "</span>",
                      fl="description,id,user,updated_at,starcount,filename",
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
