@@ -10,5 +10,5 @@ solr.delete.doc(id)
 \item{id}{Notebook ID}
 }
 \description{
-Delete Notebook from Index
+Delete this notebook and all its child docs
 }
