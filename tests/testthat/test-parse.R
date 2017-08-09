@@ -55,11 +55,11 @@ test_that("Solr Responds", {
 
 })
 
-test_that("No hits", {
+test_that("Bad search", {
 
   skip_if_not(check_solr_instance("http://solr"))
 
-  solr.query <- list(q="bananas for all",
+  solr.query <- list(q="bananas@@a\\",
                      start=0,
                      rows=10,
                      indent="true",
@@ -82,7 +82,7 @@ test_that("No hits", {
                         solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                         solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
 
-  exp_names <- c("responseHeader", "grouped", "highlighting")
+  exp_names <- c("error")
   expect_equal(names(solr.res), exp_names)
 
 })
