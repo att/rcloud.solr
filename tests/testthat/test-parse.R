@@ -14,7 +14,6 @@ if(check_solr_instance("http://solr")) {
 }
 
 #
-solr.res <- NULL
 
 test_that("Solr Responds", {
 
@@ -38,7 +37,7 @@ test_that("Solr Responds", {
                      hl.fl="content,comments",
                      sort="starcount desc")
 
-  solr.res <<- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
+  solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
                         query=solr.query,
                         solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                         solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
@@ -46,17 +45,45 @@ test_that("Solr Responds", {
   exp_names <- c("responseHeader", "grouped", "highlighting")
   expect_equal(names(solr.res), exp_names)
 
-})
-
-
-test_that("Test parsing", {
-
+  # Normal parse
   resp <- parse.solr.res(solr.res, 10, "", 0)
 
   exp_names <- c("QTime", "status", "start", "pagesize", "source", "matches",
                  "n_notebooks", "notebooks")
 
   expect_equal(names(resp), exp_names)
+
+})
+
+test_that("No hits", {
+
+  skip_if_not(check_solr_instance("http://solr"))
+
+  solr.query <- list(q="bananas for all",
+                     start=0,
+                     rows=10,
+                     indent="true",
+                     group="true",
+                     group.field="notebook_id",
+                     group.limit=4,
+                     group.ngroups="true",
+                     hl="true",
+                     hl.preserveMulti="true",
+                     hl.fragsize=80,
+                     hl.maxAnalyzedChars=-1,
+                     hl.simple.pre = "<span class=\"solr-highlight\">",
+                     hl.simple.post = "</span>",
+                     fl="description,id,user,updated_at,starcount,filename, doc_type",
+                     hl.fl="content,comments",
+                     sort="starcount desc")
+
+  solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
+                        query=solr.query,
+                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
+                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
+
+  exp_names <- c("responseHeader", "grouped", "highlighting")
+  expect_equal(names(solr.res), exp_names)
 
 })
 
