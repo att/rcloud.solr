@@ -10,12 +10,13 @@
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
 #' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
+#' @param hl.fragsize How many charachters to return with the highlighting
 #'
 #' @return Search response after parsing
 #' @export
 #'
 rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
-                         start = 0, pagesize = 10, group.limit = 4) {
+                         start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=100) {
 
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
@@ -37,7 +38,7 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                      group.ngroups="true",
                      hl="true",
                      hl.preserveMulti="true",
-                     hl.fragsize=80,
+                     hl.fragsize=hl.fragsize,
                      hl.maxAnalyzedChars=-1,
                      hl.simple.pre = "<span class=\"solr-highlight\">",
                      hl.simple.post = "</span>",

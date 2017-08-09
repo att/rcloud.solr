@@ -5,7 +5,8 @@
 \title{Search RCloud Notebooks}
 \usage{
 rcloud.search(query, all_sources = FALSE, sortby = "starcount",
-  orderby = "desc", start = 0, pagesize = 10, group.limit = 4)
+  orderby = "desc", start = 0, pagesize = 10, group.limit = 4,
+  hl.fragsize = 100)
 }
 \arguments{
 \item{query}{Search string}
@@ -21,6 +22,8 @@ rcloud.search(query, all_sources = FALSE, sortby = "starcount",
 \item{pagesize}{Passed to solr}
 
 \item{group.limit}{Passed to solr. Controls how many cells to highlight for each notebook hit.}
+
+\item{hl.fragsize}{How many charachters to return with the highlighting}
 }
 \value{
 Search response after parsing
