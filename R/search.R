@@ -41,7 +41,7 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                      hl.maxAnalyzedChars=-1,
                      hl.simple.pre = "<span class=\"solr-highlight\">",
                      hl.simple.post = "</span>",
-                     fl="description,id,user,updated_at,starcount,filename",
+                     fl="description,id,user,updated_at,starcount,filename, doc_type",
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 
@@ -62,7 +62,7 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
 
     res$solr.res <<- solr.res  ######### TESTING_REMOVE
 
-    parse.solr.res(solr.res, pagesize = pagesize, source = source)
+    parse.solr.res(solr.res, pagesize = pagesize, source = source, start = start)
   }
   if (isTRUE(all_sources)) {
     main <- query(url,

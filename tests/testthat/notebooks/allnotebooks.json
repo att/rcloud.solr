@@ -10,7 +10,7 @@
       {
         "id": "010b0b4451ff152e6c62part1.R",
         "notebook_id": "010b0b4451ff152e6c62",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test2",
         "updated_at": "2017-03-03T13:42:38Z",
         "doc_type": "cell",
@@ -23,7 +23,7 @@
       {
         "id": "010b0b4451ff152e6c62scratch.R",
         "notebook_id": "010b0b4451ff152e6c62",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test2",
         "updated_at": "2017-03-03T13:42:38Z",
         "doc_type": "cell",
@@ -50,7 +50,7 @@
       {
         "id": "0c9cf888aac4fe1a82c5part1.R",
         "notebook_id": "0c9cf888aac4fe1a82c5",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test9",
         "updated_at": "2017-03-03T14:30:58Z",
         "doc_type": "cell",
@@ -63,7 +63,7 @@
       {
         "id": "0c9cf888aac4fe1a82c5scratch.R",
         "notebook_id": "0c9cf888aac4fe1a82c5",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test9",
         "updated_at": "2017-03-03T14:30:58Z",
         "doc_type": "cell",
@@ -90,7 +90,7 @@
       {
         "id": "0ea1126dec88a06e105dpart1.R",
         "notebook_id": "0ea1126dec88a06e105d",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test11",
         "updated_at": "2017-03-03T13:54:05Z",
         "doc_type": "cell",
@@ -103,7 +103,7 @@
       {
         "id": "0ea1126dec88a06e105dscratch.R",
         "notebook_id": "0ea1126dec88a06e105d",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test11",
         "updated_at": "2017-03-03T13:54:05Z",
         "doc_type": "cell",
@@ -130,7 +130,7 @@
       {
         "id": "1e53b4edfca6d6c0ba6epart1.R",
         "notebook_id": "1e53b4edfca6d6c0ba6e",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test8",
         "updated_at": "2017-03-03T13:52:36Z",
         "doc_type": "cell",
@@ -143,7 +143,7 @@
       {
         "id": "1e53b4edfca6d6c0ba6escratch.R",
         "notebook_id": "1e53b4edfca6d6c0ba6e",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test8",
         "updated_at": "2017-03-03T13:52:36Z",
         "doc_type": "cell",
@@ -170,7 +170,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part11.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -183,7 +183,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part2.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -196,7 +196,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part3.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -209,7 +209,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part4.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -222,7 +222,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part5.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -235,7 +235,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part6.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -248,7 +248,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part7.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -261,7 +261,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8part8.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -274,7 +274,7 @@
       {
         "id": "3aeb8d21f2b4c26ecff8scratch.R",
         "notebook_id": "3aeb8d21f2b4c26ecff8",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex 2",
         "updated_at": "2017-05-09T10:47:23Z",
         "doc_type": "cell",
@@ -301,7 +301,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part2.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -314,7 +314,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part3.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -327,7 +327,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part4.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -340,7 +340,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part5.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -353,7 +353,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part6.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -366,7 +366,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part7.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -379,7 +379,7 @@
       {
         "id": "3fbd8409ff4fb50e5120part9.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -392,7 +392,7 @@
       {
         "id": "3fbd8409ff4fb50e5120scratch.R",
         "notebook_id": "3fbd8409ff4fb50e5120",
-        "starcount": [],
+        "starcount": 0,
         "description": "AAA Reindex",
         "updated_at": "2017-05-09T10:41:30Z",
         "doc_type": "cell",
@@ -419,7 +419,7 @@
       {
         "id": "710f9d799d84ff04cc83part1.R",
         "notebook_id": "710f9d799d84ff04cc83",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test6",
         "updated_at": "2017-03-03T13:51:38Z",
         "doc_type": "cell",
@@ -432,7 +432,7 @@
       {
         "id": "710f9d799d84ff04cc83scratch.R",
         "notebook_id": "710f9d799d84ff04cc83",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test6",
         "updated_at": "2017-03-03T13:51:38Z",
         "doc_type": "cell",
@@ -459,7 +459,7 @@
       {
         "id": "736f7a0bd96de228312apart1.md",
         "notebook_id": "736f7a0bd96de228312a",
-        "starcount": [],
+        "starcount": 0,
         "description": "MDHist",
         "updated_at": "2017-03-07T16:08:02Z",
         "doc_type": "cell",
@@ -472,7 +472,7 @@
       {
         "id": "736f7a0bd96de228312apart2.md",
         "notebook_id": "736f7a0bd96de228312a",
-        "starcount": [],
+        "starcount": 0,
         "description": "MDHist",
         "updated_at": "2017-03-07T16:08:02Z",
         "doc_type": "cell",
@@ -485,7 +485,7 @@
       {
         "id": "736f7a0bd96de228312ascratch.R",
         "notebook_id": "736f7a0bd96de228312a",
-        "starcount": [],
+        "starcount": 0,
         "description": "MDHist",
         "updated_at": "2017-03-07T16:08:02Z",
         "doc_type": "cell",
@@ -512,7 +512,7 @@
       {
         "id": "846df905503b3499b653part1.R",
         "notebook_id": "846df905503b3499b653",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test5",
         "updated_at": "2017-03-03T13:51:14Z",
         "doc_type": "cell",
@@ -525,7 +525,7 @@
       {
         "id": "846df905503b3499b653part2.R",
         "notebook_id": "846df905503b3499b653",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test5",
         "updated_at": "2017-03-03T13:51:14Z",
         "doc_type": "cell",
@@ -538,7 +538,7 @@
       {
         "id": "846df905503b3499b653scratch.R",
         "notebook_id": "846df905503b3499b653",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test5",
         "updated_at": "2017-03-03T13:51:14Z",
         "doc_type": "cell",
@@ -565,7 +565,7 @@
       {
         "id": "900631f0c7b5e89eac58part1.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -578,7 +578,7 @@
       {
         "id": "900631f0c7b5e89eac58part2.md",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -591,7 +591,7 @@
       {
         "id": "900631f0c7b5e89eac58part3.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -604,7 +604,7 @@
       {
         "id": "900631f0c7b5e89eac58part4.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -617,7 +617,7 @@
       {
         "id": "900631f0c7b5e89eac58part5.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -630,7 +630,7 @@
       {
         "id": "900631f0c7b5e89eac58part6.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -643,7 +643,7 @@
       {
         "id": "900631f0c7b5e89eac58part7.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -656,7 +656,7 @@
       {
         "id": "900631f0c7b5e89eac58scratch.R",
         "notebook_id": "900631f0c7b5e89eac58",
-        "starcount": [],
+        "starcount": 0,
         "description": "Hist1",
         "updated_at": "2017-04-05T14:55:21Z",
         "doc_type": "cell",
@@ -683,7 +683,7 @@
       {
         "id": "a4839ec392949098f861part1.R",
         "notebook_id": "a4839ec392949098f861",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test4",
         "updated_at": "2017-03-03T13:50:49Z",
         "doc_type": "cell",
@@ -696,7 +696,7 @@
       {
         "id": "a4839ec392949098f861part2.R",
         "notebook_id": "a4839ec392949098f861",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test4",
         "updated_at": "2017-03-03T13:50:49Z",
         "doc_type": "cell",
@@ -709,7 +709,7 @@
       {
         "id": "a4839ec392949098f861scratch.R",
         "notebook_id": "a4839ec392949098f861",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test4",
         "updated_at": "2017-03-03T13:50:49Z",
         "doc_type": "cell",
@@ -736,7 +736,7 @@
       {
         "id": "cfaa873722ec2bfedc28part1.R",
         "notebook_id": "cfaa873722ec2bfedc28",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test3",
         "updated_at": "2017-03-03T13:50:26Z",
         "doc_type": "cell",
@@ -749,7 +749,7 @@
       {
         "id": "cfaa873722ec2bfedc28scratch.R",
         "notebook_id": "cfaa873722ec2bfedc28",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test3",
         "updated_at": "2017-03-03T13:50:26Z",
         "doc_type": "cell",
@@ -776,7 +776,7 @@
       {
         "id": "f49f595cce499445f999part1.R",
         "notebook_id": "f49f595cce499445f999",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test7",
         "updated_at": "2017-03-03T13:52:18Z",
         "doc_type": "cell",
@@ -789,7 +789,7 @@
       {
         "id": "f49f595cce499445f999scratch.R",
         "notebook_id": "f49f595cce499445f999",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test7",
         "updated_at": "2017-03-03T13:52:18Z",
         "doc_type": "cell",
@@ -816,7 +816,7 @@
       {
         "id": "fc0037a649b022751c46part1.R",
         "notebook_id": "fc0037a649b022751c46",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test10",
         "updated_at": "2017-03-03T13:53:46Z",
         "doc_type": "cell",
@@ -829,7 +829,7 @@
       {
         "id": "fc0037a649b022751c46scratch.R",
         "notebook_id": "fc0037a649b022751c46",
-        "starcount": [],
+        "starcount": 0,
         "description": "Test10",
         "updated_at": "2017-03-03T13:53:46Z",
         "doc_type": "cell",
