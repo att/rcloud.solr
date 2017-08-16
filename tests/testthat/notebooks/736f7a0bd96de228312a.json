@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "content": {
+    "url": "",
+    "forks_url": "",
+    "commits_url": "",
+    "id": "736f7a0bd96de228312a",
+    "git_pull_url": "",
+    "git_push_url": "",
+    "html_url": "",
+    "files": {
+      "part1.md": {
+        "filename": "part1.md",
+        "type": "text/plain",
+        "language": "Markdown",
+        "raw_url": "",
+        "size": 23,
+        "content": "# A Notebook About Hist"
+      },
+      "part2.md": {
+        "filename": "part2.md",
+        "type": "text/plain",
+        "language": "Markdown",
+        "raw_url": "",
+        "size": 35,
+        "content": "I wonder if hist is case sensitive?"
+      },
+      "scratch.R": {
+        "filename": "scratch.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "# keep snippets here while working with your notebook's cells"
+      }
+    },
+    "public": false,
+    "created_at": "2017-03-07T16:07:23Z",
+    "updated_at": "2017-03-07T16:08:02Z",
+    "description": "MDHist",
+    "comments": 0,
+    "user": {
+      "login": "rcloud",
+      "id": 1,
+      "type": "User"
+    },
+    "comments_url": "",
+    "forks": [],
+    "history": [
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "586cfb1a60e88c12f1f47831eb6007844e054cfd",
+        "committed_at": "2017-03-07T16:08:02Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "4e9df6588d1d54741e7ac4b04aa70a3124f51a05",
+        "committed_at": "2017-03-07T16:07:47Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "72111fcdd2b1ba0ed4946d1435221b3bcc3a6266",
+        "committed_at": "2017-03-07T16:07:38Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "bf8b051ed9ebf0db3257a3b57827fb1efb031b9c",
+        "committed_at": "2017-03-07T16:07:23Z",
+        "change_status": [],
+        "url": ""
+      }
+    ],
+    "fork_of": []
+  },
+  "headers": {
+    "server": "",
+    "date": "2017-05-15T12:52:15Z",
+    "content-type": "",
+    "status": "200",
+    "statusmessage": "OK"
+  },
+  "code": 200,
+  "augmented": true
+}
