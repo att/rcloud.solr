@@ -10,11 +10,13 @@
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
 #' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
+#' @param hl.fragsize How many charachters to return with the highlighting
 #'
 #' @return Search response after parsing
 #' @export
 #'
-rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize, group.limit = 4) {
+rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
+                         start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
 
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
@@ -36,9 +38,11 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize, g
                      group.ngroups="true",
                      hl="true",
                      hl.preserveMulti="true",
-                     hl.fragsize=0,
+                     hl.fragsize=hl.fragsize,
                      hl.maxAnalyzedChars=-1,
-                     fl="description,id,user,updated_at,starcount,filename",
+                     hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
+                     hl.simple.post = "</span>",
+                     fl="description,id,user,updated_at,starcount,filename, doc_type",
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 
@@ -59,7 +63,7 @@ rcloud.search <-function(query, all_sources, sortby, orderby, start, pagesize, g
 
     res$solr.res <<- solr.res  ######### TESTING_REMOVE
 
-    parse.solr.res(solr.res, pagesize = pagesize, source = source)
+    parse.solr.res(solr.res, pagesize = pagesize, source = source, start = start)
   }
   if (isTRUE(all_sources)) {
     main <- query(url,

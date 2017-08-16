@@ -1,0 +1,542 @@
+{
+  "ok": true,
+  "content": {
+    "url": "",
+    "forks_url": "",
+    "commits_url": "",
+    "id": "3fbd8409ff4fb50e5120",
+    "git_pull_url": "",
+    "git_push_url": "",
+    "html_url": "",
+    "files": {
+      "part2.R": {
+        "filename": "part2.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 28,
+        "content": "users <- rcloud.get.users()\n"
+      },
+      "part3.R": {
+        "filename": "part3.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 73,
+        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))"
+      },
+      "part4.R": {
+        "filename": "part4.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 371,
+        "content": "for (i in notebooks) {\n        print(paste0(\"Indexing \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n         rcloud.solr::update_solr(x,rcloud.notebook.star.count(i))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}"
+      },
+      "part5.R": {
+        "filename": "part5.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 38,
+        "content": "x <- rcloud.get.notebook(notebooks[1])"
+      },
+      "part6.R": {
+        "filename": "part6.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 1,
+        "content": "x"
+      },
+      "part7.R": {
+        "filename": "part7.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 88,
+        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")"
+      },
+      "part9.R": {
+        "filename": "part9.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 26,
+        "content": "setwd(\"/data/rcloud/data\")"
+      },
+      "scratch.R": {
+        "filename": "scratch.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "# keep snippets here while working with your notebook's cells"
+      }
+    },
+    "public": false,
+    "created_at": "2017-03-03T13:43:57Z",
+    "updated_at": "2017-05-09T10:41:30Z",
+    "description": "AAA Reindex",
+    "comments": 4,
+    "user": {
+      "login": "rcloud",
+      "id": 1,
+      "type": "User"
+    },
+    "comments_url": "",
+    "forks": [],
+    "history": [
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "9106dbf15384479b9bbe4f5271d1da9d512a9e3c",
+        "committed_at": "2017-05-09T10:41:30Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "8e8edac800613eb0fe34dc4d0cbdfc238b042bbb",
+        "committed_at": "2017-05-09T10:41:27Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "105d3fbb46bca38df840dba40b714e304cc6e3c0",
+        "committed_at": "2017-05-09T10:41:17Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "c4fbb2b61f23444c65269712a0bc216d0272f0aa",
+        "committed_at": "2017-05-09T10:40:28Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "429499c4f2788c3b61a2ef2e4560439171078bc3",
+        "committed_at": "2017-05-09T10:40:13Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b6b1f7ef0668298df353884f2aa59ff2451be77d",
+        "committed_at": "2017-03-20T09:28:55Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "28c6f59d8daa6d0cc3036b2e915122ea01549791",
+        "committed_at": "2017-03-20T09:28:53Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b747b3c1742f7e08501a809bf98aeac30ecab169",
+        "committed_at": "2017-03-20T09:28:43Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "f32464700076c6eee29ea5af281955004731862c",
+        "committed_at": "2017-03-20T09:28:38Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "2ce2de1ff9fa69d242958ede3a5e6f5f7e34b940",
+        "committed_at": "2017-03-17T09:45:13Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "541a14f2facce7f5445f4db5395e089730757f79",
+        "committed_at": "2017-03-17T09:45:12Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b030adfa4bfd85518cfb1c6ad714269e94114eaa",
+        "committed_at": "2017-03-17T09:45:11Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "9341277ef668cec6832c42db9f0ae941e407aa98",
+        "committed_at": "2017-03-17T09:45:08Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "6f0575d2a5395982d80266d0cc41e83734509ed1",
+        "committed_at": "2017-03-16T20:27:02Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "278cd47fb17570614f0f2db5333f4bcdda686651",
+        "committed_at": "2017-03-16T20:26:56Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "dfb845e73d1e734d0c882a03214f3a09ff273795",
+        "committed_at": "2017-03-16T20:26:49Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "617edfed25c4081a02dd22d9b16b223c4c682afa",
+        "committed_at": "2017-03-16T20:26:42Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "d54af2f8e8361b0c247585285f6874b9d151ec53",
+        "committed_at": "2017-03-16T20:17:16Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "6c9582228b996f893357919aa6f76f3a471ba25f",
+        "committed_at": "2017-03-14T13:12:24Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "90012b65213ecda27aadd276bc70ffece1c66e06",
+        "committed_at": "2017-03-14T12:56:45Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "e47778cf8706b4d3cfe10e21741d726b70e76e61",
+        "committed_at": "2017-03-08T15:17:03Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "6874f939059066ec5e83cf9dc56ce68bf571cb1c",
+        "committed_at": "2017-03-08T15:17:02Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "3c226839e5114e02c9b946726025ac571c89fce4",
+        "committed_at": "2017-03-03T13:49:19Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "1d04e94d65ea4525e18cb5857aaf2fc95d4b6007",
+        "committed_at": "2017-03-03T13:48:43Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "363c64c2dea9dd15ac69b475ed203b1fac664531",
+        "committed_at": "2017-03-03T13:48:29Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "4447069facaa8dd86df4641edba79a284adc9cc9",
+        "committed_at": "2017-03-03T13:48:26Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "fca1f2d7ba3ac0684cf2dc0ce65e25f2cef50ef2",
+        "committed_at": "2017-03-03T13:48:05Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "6eda37cae95a40c955335cb06599f19dfd339799",
+        "committed_at": "2017-03-03T13:47:40Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "8b0ea4a80400c54e0320556f9b5697dd22b61fbd",
+        "committed_at": "2017-03-03T13:47:22Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "5c4ea011a97c1dccff8f1033989839f72068213d",
+        "committed_at": "2017-03-03T13:47:08Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "76495f836a7611284c545bd7d5fcf784b77f7be5",
+        "committed_at": "2017-03-03T13:47:01Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "ccef58e5be5cd0abf8f183bea1edb31e6bcf22f2",
+        "committed_at": "2017-03-03T13:46:44Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "5f6a5da662b84263646b74dd12c7bbae8fa7d946",
+        "committed_at": "2017-03-03T13:46:24Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "cd1ee9d14fa1f6884ffdd06c34ebfb0feba56b4b",
+        "committed_at": "2017-03-03T13:46:01Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "8a5d25b7e3466e492af5cbbeabdbfa2095ca1e85",
+        "committed_at": "2017-03-03T13:45:48Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "754e83fc741098c29a9b08da0dee7e8e5c8707ae",
+        "committed_at": "2017-03-03T13:45:33Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "741baa6b50805f466cb340076cf90d1911d6836b",
+        "committed_at": "2017-03-03T13:45:21Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "56bce479400b8cb082dd964ca60f3ee197c21ea5",
+        "committed_at": "2017-03-03T13:44:19Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "70072e814b3dd392b82be98e22df99bed34f9cfe",
+        "committed_at": "2017-03-03T13:44:15Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b4760e14ae2202060fb60b85215422fb447d1dc7",
+        "committed_at": "2017-03-03T13:43:57Z",
+        "change_status": [],
+        "url": ""
+      }
+    ],
+    "fork_of": []
+  },
+  "headers": {
+    "server": "",
+    "date": "2017-05-15T12:52:12Z",
+    "content-type": "",
+    "status": "200",
+    "statusmessage": "OK"
+  },
+  "code": 200,
+  "augmented": true
+}

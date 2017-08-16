@@ -21,3 +21,14 @@ test_that("rcloud.search", {
 
   expect_equal(res$matches, 14)
 })
+
+test_that("empty search", {
+
+  if(!check_solr_instance("http://solr")) skip("Needs solr instance")
+
+  res <- rcloud.search("flibble", all_sources = FALSE, sortby = "starcount",
+                       orderby = "desc", start = 0, pagesize = 10, group.limit = 4)
+
+  expect_equal(res$matches, 0)
+})
+
