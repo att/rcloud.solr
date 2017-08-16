@@ -16,7 +16,7 @@
 #' @export
 #'
 rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
-                         start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=100) {
+                         start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
 
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
