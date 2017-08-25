@@ -29,7 +29,7 @@ remotes::install_github("mangothecat/rcloud.solr")
 
 ### Solr
 
-Clearly we need solr running to test this out. The solr configuration hasn't been updated in the `feature/refactor-solr` branch yet. Instead the configuration has been added to a Docker image at [mangothecat/docker-rcloud-solr](https://hub.docker.com/r/mangothecat/rcloud-solr/). This is also on Docker hub, so to install it run:
+Clearly we need solr running to test this out. The solr configuration hasn't been updated in the `feature/refactor-solr` branch yet. Instead the configuration has been added to a Docker image at [mangothecat/docker-rcloud-solr](https://github.com/mangothecat/docker-rcloud-solr) This is also on [Docker hub](https://hub.docker.com/r/mangothecat/rcloud-solr/), so to install it run:
 
 ```sh
 docker pull mangothecat/rcloud-solr
