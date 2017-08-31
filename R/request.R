@@ -25,7 +25,7 @@
     solr.post.url$query <- list(commit = "true")
 
     switch(type,
-          async = mcparallel(httr::POST(build_url(solr.post.url),
+          async = parallel::mcparallel(httr::POST(build_url(solr.post.url),
                                         body=body,
                                         add_headers('Content-Type'=content_type),
                                         config=httpConfig),
@@ -38,10 +38,10 @@
                               ulog("WARN: SOLR POST failed with",
                                    gsub("\n", "\\", as.character(e), fixed=TRUE))
                             }),
-          curl = mcparallel(tryCatch({
+          curl = parallel::mcparallel(tryCatch({
             curl <- rcloud.support:::getConf("solr.curl.cmd")
             if (!isTRUE(nzchar(curl))) curl <- "curl"
-            f = pipe(.cmd <- paste(curl, "-s", "-S", "-X", "POST", "--data-binary", "@-", "-H", 
+            f = pipe(.cmd <- paste(curl, "-s", "-S", "-X", "POST", "--data-binary", "@-", "-H",
                                    shQuote(paste("Content-Type:", content_type)),
                                    shQuote(build_url(solr.post.url)), ">/dev/null"), "wb")
             writeBin(charToRaw(body), f)
