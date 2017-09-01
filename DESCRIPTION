@@ -12,7 +12,8 @@ Imports: rjson,
     httr,
     parallel,
     utils,
-    tools
+    tools,
+    ulog
 Remotes: mangothecat/rcloud.support
 RoxygenNote: 6.0.1
 Suggests: testthat,
