@@ -6,10 +6,13 @@
                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"),
                        isXML=FALSE,
+                       type=rcloud.support:::getConf("solr.post.method"),
                        detach = TRUE) {
   content_type <- "application/json"
   body <- rjson::toJSON(list(data))
   httpConfig <- httr::config()
+
+  type <- match.arg(type, c("async", "sync", "curl"))
 
   # Check if Authentication info exists in the parameters
   if(!is.null(solr.auth.user)) httpConfig <- c(httpConfig,httr::authenticate(solr.auth.user,solr.auth.pwd))
@@ -22,11 +25,36 @@
     solr.post.url$path <- paste(solr.post.url$path,"update",sep="/")
     solr.post.url$query <- list(commit = "true")
 
-    parallel::mcparallel(httr::POST(httr::build_url(solr.post.url) , body=body,
-                                    httr::content_type(content_type),
-                                    config=httpConfig) ,detach=detach)
+
+    switch(type,
+           async = parallel::mcparallel(httr::POST(httr::build_url(solr.post.url),
+                                                   body=body,
+                                                   httr::content_type(content_type),
+                                                   config=httpConfig) ,detach=detach),
+           sync = tryCatch(httr::POST(httr::build_url(solr.post.url),
+                                      body=body,
+                                      httr::content_type(content_type),
+                                      config=httpConfig),
+                           error = function(e) {
+                             ulog("WARN: SOLR POST failed with",
+                                  gsub("\n", "\\", as.character(e), fixed=TRUE))
+                           }),
+           curl = parallel::mcparallel(tryCatch({
+             curl <- rcloud.support:::getConf("solr.curl.cmd")
+             if (!isTRUE(nzchar(curl))) curl <- "curl"
+             f = pipe(.cmd <- paste(curl, "-s", "-S", "-X", "POST", "--data-binary", "@-", "-H",
+                                    shQuote(paste("Content-Type:", content_type)),
+                                    shQuote(httr::build_url(solr.post.url)), ">/dev/null"), "wb")
+             writeBin(charToRaw(body), f)
+             close(f)
+             parallel:::mcexit()
+           }, error = function(e) {
+             ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
+           }),detach=detach)
+    )
   }
 }
+
 
 .solr.post.search <- function(query,
                               solr.url=rcloud.support:::getConf("solr.url"),
