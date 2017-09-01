@@ -13,7 +13,8 @@ Imports: rjson,
     parallel,
     utils,
     tools,
-    ulog
+    ulog,
+    R6
 Remotes: mangothecat/rcloud.support,
     s-u/ulog
 RoxygenNote: 6.0.1
