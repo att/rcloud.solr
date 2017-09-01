@@ -1,9 +1,9 @@
 FROM rocker/tidyverse:3.3.2
 
-COPY . /rcsolr/
-
 RUN apt-get update \
   && apt-get install -y curl
+
+COPY . /rcsolr/
 
 # Install some useful dev dependencies
 RUN . /etc/environment \
