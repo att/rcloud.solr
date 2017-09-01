@@ -1,6 +1,19 @@
 # Some intelligent parsing account for basics like /solr/notebook and /solr/notebook/ is essentially the same thing
 # Using httr::parse_url
 
+#' Title
+#'
+#' @param data The body of the request.
+#' @param solr.url Usually from \code{solr.url} config. In testing can be \code{http://solr:8983/solr/rcloudnotebooks}
+#' @param solr.auth.user Usually from \code{solr.url} config. \code{NULL} in testing
+#' @param solr.auth.pwd Usually from \code{solr.url} config. \code{NULL} in testing
+#' @param isXML Logical. If TRUE the data argument directly becomes the body and \code{content_type}  is set to "text/xml"
+#' @param type One of \code{c("async", "sync", "curl")} usually drawn from config file.
+#' @param detach Logical. For mcparallel. Should updates be detached and forgotten about or not?
+#'
+#' @return The result of the httr::POST (sync). This needs to be unwrapped with a \code{parallel::mccollect} with async, and curl just returns NULL.
+#' @rdname solr.post
+#'
 .solr.post <- function(data,
                        solr.url=rcloud.support:::getConf("solr.url"),
                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
@@ -36,7 +49,7 @@
                                       httr::content_type(content_type),
                                       config=httpConfig),
                            error = function(e) {
-                             ulog("WARN: SOLR POST failed with",
+                             ulog::ulog("WARN: SOLR POST failed with",
                                   gsub("\n", "\\", as.character(e), fixed=TRUE))
                            }),
            curl = parallel::mcparallel(tryCatch({
@@ -49,13 +62,21 @@
              close(f)
              parallel:::mcexit()
            }, error = function(e) {
-             ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
+             ulog::ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
            }),detach=detach)
     )
   }
 }
 
 
+#' A POST interface to search
+#'
+#' Searches are normally made with a GET request. This is a post interface.
+#'
+#' @inheritParams .solr.get
+#'
+#' @return The search response
+#' @rdname solr.post.search
 .solr.post.search <- function(query,
                               solr.url=rcloud.support:::getConf("solr.url"),
                               solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
@@ -90,6 +111,15 @@
   resp
 }
 
+#' A GET interface to search solr
+#'
+#' The standard search method with GET.
+#'
+#' @inheritParams .solr.post
+#' @param query Character. The search term.
+#'
+#' @return The search response from solr
+#' @rdname solr.get
 .solr.get <- function(query,
                       solr.url=rcloud.support:::getConf("solr.url"),
                       solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
