@@ -18,6 +18,10 @@ test_that("default post", {
 
   resp <- .solr.post(data=metadata.list, detach = detach)
 
+  resp <- parallel::mccollect(resp)[[1]]
+
+  expect_equal(resp$status_code, 200)
+
 })
 
 test_that("sync post", {
@@ -29,6 +33,8 @@ test_that("sync post", {
 
   resp <- .solr.post(data=metadata.list, detach = detach, type = "sync")
 
+  expect_equal(resp$status_code, 200)
+
 })
 
 test_that("async post", {
@@ -39,15 +45,22 @@ test_that("async post", {
   detach = FALSE
 
   resp <- .solr.post(data=metadata.list, detach = detach, type = "async")
+
+  resp <- parallel::mccollect(resp)[[1]]
+
+  expect_equal(resp$status_code, 200)
 })
 
 test_that("curl post", {
   skip_if_not(check_solr_instance("http://solr"))
 
-  hasCurl <- system2("curl", "--version")
+  hasCurl <- system2("curl", "--version", stdout = FALSE)
   skip_if_not(hasCurl == 0)
 
   nb <- readRDS("notebooks/notebook01.rds")
+  # Update with something we can check for
+  nb$content$files$part1.R$content <- "testingcurltest767\n"
+
   metadata.list <- build_update_metadata(nb, starcount=3)
   detach = FALSE
 
@@ -55,4 +68,13 @@ test_that("curl post", {
 
   resp <- parallel::mccollect(resp)[[1]]
 
+  expect_null(resp)
+
+  # Now search to see if it went in. Should this be a lower level search?
+  search_result <- rcloud.search("testingcurltest767")
+
+  expect_equal(search_result$matches, 1)
+
+  # Tear down this one
+  httr::POST(url, httr::content_type_xml(), body = "<delete><query>id:010b0b4451ff152e6c62</query></delete>")
 })
