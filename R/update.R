@@ -36,6 +36,12 @@ update_solr <- function(notebook, starcount, detach = TRUE){
 
 }
 
+#' Build the Metadata for a Notebook Update
+#'
+#' @inheritParams update_solr
+#'
+#' @return A list that conforms with the solr configuration
+#'
 build_update_metadata <- function(notebook, starcount) {
 
   ## FIXME: gracefully handle unavailability
