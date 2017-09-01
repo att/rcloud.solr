@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "content": {
+    "url": "",
+    "forks_url": "",
+    "commits_url": "",
+    "id": "cfaa873722ec2bfedc28",
+    "git_pull_url": "",
+    "git_push_url": "",
+    "html_url": "",
+    "files": {
+      "part1.R": {
+        "filename": "part1.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 18,
+        "content": "hist(runif(10000))"
+      },
+      "scratch.R": {
+        "filename": "scratch.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "# keep snippets here while working with your notebook's cells"
+      }
+    },
+    "public": false,
+    "created_at": "2017-03-03T13:50:09Z",
+    "updated_at": "2017-03-03T13:50:26Z",
+    "description": "Test3",
+    "comments": 0,
+    "user": {
+      "login": "rcloud",
+      "id": 1,
+      "type": "User"
+    },
+    "comments_url": "",
+    "forks": [],
+    "history": [
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "d371c1611d502a7dd736c01eda0380273c9b6337",
+        "committed_at": "2017-03-03T13:50:26Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "78c92bce6a677ec0953d69d181d4423f527cc7ee",
+        "committed_at": "2017-03-03T13:50:13Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "8c2595ed77043d0123bcaf02654083fe4eb66ea7",
+        "committed_at": "2017-03-03T13:50:09Z",
+        "change_status": [],
+        "url": ""
+      }
+    ],
+    "fork_of": []
+  },
+  "headers": {
+    "server": "",
+    "date": "2017-05-15T12:52:19Z",
+    "content-type": "",
+    "status": "200",
+    "statusmessage": "OK"
+  },
+  "code": 200,
+  "augmented": true
+}

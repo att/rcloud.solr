@@ -1,6 +1,6 @@
 Package: rcloud.solr
 Title: Build requests for solr from rcloud
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre"))
 Description: Support solr searches and updating the index for notebooks and comments.
 Depends: R (>= 3.1.2)
@@ -12,8 +12,10 @@ Imports: rjson,
     httr,
     parallel,
     utils,
-    tools
-Remotes: mangothecat/rcloud.support
+    tools,
+    ulog
+Remotes: mangothecat/rcloud.support,
+    s-u/ulog
 RoxygenNote: 6.0.1
 Suggests: testthat,
     jsonlite

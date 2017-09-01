@@ -1,0 +1,223 @@
+{
+  "ok": true,
+  "content": {
+    "url": "",
+    "forks_url": "",
+    "commits_url": "",
+    "id": "900631f0c7b5e89eac58",
+    "git_pull_url": "",
+    "git_push_url": "",
+    "html_url": "",
+    "files": {
+      "part1.R": {
+        "filename": "part1.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 17,
+        "content": "hist(rnorm(1000))"
+      },
+      "part2.md": {
+        "filename": "part2.md",
+        "type": "text/plain",
+        "language": "Markdown",
+        "raw_url": "",
+        "size": 21,
+        "content": "# testing solr update"
+      },
+      "part3.R": {
+        "filename": "part3.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 30,
+        "content": "install.packages(\"radarchart\")"
+      },
+      "part4.R": {
+        "filename": "part4.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 19,
+        "content": "library(radarchart)"
+      },
+      "part5.R": {
+        "filename": "part5.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 71,
+        "content": "install.packages(\"gmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()gvis\")"
+      },
+      "part6.R": {
+        "filename": "part6.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 25,
+        "content": "install.packages(\"ggvis\")"
+      },
+      "part7.R": {
+        "filename": "part7.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "library(ggvis)\nmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()"
+      },
+      "scratch.R": {
+        "filename": "scratch.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "# keep snippets here while working with your notebook's cells"
+      }
+    },
+    "public": false,
+    "created_at": "2017-03-03T13:33:02Z",
+    "updated_at": "2017-04-05T14:55:21Z",
+    "description": "Hist1",
+    "comments": 0,
+    "user": {
+      "login": "rcloud",
+      "id": 1,
+      "type": "User"
+    },
+    "comments_url": "",
+    "forks": [],
+    "history": [
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "89b23cdf8b30d51ebd80d783ec2447c633ceb442",
+        "committed_at": "2017-04-05T14:55:21Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "d43bd0dc521b670ee3c57be9c0962aec04819b71",
+        "committed_at": "2017-04-05T14:55:12Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "d352c36b8e37b64c02cad81b22c193c3954c39a7",
+        "committed_at": "2017-04-05T14:49:36Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "acf72bd05cc0131faae715c9187f0421c2e27f76",
+        "committed_at": "2017-04-05T14:44:51Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "dc3feb184a0d5b2426013e6582a4452defd6c29f",
+        "committed_at": "2017-04-05T14:33:02Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "14fbed22d60088917e5fe379f34701f21753a8c7",
+        "committed_at": "2017-04-05T14:32:49Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "5bf00187a80b3a631876bf5f4277551f4457cca0",
+        "committed_at": "2017-04-05T14:32:26Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "a07595a5bb18c015930c980ebd3f7159724694d7",
+        "committed_at": "2017-03-07T17:46:42Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b648531edc0e858be7bf5a4c88036165e0204b34",
+        "committed_at": "2017-03-03T13:34:12Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "f3f19afb1fca429603fea95b2dc90defa02f3589",
+        "committed_at": "2017-03-03T13:33:08Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "2e000526f5156641bf79ce8a2096d66aab85fbf4",
+        "committed_at": "2017-03-03T13:33:02Z",
+        "change_status": [],
+        "url": ""
+      }
+    ],
+    "fork_of": []
+  },
+  "headers": {
+    "server": "",
+    "date": "2017-05-15T12:52:17Z",
+    "content-type": "",
+    "status": "200",
+    "statusmessage": "OK"
+  },
+  "code": 200,
+  "augmented": true
+}

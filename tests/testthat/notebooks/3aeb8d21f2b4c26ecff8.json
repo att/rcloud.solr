@@ -1,0 +1,215 @@
+{
+  "ok": true,
+  "content": {
+    "url": "",
+    "forks_url": "",
+    "commits_url": "",
+    "id": "3aeb8d21f2b4c26ecff8",
+    "git_pull_url": "",
+    "git_push_url": "",
+    "html_url": "",
+    "files": {
+      "part11.R": {
+        "filename": "part11.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 17,
+        "content": "?jsonlite::toJSON"
+      },
+      "part2.R": {
+        "filename": "part2.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 28,
+        "content": "users <- rcloud.get.users()\n"
+      },
+      "part3.R": {
+        "filename": "part3.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 26,
+        "content": "setwd(\"/data/rcloud/data\")"
+      },
+      "part4.R": {
+        "filename": "part4.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 73,
+        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))"
+      },
+      "part5.R": {
+        "filename": "part5.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 398,
+        "content": "for (i in notebooks) {\n    print(paste0(\"Saving \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n    jx <- jsonlite::toJSON(x, pretty = TRUE, auto_unbox=TRUE)\n    writeLines(jx, paste0(i,\".json\"))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}"
+      },
+      "part6.R": {
+        "filename": "part6.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 38,
+        "content": "x <- rcloud.get.notebook(notebooks[1])"
+      },
+      "part7.R": {
+        "filename": "part7.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 1,
+        "content": "x"
+      },
+      "part8.R": {
+        "filename": "part8.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 88,
+        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")"
+      },
+      "scratch.R": {
+        "filename": "scratch.R",
+        "type": "text/plain",
+        "language": "R",
+        "raw_url": "",
+        "size": 61,
+        "content": "# keep snippets here while working with your notebook's cells"
+      }
+    },
+    "public": false,
+    "created_at": "2017-05-09T10:43:16Z",
+    "updated_at": "2017-05-09T10:47:23Z",
+    "description": "AAA Reindex 2",
+    "comments": 0,
+    "user": {
+      "login": "rcloud",
+      "id": 1,
+      "type": "User"
+    },
+    "comments_url": "",
+    "forks": [],
+    "history": [
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "ee6b47d4a64941c4076497307b10d5d253b328ad",
+        "committed_at": "2017-05-09T10:47:23Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "2ed57d6c45b927fd8aff75dc9f89cd038e8617df",
+        "committed_at": "2017-05-09T10:46:49Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "3e4f6a2105e1ef6194341ae2b34ddbd5ef0b21f2",
+        "committed_at": "2017-05-09T10:45:50Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b1c4ae52563990463427cc9a916cbff2c6f4ae9b",
+        "committed_at": "2017-05-09T10:45:46Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "e4fb795d4de30ce0109c47c32f7fe5f86a11729a",
+        "committed_at": "2017-05-09T10:45:43Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "e49d5ea593a61c23626e90b63fa6ac6ebbc84bcb",
+        "committed_at": "2017-05-09T10:45:09Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "7f81f1553d20f8a4acb25fe23cc6e08796161feb",
+        "committed_at": "2017-05-09T10:45:00Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "a8eff7c888c237d40c71ab8d3629e8159ab39506",
+        "committed_at": "2017-05-09T10:43:34Z",
+        "change_status": [],
+        "url": ""
+      },
+      {
+        "user": {
+          "login": "rcloud",
+          "id": 1,
+          "type": "User"
+        },
+        "version": "b0192dbb90602ca2fd1845766acdc584b18db84f",
+        "committed_at": "2017-05-09T10:43:16Z",
+        "change_status": [],
+        "url": ""
+      }
+    ],
+    "fork_of": {
+      "owner": {
+        "login": "rcloud"
+      },
+      "description": "AAA Reindex",
+      "id": "3fbd8409ff4fb50e5120"
+    }
+  },
+  "headers": {
+    "server": "",
+    "date": "2017-05-15T12:52:11Z",
+    "content-type": "",
+    "status": "200",
+    "statusmessage": "OK"
+  },
+  "code": 200,
+  "augmented": true
+}
