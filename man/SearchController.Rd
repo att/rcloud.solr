@@ -9,12 +9,16 @@ A description of this R6 class
 \section{Details}{
 
 \code{$new()} starts a new search controller
+
+\code{$set_config()} retrieves settings from rcloud.support or allows them to be specified by the user
+
+\code{$set_config()} return the config
 }
 
 \examples{
 # Might need rcloud.support running for this to work
 \dontrun{
-SC <- SearchController$new(something)
+SC <- SearchController$new(config = list(solr.url="http://solr:8983/solr/rcloudnotebooks"))
 }
 
 }

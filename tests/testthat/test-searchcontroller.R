@@ -1,0 +1,10 @@
+context("SearchController")
+
+
+test_that("Initialize", {
+  SC <- SearchController$new(config = list(solr.url="http://example.com:8983"))
+
+  config <- SC$get_config()
+
+  expect_equal(config$solr.url, "http://example.com:8983")
+})
