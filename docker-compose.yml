@@ -4,6 +4,10 @@ services:
     image: mangothecat/rcloud-solr:latest
     ports:
       - "8984:8983"
+  solr2:
+    image: mangothecat/rcloud-solr:latest
+    ports:
+      - "8985:8983"
   rstudio:
     image: rcsolr-rstudio
     ports:

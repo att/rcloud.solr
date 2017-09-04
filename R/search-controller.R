@@ -51,6 +51,8 @@ sc_initialize <- function(self, private, config) {
   if(!is.null(config)) {
     self$set_config(config)
   }
+
+  invisible(self)
 }
 
 sc_set_config <- function(self, private, config) {
