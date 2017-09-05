@@ -2,7 +2,7 @@
 
 #' Search Controller
 #'
-#' A description of this R6 class
+#' An R6 class to control the gathering, sorting and paging of search results.
 #'
 #' @param main_source a list containing at least \code{solr.url}
 #' @param gist_sources a named list of lists containing at least \code{solr.url}
@@ -11,6 +11,8 @@
 #' \code{$new(main_source = NULL, gist_sources = NULL)} starts a new search controller
 #'
 #' \code{$set_sources(main_source = NULL, gist_sources = NULL)}
+#'  If main_source and gist_source are provided they are concatenated.
+#'  If not then they are retrieved from \code{rcloud.config} and \code{.session}
 #'
 #' \code{$get_sources()} return the config
 #'
@@ -57,9 +59,6 @@ sc_initialize <- function(self, private, main_source, gist_sources) {
   invisible(self)
 }
 
-# If main_source and gist_source are provided they are concatenated
-# If not then they are retrieved from rcloud.config and .session
-# gist_sources should be a list of lists. main_source a single list
 sc_set_sources <- function(self, private, main_source, gist_sources) {
 
   sources <- list()
