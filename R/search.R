@@ -21,8 +21,6 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
   url <- rcloud.support:::getConf("solr.url")
   if (is.null(url)) stop("solr is not enabled")
 
-  # TESTING REMOVE
-  q0 <- query
 
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
   ## Check if search terms are already URL encoded?
@@ -46,22 +44,9 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 
-  ################## TESTING REMOVE #################################
-  if(!requireNamespace("jsonlite", quietly = TRUE)) {
-    stop("Need jsonlite to output search query, response")
-  }
-  qid <- tempfile(pattern = "query", fileext = ".json")
-  res <- list(query = q0,
-              URLdecodequery = query,
-              sol.query = solr.query,
-              pagesize = pagesize,
-              all_sources = all_sources)
-  ###################################################################
 
   query <- function(solr.url,source='',solr.auth.user=NULL,solr.auth.pwd=NULL) {
     solr.res <- .solr.get(solr.url=solr.url,query=solr.query,solr.auth.user=solr.auth.user,solr.auth.pwd=solr.auth.pwd)
-
-    res$solr.res <<- solr.res  ######### TESTING_REMOVE
 
     parse.solr.res(solr.res, pagesize = pagesize, source = source, start = start)
   }
@@ -80,12 +65,6 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                   solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                   solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
   }
-
-  ######################### TESTING REMOVE ###########################
-  res$response <- resp
-  json <- jsonlite::toJSON(res, pretty = TRUE, auto_unbox = TRUE)
-  writeLines(json, qid)
-  ####################################################################
 
   resp
 }
