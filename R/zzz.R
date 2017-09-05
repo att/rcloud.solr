@@ -2,6 +2,6 @@
 
 .onLoad <- function(libname, pkgname) {
 
-  .SC <<- SearchController$new(list(), list())
+  .SC <<- SearchController$new(NULL, NULL)
 
 }

@@ -14,6 +14,8 @@
 #'
 #' \code{$get_sources()} return the config
 #'
+#' @importFrom rcloud.support rcloud.config
+#'
 #' @name SearchController
 #' @examples
 #' # Might need rcloud.support running for this to work
