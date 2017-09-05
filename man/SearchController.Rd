@@ -3,16 +3,21 @@
 \name{SearchController}
 \alias{SearchController}
 \title{Search Controller}
+\arguments{
+\item{main_source}{a list containing at least \code{solr.url}}
+
+\item{gist_sources}{a named list of lists containing at least \code{solr.url}}
+}
 \description{
 A description of this R6 class
 }
 \section{Details}{
 
-\code{$new()} starts a new search controller
+\code{$new(main_source = NULL, gist_sources = NULL)} starts a new search controller
 
-\code{$set_config()} retrieves settings from rcloud.support or allows them to be specified by the user
+\code{$set_sources(main_source = NULL, gist_sources = NULL)}
 
-\code{$set_config()} return the config
+\code{$get_sources()} return the config
 }
 
 \examples{

@@ -4,12 +4,15 @@
 #'
 #' A description of this R6 class
 #'
+#' @param main_source a list containing at least \code{solr.url}
+#' @param gist_sources a named list of lists containing at least \code{solr.url}
+#'
 #' @section Details:
-#' \code{$new()} starts a new search controller
+#' \code{$new(main_source = NULL, gist_sources = NULL)} starts a new search controller
 #'
-#' \code{$set_config()} retrieves settings from rcloud.support or allows them to be specified by the user
+#' \code{$set_sources(main_source = NULL, gist_sources = NULL)}
 #'
-#' \code{$set_config()} return the config
+#' \code{$get_sources()} return the config
 #'
 #' @name SearchController
 #' @examples
@@ -26,51 +29,59 @@ SearchController <- R6::R6Class("SearchController",
 
   public = list(
 
-    initialize = function(config = NULL)
-      sc_initialize(self, private, config),
+    initialize = function(main_source = NULL, gist_sources = NULL)
+      sc_initialize(self, private, main_source, gist_sources),
 
-    set_config = function(config = NULL)
-      sc_set_config(self, private, config),
+    set_sources = function(main_source = NULL, gist_sources = NULL)
+      sc_set_sources(self, private, main_source, gist_sources),
 
-    get_config = function() {
-      private$config
+    get_sources = function() {
+      private$sources
     }
   ),
 
   private = list(
-    config = NULL,
+    sources = NULL,
     last_search = NULL,
     results = list(),
     n_results = 0
   )
 )
 
-sc_initialize <- function(self, private, config) {
+sc_initialize <- function(self, private, main_source, gist_sources) {
 
-  # You can initialise with a config or load one afterwards
-  if(!is.null(config)) {
-    self$set_config(config)
-  }
+  self$set_sources(main_source, gist_sources)
 
   invisible(self)
 }
 
-sc_set_config <- function(self, private, config) {
+# If main_source and gist_source are provided they are concatenated
+# If not then they are retrieved from rcloud.config and .session
+# gist_sources should be a list of lists. main_source a single list
+sc_set_sources <- function(self, private, main_source, gist_sources) {
 
-  # Load what we can from rcloud.support and merge together
-  # TODO: cope with failure
-  rcs_config <- list(
-    solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
-    solr.url = rcloud.support:::getConf("solr.url")
-  )
+  sources <- list()
 
-  # User can rcloud.support
-  if (!is.null(config)) {
-    # Merge with config taking priority
-    rcs_config <- utils::modifyList(rcs_config, config, keep.null = TRUE)
+  # Get the main config from rcloud.config
+  if (is.null(main_source)) {
+    # TODO, can we grab all configs that begin with solr?
+    main_source <- list(
+      solr.url = rcloud.config("solr.url"),
+      solr.auth.user = rcloud.config("solr.auth.user"),
+      solr.auth.pwd = rcloud.config("solr.auth.pwd")
+    )
   }
 
-  # TODO: Check the config
+  # Get external sources from .session object
+  if (is.null(gist_sources)) {
+    gist_sources <-
+      lapply(rcloud.support:::.session$gist.sources.conf, as.list)
+  }
 
-  private$config <- rcs_config
+  # Combine and make sure that main goes first
+  sources <- c(list(main = main_source), gist_sources)
+
+  # TODO: Check the sources
+
+  private$sources <- sources
 }
