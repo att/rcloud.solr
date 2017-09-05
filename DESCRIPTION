@@ -1,5 +1,5 @@
 Package: rcloud.solr
-Title: Build requests for solr from rcloud
+Title: Provide Solr Search and Indexing to RCloud
 Version: 0.2.0
 Authors@R: person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre"))
 Description: Support solr searches and updating the index for notebooks and comments.
