@@ -22,6 +22,15 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
 
   # Keep this API constant
 
+  solr.url <- "http://solr:8983/solr/rcloudnotebooks"
+  source <- "test"
+
+  ss_search(query = query, solr.url = solr.url,
+            source = source,
+            sortby = sortby, orderby = orderby,
+            start = start, pagesize = pagesize,
+            group.limit = group.limit,
+            hl.fragsize = hl.fragsize)
 }
 
 #' Search a single source
@@ -31,13 +40,15 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
 #'
 #' @inheritParams rcloud.search
 #' @param solr.url URL for the solr request
-#' @param solr.auth.user Solr Authentication, username
-#' @param solr.auth.pwd Solr Authentication, password
+#' @param solr.auth.user Solr authentication, username
+#' @param solr.auth.pwd Solr authentication, password
+#' @param source The name of the source
 #'
 #' @return Search response after parsing
 #' @export
 #'
-ss_search <- function(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
+ss_search <- function(query, solr.url, solr.auth.user = NULL,
+                      solr.auth.pwd = NULL, source,
                       sortby, orderby, start = 0, pagesize = 10,
                       group.limit = 4,  hl.fragsize=60) {
 
