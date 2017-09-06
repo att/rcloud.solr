@@ -4,28 +4,30 @@
 \alias{SearchController}
 \title{Search Controller}
 \arguments{
-\item{main_source}{a list containing at least \code{solr.url}}
-
-\item{gist_sources}{a named list of lists containing at least \code{solr.url}}
+\item{sources}{a named list of sources. Each source must be a list containing
+at least \code{solr.url}. The first source must be called \code{main_source}.}
 }
 \description{
 An R6 class to control the gathering, sorting and paging of search results.
 }
 \section{Details}{
 
-\code{$new(main_source = NULL, gist_sources = NULL)} starts a new search controller
+\code{$new(sources = NULL)} starts a new search controller
 
-\code{$set_sources(main_source = NULL, gist_sources = NULL)}
- If main_source and gist_source are provided they are concatenated.
- If not then they are retrieved from \code{rcloud.config} and \code{.session}
+\code{$set_sources(sources)}
+ If sources is provided they are concatenated they are
+ retrieved from \code{rcloud.config} (\code{main_source})
+ and \code{.session} (\code{gist_sources}).
 
 \code{$get_sources()} return the config
 }
 
 \examples{
-# Might need rcloud.support running for this to work
 \dontrun{
-SC <- SearchController$new(config = list(solr.url="http://solr:8983/solr/rcloudnotebooks"))
+SC <-
+SearchController$new(sources = list(
+ main_source = list(solr.url = "http://solr:8983/solr/rcloudnotebooks")
+))
 }
 
 }

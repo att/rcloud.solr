@@ -87,9 +87,9 @@ sc_set_sources <- function(self, private, sources) {
   if (names(sources)[1] != "main_source")
     stop("First source must be called \"main_source\"")
 
-  has_url <- lapply(sources, function(x) "solr.url" %in% names(x))
+  has_url <- vapply(sources, function(x) "solr.url" %in% names(x), logical(1))
   if(!all(has_url))
-    stop("All sources must have solr.url at a minumum")test
+    stop("All sources must have solr.url at a minumum")
 
   private$sources <- sources
 }
