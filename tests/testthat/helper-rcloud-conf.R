@@ -21,7 +21,7 @@ read_rcloud_conf <- function(rc.cf) {
     stop(rc.cf, " not found.")
   }
 
-  conf <- list(main_source = rc.c, gist_sources = rc.gsrc)
+  conf <- c(list(main_source = rc.c), rc.gsrc)
 
   conf
 

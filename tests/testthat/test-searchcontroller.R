@@ -2,19 +2,20 @@ context("SearchController")
 
 
 test_that("Initialize", {
-  SC <- SearchController$new(main_source = list(solr.url="http://example.com:8983"))
+  SC <- SearchController$new(sources = list(
+    main_source = list(solr.url = "http://example.com:8983")
+    ))
 
   sources <- SC$get_sources()
 
-  expect_equal(sources$main$solr.url, "http://example.com:8983")
+  expect_equal(sources$main_source$solr.url, "http://example.com:8983")
 })
 
 test_that("Set two sources", {
 
   sources <- read_rcloud_conf("rc-two.conf")
 
-  SC <- SearchController$new(main_source = sources$main_source,
-                             gist_sources = sources$gist_sources)
+  SC <- SearchController$new(sources = sources)
 
   sources_test <- SC$get_sources()
 
@@ -33,8 +34,7 @@ test_that("Set one source", {
 
   sources <- read_rcloud_conf("rc-one.conf")
 
-  SC <- SearchController$new(main_source = sources$main_source,
-                             gist_sources = sources$gist_sources)
+  SC <- SearchController$new(sources = sources)
 
   sources_test <- SC$get_sources()
 
