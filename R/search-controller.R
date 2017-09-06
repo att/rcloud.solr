@@ -80,9 +80,11 @@ sc_set_sources <- function(self, private, main_source, gist_sources) {
   }
 
   # Combine and make sure that main goes first
-  sources <- c(list(main = main_source), gist_sources)
+  sources <- c(list(main_source = main_source), gist_sources)
 
   # TODO: Check the sources
+
+  if(names(sources)[1] != "main_source") stop("First source must be called \"main_source\"")
 
   private$sources <- sources
 }
