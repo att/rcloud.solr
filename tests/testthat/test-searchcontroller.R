@@ -9,7 +9,7 @@ test_that("Initialize", {
   expect_equal(sources$main$solr.url, "http://example.com:8983")
 })
 
-test_that("Set sources", {
+test_that("Set two sources", {
 
   sources <- read_rcloud_conf("rc-two.conf")
 
@@ -28,6 +28,24 @@ test_that("Set sources", {
 
   expect_equivalent(urls, exp_urls)
 })
+
+test_that("Set one source", {
+
+  sources <- read_rcloud_conf("rc-one.conf")
+
+  SC <- SearchController$new(main_source = sources$main_source,
+                             gist_sources = sources$gist_sources)
+
+  sources_test <- SC$get_sources()
+
+  expect_equal(names(sources_test), "main_source")
+
+  urls <- vapply(sources_test, `[[`, character(1), "solr.url")
+  exp_urls <- "http://solr:8983/solr/rcloudnotebooks"
+
+  expect_equivalent(urls, exp_urls)
+})
+
 
 test_that("Global search instance exists", {
 
