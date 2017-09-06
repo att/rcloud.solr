@@ -18,12 +18,32 @@
 rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
                          start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
 
-  url <- rcloud.support:::getConf("solr.url")
-  if (is.null(url)) stop("solr is not enabled")
+  # We'll be calling out to the controller
 
+  # Keep this API constant
+
+}
+
+#' Search a single source
+#'
+#' For a single source, query solr and return results. For a single source system
+#' this should be the same as \code{rcloud.search}
+#'
+#' @inheritParams rcloud.search
+#' @param solr.url URL for the solr request
+#' @param solr.auth.user Solr Authentication, username
+#' @param solr.auth.pwd Solr Authentication, password
+#'
+#' @return Search response after parsing
+#' @export
+#'
+ss_search <- function(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
+                      sortby, orderby, start = 0, pagesize = 10,
+                      group.limit = 4,  hl.fragsize=60) {
 
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
   ## Check if search terms are already URL encoded?
+  ## DOUG Move this up to controller?
   if(nchar(query) > nchar(utils::URLdecode(query))) query <- utils::URLdecode(query)
 
   solr.query <- list(q=query,
@@ -44,27 +64,20 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", order
                      hl.fl="content,comments",
                      sort=paste(sortby,orderby))
 
+  # Make the request
+  solr.res <- .solr.get(
+    solr.url = solr.url,
+    query = solr.query,
+    solr.auth.user = solr.auth.user,
+    solr.auth.pwd = solr.auth.pwd
+  )
 
-  query <- function(solr.url,source='',solr.auth.user=NULL,solr.auth.pwd=NULL) {
-    solr.res <- .solr.get(solr.url=solr.url,query=solr.query,solr.auth.user=solr.auth.user,solr.auth.pwd=solr.auth.pwd)
-
-    parse.solr.res(solr.res, pagesize = pagesize, source = source, start = start)
-  }
-  if (isTRUE(all_sources)) {
-    main <- query(url,
-                  solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                  solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
-    l <- lapply(rcloud.support:::.session$gist.sources.conf, function(src)
-      if ("solr.url" %in% names(src)) query(src['solr.url'],
-                                            src['gist.source'],src['solr.auth.user'],src['solr.auth.pwd'])
-      else character(0))
-    resp <- unlist(c(list(main), l))
-  }
-  else {
-    resp <- query(url,
-                  solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                  solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
-  }
+  # Parse the response
+  resp <- parse.solr.res(
+    solr.res,
+    pagesize = pagesize,
+    source = source, #
+    start = start)
 
   resp
 }
