@@ -67,20 +67,7 @@ sc_initialize <- function(self, private, sources) {
 sc_set_sources <- function(self, private, sources) {
   # Get the main config from rcloud.config
   if (is.null(sources)) {
-    sources <- list()
-
-    # TODO, can we grab all configs that begin with solr?
-    main_source <- list(
-      solr.url = rcloud.config("solr.url"),
-      solr.auth.user = rcloud.config("solr.auth.user"),
-      solr.auth.pwd = rcloud.config("solr.auth.pwd")
-    )
-
-    gist_sources <-
-      lapply(rcloud.support:::.session$gist.sources.conf, as.list)
-
-    # Combine and make sure that main goes first
-    sources <- c(list(main_source = main_source), gist_sources)
+    sources <- sc_get_rcloud_sources()
   }
 
   # Check the sources
@@ -91,5 +78,32 @@ sc_set_sources <- function(self, private, sources) {
   if(!all(has_url))
     stop("All sources must have solr.url at a minumum")
 
-  private$sources <- sources
+  # Pull the names into the list
+  source_named <- mapply(sources, names(sources),
+                         FUN = function(x,y) c(source=y, x),
+                         SIMPLIFY = FALSE)
+
+
+  # Create new instances of the SearchSource class
+  private$sources <- lapply(source_named, SearchSource$new)
+}
+
+#' Retrieve Solr Sources From RCloud Config
+#'
+sc_get_rcloud_sources <- function() {
+
+  # TODO, can we grab all configs that begin with solr?
+  main_source <- list(
+    solr.url = rcloud.config("solr.url"),
+    solr.auth.user = rcloud.config("solr.auth.user"),
+    solr.auth.pwd = rcloud.config("solr.auth.pwd")
+  )
+
+  gist_sources <-
+    lapply(rcloud.support:::.session$gist.sources.conf, as.list)
+
+  # Combine and make sure that main goes first
+  sources <- c(list(main_source = main_source), gist_sources)
+
+  sources
 }

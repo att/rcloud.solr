@@ -3,17 +3,24 @@
 \name{SearchSource}
 \alias{SearchSource}
 \title{Search Source}
+\arguments{
+\item{src_name}{Character. Name of the source.}
+
+\item{src_params}{A list of solr details. Must at least contain \code{solr.url}.}
+}
 \description{
-An R6 class to make requests to individual solr sources.
+An R6 class to make requests to individual src_params sources.
 }
 \section{Details}{
 
-\code{$new(source = NULL)} starts a new search source
+\code{$new(src_name, src_params)} starts a new search source
+
+\code{$search(...)} search this source. Parameters are all based on \code{\link{ss_search}}.
 }
 
 \examples{
 \dontrun{
-SS <- SearchSource$new(source list(solr.url = "http://solr:8983/solr/rcloudnotebooks"))
+SS <- SearchSource$new(src_name = "main_source", src_params = list(solr.url = "http://solr:8983/solr/rcloudnotebooks"))
 }
 
 }

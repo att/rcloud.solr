@@ -23,7 +23,7 @@ rcloud.search(query, all_sources = FALSE, sortby = "starcount",
 
 \item{group.limit}{Passed to solr. Controls how many cells to highlight for each notebook hit.}
 
-\item{hl.fragsize}{How many charachters to return with the highlighting}
+\item{hl.fragsize}{How many characters to return with the highlighting}
 }
 \value{
 Search response after parsing

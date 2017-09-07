@@ -2,8 +2,12 @@ context("Solr Source")
 
 test_that("Initialise source", {
 
-  source <- list(solr.url = "http://example.com:8983/solr/rcloudnotebooks/")
+  source <- read_rcloud_conf("rc-one.conf")
 
-  SS <- SearchSource$new(source)
+  source_named <- mapply(source, names(source),
+                         FUN = function(x,y) c(source=y, x),
+                         SIMPLIFY = FALSE)
+
+  SS <- SearchSource$new(source_named[[1]])
 
 })

@@ -8,7 +8,7 @@ test_that("Initialize", {
 
   sources <- SC$get_sources()
 
-  expect_equal(sources$main_source$solr.url, "http://example.com:8983")
+  expect_equal(sources$main_source$get_name(), "main_source")
 })
 
 test_that("Set two sources", {
@@ -21,7 +21,7 @@ test_that("Set two sources", {
 
   expect_equal(names(sources_test), c("main_source", "core-lake"))
 
-  urls <- vapply(sources_test, `[[`, character(1), "solr.url")
+  urls <- vapply(sources_test, function(x) x$get_solr_url(), character(1))
   exp_urls <- c(
     "http://solr:8983/solr/rcloudnotebooks",
     "http://solr2:8983/solr/rcloudnotebooks"
@@ -40,7 +40,7 @@ test_that("Set one source", {
 
   expect_equal(names(sources_test), "main_source")
 
-  urls <- vapply(sources_test, `[[`, character(1), "solr.url")
+  urls <- vapply(sources_test, function(x) x$get_solr_url(), character(1))
   exp_urls <- "http://solr:8983/solr/rcloudnotebooks"
 
   expect_equivalent(urls, exp_urls)

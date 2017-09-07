@@ -10,12 +10,13 @@
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
 #' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
-#' @param hl.fragsize How many charachters to return with the highlighting
+#' @param hl.fragsize How many characters to return with the highlighting
 #'
 #' @return Search response after parsing
 #' @export
 #'
-rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
+rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount",
+                         orderby = "desc",
                          start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
 
   # We'll be calling out to the controller

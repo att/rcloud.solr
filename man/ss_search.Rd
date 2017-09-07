@@ -5,7 +5,7 @@
 \title{Search a single source}
 \usage{
 ss_search(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
-  sortby, orderby, start = 0, pagesize = 10, group.limit = 4,
+  source, sortby, orderby, start = 0, pagesize = 10, group.limit = 4,
   hl.fragsize = 60)
 }
 \arguments{
@@ -13,9 +13,11 @@ ss_search(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
 
 \item{solr.url}{URL for the solr request}
 
-\item{solr.auth.user}{Solr Authentication, username}
+\item{solr.auth.user}{Solr authentication, username}
 
-\item{solr.auth.pwd}{Solr Authentication, password}
+\item{solr.auth.pwd}{Solr authentication, password}
+
+\item{source}{The name of the source}
 
 \item{sortby}{Passed to solr for sorting}
 
@@ -27,7 +29,7 @@ ss_search(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
 
 \item{group.limit}{Passed to solr. Controls how many cells to highlight for each notebook hit.}
 
-\item{hl.fragsize}{How many charachters to return with the highlighting}
+\item{hl.fragsize}{How many characters to return with the highlighting}
 }
 \value{
 Search response after parsing
