@@ -20,7 +20,11 @@ An R6 class to make requests to individual src_params sources.
 
 \examples{
 \dontrun{
-SS <- SearchSource$new(src_name = "main_source", src_params = list(solr.url = "http://solr:8983/solr/rcloudnotebooks"))
+SS <-
+SearchSource$new(
+  src_name = "main_source",
+  src_params = list(solr.url = "http://solr:8983/solr/rcloudnotebooks")
+)
 }
 
 }
