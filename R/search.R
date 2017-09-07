@@ -19,19 +19,24 @@ rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount",
                          orderby = "desc",
                          start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
 
-  # We'll be calling out to the controller
-
   # Keep this API constant
 
-  solr.url <- "http://solr:8983/solr/rcloudnotebooks"
-  source <- "test"
+  sources <- .SC$get_sources()
 
-  ss_search(query = query, solr.url = solr.url,
-            source = source,
-            sortby = sortby, orderby = orderby,
-            start = start, pagesize = pagesize,
-            group.limit = group.limit,
-            hl.fragsize = hl.fragsize)
+  # How can we make this prettier?
+  results <- lapply(sources,
+                    function(x)
+                      x$search(
+                        query = query,
+                        sortby = sortby,
+                        orderby = orderby,
+                        start = start,
+                        pagesize = pagesize,
+                        group.limit = group.limit,
+                        hl.fragsize = hl.fragsize
+                      ))
+
+  results[["main_source"]]
 }
 
 #' Search a single source

@@ -28,3 +28,5 @@ read_rcloud_conf <- function(rc.cf) {
   conf
 
 }
+
+.SC$set_sources(read_rcloud_conf("rc-one.conf"))

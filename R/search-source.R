@@ -42,7 +42,7 @@ SearchSource <- R6::R6Class(
         ...
       )},
 
-    get_name = function() private$source,
+    get_source = function() private$source,
     get_solr_url = function() private$solr.url
   ),
 

@@ -8,7 +8,7 @@ test_that("Initialize", {
 
   sources <- SC$get_sources()
 
-  expect_equal(sources$main_source$get_name(), "main_source")
+  expect_equal(sources$main_source$get_source(), "main_source")
 })
 
 test_that("Set two sources", {
