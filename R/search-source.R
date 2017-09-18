@@ -4,21 +4,22 @@
 #'
 #' An R6 class to make requests to individual src_params sources.
 #'
-#' @param src_name Character. Name of the source.
-#' @param src_params A list of solr details. Must at least contain \code{solr.url}.
+#' @param src_params A list of solr details. Must at least contain
+#'   \code{solr.url}, and the source name, \code{source}.
 #'
 #' @section Details:
 #' \code{$new(src_name, src_params)} starts a new search source
 #'
-#' \code{$search(...)} search this source. Parameters are all based on \code{\link{ss_search}}.
+#' \code{$search(...)} search this source. Parameters are all based on
+#'   \code{\link{ss_search}}.
 #'
 #' @name SearchSource
 #' @examples
 #' \dontrun{
 #' SS <-
 #' SearchSource$new(
-#'   src_name = "main_source",
-#'   src_params = list(solr.url = "http://solr:8983/solr/rcloudnotebooks")
+#'   src_params = list(source =  "main_source",
+#'                     solr.url = "http://solr:8983/solr/rcloudnotebooks")
 #' )
 #' }
 #'
