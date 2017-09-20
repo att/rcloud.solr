@@ -44,18 +44,20 @@ SearchController <- R6::R6Class("SearchController",
     set_sources = function(sources = NULL)
       sc_set_sources(self, private, sources),
 
-    get_sources = function() private$sources,
-
     search = function(all_sources, start, ...)
       sc_search(self, private, all_sources, start, ...),
 
     new_search = function(all_sources, ...)
-      sc_new_search(self, private, all_sources, ...)
+      sc_new_search(self, private, all_sources, ...),
+
+    get_sources = function() private$sources,
+    get_raw_results = function() private$raw_results
   ),
 
   private = list(
     sources = NULL,
     last_search = NULL,
+    raw_results = list(),
     results = list(),
     n_results = 0
   )
@@ -129,7 +131,7 @@ sc_search <- function(self, private, all_sources, start, ...) {
 
   # TODO
   # prepare the response
-  private$results[["main_source"]]
+  private$raw_results[["main_source"]]
 }
 
 sc_new_search <- function(self, private, all_sources, ...) {
@@ -137,7 +139,7 @@ sc_new_search <- function(self, private, all_sources, ...) {
   sources <- if(all_sources) private$sources else private$sources[1]
 
   # This can be parallelised
-  private$results <- lapply(sources, function(src) {
+  private$raw_results <- lapply(sources, function(src) {
     src$search(...)
   })
 

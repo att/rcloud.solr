@@ -1,5 +1,29 @@
 context("SearchController")
 
+if(check_solr_instance("http://solr")) {
+
+  url <- make_solr_url("http://solr", path = "solr/rcloudnotebooks/update", query = list(commit = "true"))
+
+  # Uploads a bunch of notebooks
+  httr::POST(url, body = httr::upload_file("notebooks/allnotebooks.json"))
+
+  on.exit({
+    httr::POST(url, httr::content_type_xml(), body = "<delete><query>*:*</query></delete>")
+  })
+}
+
+if(check_solr_instance("http://solr2")) {
+
+  url2 <- make_solr_url("http://solr2", path = "solr/rcloudnotebooks/update", query = list(commit = "true"))
+
+  # Uploads a bunch of notebooks
+  httr::POST(url2, body = httr::upload_file("notebooks/allnotebooks2.json"))
+
+  on.exit({
+    httr::POST(url2, httr::content_type_xml(), body = "<delete><query>*:*</query></delete>")
+  }, add = TRUE)
+}
+
 
 test_that("Initialize", {
   SC <- SearchController$new(sources = list(
@@ -54,3 +78,28 @@ test_that("Global search instance exists", {
   expect_is(.SC, "R6")
 
 })
+
+test_that("New search two sources", {
+
+  sources <- read_rcloud_conf("rc-two.conf")
+
+  SC <- SearchController$new(sources = sources)
+
+  raw_res <- SC$new_search(
+    "hist",
+    all_sources = TRUE,
+    sortby = "starcount",
+    orderby = "desc",
+    start = 0,
+    pagesize = 10,
+    group.limit = 4
+  )
+
+  expect_equal(names(raw_res), c("main_source", "core-lake"))
+
+  matches <- unname(vapply(raw_res, `[[`, FUN.VALUE = numeric(1), "matches"))
+
+  expect_equal(matches, c(14, 14))
+
+})
+
