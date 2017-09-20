@@ -12,7 +12,10 @@ index_all <- function(pause = 0.5) {
 
   users <- rcloud.support::rcloud.get.users()
 
-  notebooks <- unname(unlist(rcloud.support::rcloud.config.all.notebooks.multiple.users(users)))
+  notebooks <-
+    unname(unlist(
+      rcloud.support::rcloud.config.all.notebooks.multiple.users(users)
+    ))
 
   for (i in notebooks) {
     print(paste0("Indexing ", i))

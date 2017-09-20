@@ -2,7 +2,7 @@
 % Please edit documentation in R/request.R
 \name{.solr.post}
 \alias{.solr.post}
-\title{Title}
+\title{Post Request to Solr}
 \usage{
 .solr.post(data, solr.url = rcloud.support:::getConf("solr.url"),
   solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
@@ -12,21 +12,28 @@
 \arguments{
 \item{data}{The body of the request.}
 
-\item{solr.url}{Usually from \code{solr.url} config. In testing can be \code{http://solr:8983/solr/rcloudnotebooks}}
+\item{solr.url}{Usually from \code{solr.url} config. In testing can be
+\code{http://solr:8983/solr/rcloudnotebooks}}
 
-\item{solr.auth.user}{Usually from \code{solr.url} config. \code{NULL} in testing}
+\item{solr.auth.user}{Usually from \code{solr.url} config. \code{NULL}
+in testing}
 
-\item{solr.auth.pwd}{Usually from \code{solr.url} config. \code{NULL} in testing}
+\item{solr.auth.pwd}{Usually from \code{solr.url} config. \code{NULL} in
+testing}
 
-\item{isXML}{Logical. If TRUE the data argument directly becomes the body and \code{content_type}  is set to "text/xml"}
+\item{isXML}{Logical. If TRUE the data argument directly becomes the body
+and \code{content_type}  is set to "text/xml"}
 
-\item{type}{One of \code{c("async", "sync", "curl")} usually drawn from config file.}
+\item{type}{One of \code{c("async", "sync", "curl")} usually drawn from
+config file.}
 
-\item{detach}{Logical. For mcparallel. Should updates be detached and forgotten about or not?}
+\item{detach}{Logical. For mcparallel. Should updates be detached and
+forgotten about or not?}
 }
 \value{
-The result of the httr::POST (sync). This needs to be unwrapped with a \code{parallel::mccollect} with async, and curl just returns NULL.
+The result of the httr::POST (sync). This needs to be unwrapped with
+  a \code{parallel::mccollect} with async, and curl just returns \code{NULL}.
 }
 \description{
-Title
+Post Request to Solr
 }

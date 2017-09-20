@@ -6,19 +6,17 @@
 #' @param start passed through from query
 #' @return The parsed search result
 parse.solr.res <- function(solr.res, pagesize, source, start) {
-
   # Return error message if there is one
-  if(!is.null(solr.res$error)) {
-    return(c("error",solr.res$error$msg))
+  if (!is.null(solr.res$error)) {
+    return(c("error", solr.res$error$msg))
   }
 
   matches <- solr.res$grouped$notebook_id$matches
 
   # Detect empty response
-  if(matches <= 0) {
+  if (matches <= 0) {
     response_joined <- NULL
   } else {
-
     response_docs <- solr.res$grouped$notebook_id$groups
     response_high <- solr.res$highlighting
 
@@ -26,8 +24,14 @@ parse.solr.res <- function(solr.res, pagesize, source, start) {
   }
 
   # Build the output object
-  response <- create_search_response(solr.res = solr.res, response_joined = response_joined, pagesize = pagesize,
-                                     source = source, start = start)
+  response <-
+    create_search_response(
+      solr.res = solr.res,
+      response_joined = response_joined,
+      pagesize = pagesize,
+      source = source,
+      start = start
+    )
 
   return(response)
 }
@@ -39,7 +43,6 @@ parse.solr.res <- function(solr.res, pagesize, source, start) {
 #'
 #' @return A list similar to \code{docs} but with highlighting added in
 join_docs_high <- function(docs, highlight) {
-
   lapply(docs, join_one_doc_high, highlight)
 
 }
@@ -47,20 +50,22 @@ join_docs_high <- function(docs, highlight) {
 # Join a single document to the highlighting
 # Supports join_docs_high
 join_one_doc_high <- function(doc, highlight) {
-
   # Retrieve some notebook
   top_doc <- doc$doclist$docs[[1]]
 
-  # rename groupValue to id
+  select_fields <- c("description", "updated_at", "starcount", "user")
+
+  # rename groupValue to id and select items from top_doc
   out_doc <- c(list(id = doc$groupValue),
-               top_doc[which(names(top_doc) %in% c("description", "updated_at", "starcount", "user"))])
+               top_doc[which(names(top_doc) %in% select_fields)])
 
 
   # Copy the doc list
   out_doc$doclist <- doc$doclist
 
   # lookup the highlighting for each doc
-  out_doc$doclist$docs <- lapply(doc$doclist$docs, join_highlight, highlight)
+  out_doc$doclist$docs <-
+    lapply(doc$doclist$docs, join_highlight, highlight)
 
   out_doc
 }

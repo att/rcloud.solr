@@ -4,3 +4,4 @@ notes.md
 ^\.travis\.yml$
 Dockerfile
 docker-compose.yml
+^scripts$

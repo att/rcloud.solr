@@ -10,4 +10,6 @@ test_that("Initialise source", {
 
   SS <- SearchSource$new(source_named[[1]])
 
+  expect_equal(SS$get_source(), "main_source")
+
 })

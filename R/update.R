@@ -1,7 +1,3 @@
-# Some intelligent parsing account for basics like /solr/notebook and /solr/notebook/ is essentially the same thing
-# Using httr::parse_url
-
-
 #' Retrieve notebook by id and update solr
 #'
 #' Thin wrapper around \code{update_solr}
@@ -48,10 +44,12 @@ build_update_metadata <- function(notebook, starcount) {
   content.files <- notebook$content$files
   ## Remove binary assets by removing elements with .b64 extention
 
-  content_ext <- tools::file_ext(names(content.files)) # What's more reliable? Names or filename element?
+  # What's more reliable? Names or filename element?
+  content_ext <- tools::file_ext(names(content.files))
   content.files <- content.files[content_ext != "b64"]
 
-  # Previous comment suggested scratch.R not indexed but it was. scratch.R *is* indexed.
+  # Previous comment suggested scratch.R not indexed but scratch.R *is* indexed.
+  # TODO strip default scratch.R? We want it if it's not changed.
 
   if (!length(content.files)) return(NULL)
 
@@ -75,10 +73,13 @@ build_update_metadata <- function(notebook, starcount) {
   )
 
   # We add a lot of info about the notebook to each cell because
-  # otherwise we'd need a second query after the grouping to reattach notebook information.
+  # otherwise we'd need a second query after the grouping to reattach notebook
+  # information.
 
-  # Ideally I'd like to use block join queries but the problem (in solr 5 at least) is that
-  # we can't get the right highlighting. Explore this as future solr releases become available
+  # Ideally I'd like to use block join queries but the problem
+  # (in solr 5 at least) is that we can't get the right highlighting.
+  # Explore this as future solr releases become available.
+
   notebook_info <- build_notebook_info(notebook, starcount = starcount)
 
   comments <- build_comments(notebook_info)
