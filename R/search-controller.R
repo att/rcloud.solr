@@ -44,9 +44,13 @@ SearchController <- R6::R6Class("SearchController",
     set_sources = function(sources = NULL)
       sc_set_sources(self, private, sources),
 
-    get_sources = function() {
-      private$sources
-    }
+    get_sources = function() private$sources,
+
+    search = function(all_sources, start, ...)
+      sc_search(self, private, all_sources, start, ...),
+
+    new_search = function(all_sources, ...)
+      sc_new_search(self, private, all_sources, ...)
   ),
 
   private = list(
@@ -106,4 +110,34 @@ sc_get_rcloud_sources <- function() {
   sources <- c(list(main_source = main_source), gist_sources)
 
   sources
+}
+
+#' Main search interface
+#'
+#' Called by rcloud.search
+#'
+#' @inheritParams rcloud.search
+#' @param self pointer to this object
+#' @param private private members
+#' @param ... arguments to pass to \code{ss_search}
+sc_search <- function(self, private, all_sources, start, ...) {
+
+  if(start == 0) {
+    self$new_search(all_sources = all_sources, start = start, ...)
+  }
+
+  # TODO
+  # prepare the response
+  private$results[["main_source"]]
+}
+
+sc_new_search <- function(self, private, all_sources, ...) {
+
+  sources <- if(all_sources) private$sources else private$sources[1]
+
+  # How can we make this prettier?
+  private$results <- lapply(sources, function(src) {
+    src$search(...)
+  })
+
 }
