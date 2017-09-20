@@ -144,3 +144,63 @@ sc_new_search <- function(self, private, all_sources, ...) {
   })
 
 }
+
+#' Merge Raw Results
+#'
+#' Take a list of raw results and merge into one big list of results
+#'
+#' @param raw_results A list of results from solr returned from the SearchSource
+#'   objects.
+#' @inheritParams rcloud.search
+#'
+#' @return A single result set, merged and sorted
+sc_merge_results <- function(raw_results, sortby, orderby) {
+
+  header <- sc_merge_header(raw_results)
+
+  notebooks <- sc_merge_notebooks(raw_results, sortby, orderby)
+
+  c(header, list(notebooks = notebooks))
+
+}
+
+sc_merge_header <- function(raw_results) {
+
+  # drop_items and keep_items are in utils.R
+  summary_fields <- c("QTime", "status", "matches", "n_notebooks")
+  drop_fields <- c("notebooks", "source")
+  # Combine variables that we summarise into a data.frame
+  headers_summary <- lapply(raw_results, keep_items, summary_fields)
+  headers_summary <- lapply(headers_summary, as.data.frame, stringsAsFactors = FALSE)
+  headers_df <- do.call(rbind, headers_summary)
+  # All other variables should be the same, take from the first source
+  headers_pass <- drop_items(raw_results[[1]], c(summary_fields, drop_fields))
+
+  # Combine summary variables and passthrough variables
+  header <- c(list(
+    QTime = max(headers_df$QTime),
+    status = max(headers_df$status),
+    matches = sum(headers_df$matches),
+    n_notebooks = sum(headers_df$n_notebooks)
+  ),
+  headers_pass)
+
+  header
+
+}
+
+sc_merge_notebooks <- function(raw_results, sortby, orderby) {
+
+  raw_notebooks <- lapply(raw_results, `[[`, "notebooks")
+
+  all_notebooks <- do.call(c, unname(raw_notebooks))
+
+  sort_col <- vapply(all_notebooks, `[[`, sortby, FUN.VALUE = numeric(1))
+
+  decreasing <- isTRUE(orderby == "desc")
+
+  order_col <- order(sort_col, decreasing = decreasing)
+
+  all_notebooks[order_col]
+
+}

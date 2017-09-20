@@ -85,7 +85,7 @@ test_that("New search two sources", {
 
   SC <- SearchController$new(sources = sources)
 
-  raw_res <- SC$new_search(
+  raw_results <- SC$new_search(
     "hist",
     all_sources = TRUE,
     sortby = "starcount",
@@ -95,9 +95,9 @@ test_that("New search two sources", {
     group.limit = 4
   )
 
-  expect_equal(names(raw_res), c("main_source", "core-lake"))
+  expect_equal(names(raw_results), c("main_source", "core-lake"))
 
-  matches <- unname(vapply(raw_res, `[[`, FUN.VALUE = numeric(1), "matches"))
+  matches <- unname(vapply(raw_results, `[[`, FUN.VALUE = numeric(1), "matches"))
 
   expect_equal(matches, c(14, 14))
 
