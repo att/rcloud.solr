@@ -123,6 +123,7 @@ sc_get_rcloud_sources <- function() {
 sc_search <- function(self, private, all_sources, start, ...) {
 
   if(start == 0) {
+    # Update cached results from all sources
     self$new_search(all_sources = all_sources, start = start, ...)
   }
 
@@ -135,7 +136,7 @@ sc_new_search <- function(self, private, all_sources, ...) {
 
   sources <- if(all_sources) private$sources else private$sources[1]
 
-  # How can we make this prettier?
+  # This can be parallelised
   private$results <- lapply(sources, function(src) {
     src$search(...)
   })
