@@ -85,7 +85,7 @@ test_that("New search two sources", {
 
   SC <- SearchController$new(sources = sources)
 
-  raw_results <- SC$new_search(
+  SC$new_search(
     "hist",
     all_sources = TRUE,
     sortby = "starcount",
@@ -95,11 +95,18 @@ test_that("New search two sources", {
     group.limit = 4
   )
 
-  expect_equal(names(raw_results), c("main_source", "core-lake"))
+  # Check the raw results
+  raw_results <- SC$get_raw_results()
+  expect_named(raw_results, c("main_source", "core-lake"))
 
   matches <- unname(vapply(raw_results, `[[`, FUN.VALUE = numeric(1), "matches"))
-
   expect_equal(matches, c(14, 14))
+
+  # Check merged results
+  results <- SC$get_results()
+
+  expect_named(results, c("header", "notebooks"))
+  expect_equal(length(results$notebooks), 20)
 
 })
 

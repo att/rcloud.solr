@@ -4,7 +4,7 @@
 \alias{sc_search}
 \title{Main search interface}
 \usage{
-sc_search(self, private, all_sources, start, ...)
+sc_search(self, private, all_sources, start, pagesize, sortby, orderby, ...)
 }
 \arguments{
 \item{self}{pointer to this object}
@@ -14,6 +14,12 @@ sc_search(self, private, all_sources, start, ...)
 \item{all_sources}{Logical: Search single or multiple solr instances?}
 
 \item{start}{Passed to solr}
+
+\item{pagesize}{Passed to solr}
+
+\item{sortby}{Passed to solr for sorting}
+
+\item{orderby}{Passed to solr for sorting}
 
 \item{...}{arguments to pass to \code{ss_search}}
 }
