@@ -21,6 +21,12 @@ parse.solr.res <- function(solr.res, pagesize, source, start) {
     response_high <- solr.res$highlighting
 
     response_joined <- join_docs_high(response_docs, response_high)
+
+    # add source to each doc
+    response_joined <- lapply(response_joined, function(x) {
+      x$source <- source
+      x
+    })
   }
 
   # Build the output object
@@ -53,7 +59,7 @@ join_one_doc_high <- function(doc, highlight) {
   # Retrieve some notebook
   top_doc <- doc$doclist$docs[[1]]
 
-  select_fields <- c("description", "updated_at", "starcount", "user")
+  select_fields <- c("description", "updated_at", "starcount", "user", "source")
 
   # rename groupValue to id and select items from top_doc
   out_doc <- c(list(id = doc$groupValue),

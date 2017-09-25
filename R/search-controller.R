@@ -1,3 +1,5 @@
+# Class Definition --------------------------------------------------------
+
 # Class functions generally redirect to internal functions beginning sc_*
 
 #' Search Controller
@@ -44,14 +46,18 @@ SearchController <- R6::R6Class("SearchController",
     set_sources = function(sources = NULL)
       sc_set_sources(self, private, sources),
 
-    search = function(all_sources, start, ...)
-      sc_search(self, private, all_sources, start, ...),
+    search = function(all_sources, start, pagesize, sortby, orderby, ...)
+      sc_search(self, private, all_sources, start, pagesize, sortby, orderby, ...),
 
-    new_search = function(all_sources, ...)
-      sc_new_search(self, private, all_sources, ...),
+    new_search = function(all_sources, sortby, orderby, ...)
+      sc_new_search(self, private, all_sources, sortby, orderby, ...),
+
+    build_response = function(start, pagesize)
+      sc_build_response(self, private, start, pagesize),
 
     get_sources = function() private$sources,
-    get_raw_results = function() private$raw_results
+    get_raw_results = function() private$raw_results,
+    get_results = function() private$results
   ),
 
   private = list(
@@ -62,6 +68,9 @@ SearchController <- R6::R6Class("SearchController",
     n_results = 0
   )
 )
+
+
+# Methods -----------------------------------------------------------------
 
 sc_initialize <- function(self, private, sources) {
 
@@ -122,25 +131,120 @@ sc_get_rcloud_sources <- function() {
 #' @param self pointer to this object
 #' @param private private members
 #' @param ... arguments to pass to \code{ss_search}
-sc_search <- function(self, private, all_sources, start, ...) {
+sc_search <- function(self, private, all_sources, start, pagesize, sortby, orderby, ...) {
 
-  if(start == 0) {
+  if (start == 0) {
     # Update cached results from all sources
-    self$new_search(all_sources = all_sources, start = start, ...)
+    self$new_search(
+      all_sources = all_sources,
+      start = start,
+      sortby = sortby,
+      orderby = orderby,
+      ...
+    )
   }
 
-  # TODO
-  # prepare the response
-  private$raw_results[["main_source"]]
+  self$build_response(start, pagesize)
+
 }
 
-sc_new_search <- function(self, private, all_sources, ...) {
+sc_new_search <- function(self, private, all_sources, sortby, orderby, ...) {
 
   sources <- if(all_sources) private$sources else private$sources[1]
 
   # This can be parallelised
   private$raw_results <- lapply(sources, function(src) {
-    src$search(...)
+    src$search(sortby = sortby, orderby = orderby, ...)
   })
+
+  private$results <- sc_merge_results(private$raw_results, sortby = sortby, orderby = orderby)
+
+  invisible(private$results)
+
+}
+
+sc_build_response <- function(self, private, start, pagesize) {
+
+  nn <- private$results$header$n_notebooks
+
+  header <- private$results$header
+  header$start <- start
+  header$pagesize <- pagesize
+
+  notebooks <- NULL
+
+  if(nn > start + pagesize) {
+    notebooks <- private$results$notebooks[(start + 1):(start + pagesize)]
+  } else if (nn > start) {
+    notebooks <- private$results$notebooks[(start + 1):nn]
+  }
+
+  response <- c(header, list(notebooks = notebooks))
+
+  response
+
+}
+
+
+# Internal Functions ------------------------------------------------------
+
+
+#' Merge Raw Results
+#'
+#' Take a list of raw results and merge into one big list of results
+#'
+#' @param raw_results A list of results from solr returned from the SearchSource
+#'   objects.
+#' @inheritParams rcloud.search
+#'
+#' @return A single result set, merged and sorted
+sc_merge_results <- function(raw_results, sortby, orderby) {
+
+  header <- sc_merge_header(raw_results)
+
+  notebooks <- sc_merge_notebooks(raw_results, sortby, orderby)
+
+  list(header = header, notebooks = notebooks)
+
+}
+
+sc_merge_header <- function(raw_results) {
+
+  # drop_items and keep_items are in utils.R
+  summary_fields <- c("QTime", "status", "matches", "n_notebooks")
+  drop_fields <- c("notebooks", "source")
+  # Combine variables that we summarise into a data.frame
+  headers_summary <- lapply(raw_results, keep_items, summary_fields)
+  headers_summary <- lapply(headers_summary, as.data.frame, stringsAsFactors = FALSE)
+  headers_df <- do.call(rbind, headers_summary)
+  # All other variables should be the same, take from the first source
+  headers_pass <- drop_items(raw_results[[1]], c(summary_fields, drop_fields))
+
+  # Combine summary variables and passthrough variables
+  header <- c(list(
+    QTime = max(headers_df$QTime),
+    status = max(headers_df$status),
+    matches = sum(headers_df$matches),
+    n_notebooks = sum(headers_df$n_notebooks)
+  ),
+  headers_pass)
+
+  header
+
+}
+
+sc_merge_notebooks <- function(raw_results, sortby, orderby) {
+
+  raw_notebooks <- lapply(raw_results, `[[`, "notebooks")
+
+  all_notebooks <- do.call(c, unname(raw_notebooks))
+
+  sort_col <- vapply(all_notebooks, `[[`, sortby, FUN.VALUE = numeric(1))
+
+  decreasing <- isTRUE(orderby == "desc")
+
+  order_col <- order(sort_col, decreasing = decreasing)
+
+  all_notebooks[order_col]
 
 }
