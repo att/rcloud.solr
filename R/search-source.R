@@ -88,9 +88,10 @@ ss_initialize <- function(self, private, src_params) {
 #' @return Search response after parsing
 #' @export
 #'
-ss_search <- function(query, solr.url, solr.auth.user = NULL,
-                      solr.auth.pwd = NULL, source,
-                      sortby, orderby, start = 0, pagesize = 10,
+ss_search <- function(query,
+                      solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
+                      source, sortby, orderby,
+                      start = 0, pagesize = 10, max_pages = 20,
                       group.limit = 4,  hl.fragsize=60) {
 
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
@@ -98,9 +99,13 @@ ss_search <- function(query, solr.url, solr.auth.user = NULL,
   ## DOUG Move this up to controller?
   if(nchar(query) > nchar(utils::URLdecode(query))) query <- utils::URLdecode(query)
 
+  rows <- max(pagesize * max_pages, 10)
+
+  message("hello", pagesize, " ", max_pages)
+
   solr.query <- list(q=query,
                      start=start,
-                     rows=pagesize,
+                     rows=rows,
                      indent="true",
                      group="true",
                      group.field="notebook_id",

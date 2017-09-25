@@ -81,6 +81,9 @@ test_that("Global search instance exists", {
 
 test_that("New search two sources", {
 
+  skipifnot(check_solr_instance("http://solr"))
+  skipifnot(check_solr_instance("http://solr2"))
+
   sources <- read_rcloud_conf("rc-two.conf")
 
   SC <- SearchController$new(sources = sources)
@@ -106,7 +109,33 @@ test_that("New search two sources", {
   results <- SC$get_results()
 
   expect_named(results, c("header", "notebooks"))
-  expect_equal(length(results$notebooks), 20)
+  expect_equal(length(results$notebooks), 24)
 
 })
 
+test_that("Full search two sources", {
+
+  skipifnot(check_solr_instance("http://solr"))
+  skipifnot(check_solr_instance("http://solr2"))
+
+  sources <- read_rcloud_conf("rc-two.conf")
+
+  SC <- SearchController$new(sources = sources)
+
+  response <- SC$search(
+    "hist",
+    all_sources = TRUE,
+    sortby = "starcount",
+    orderby = "desc",
+    start = 0,
+    pagesize = 10,
+    max_pages = 10,
+    group.limit = 4
+  )
+
+  expect_equal(response$n_notebooks, 24)
+  expect_equal(length(response$notebooks), 10)
+  # Check the sort order (roughly)
+  expect_gte(response$notebooks[[1]]$starcount,
+             response$notebooks[[2]]$starcount)
+})
