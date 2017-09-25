@@ -46,12 +46,13 @@ build_update_metadata <- function(notebook, starcount) {
 
   ## FIXME: gracefully handle unavailability
   content.files <- notebook$content$files
+
+  # Remove default scratch.R but leave ones that changed
+  default_scratch <- vapply(content.files, is_default_scratch, logical(1))
+
   ## Remove binary assets by removing elements with .b64 extention
-
   content_ext <- tools::file_ext(names(content.files)) # What's more reliable? Names or filename element?
-  content.files <- content.files[content_ext != "b64"]
-
-  # Previous comment suggested scratch.R not indexed but it was. scratch.R *is* indexed.
+  content.files <- content.files[content_ext != "b64" & !(default_scratch)]
 
   if (!length(content.files)) return(NULL)
 
@@ -150,3 +151,7 @@ process_metadata_list <- function(li) {
   }
 }
 
+is_default_scratch <- function(file) {
+  file$filename == "scratch.R" && 
+  file$content == "# keep snippets here while working with your notebook's cells"
+}
