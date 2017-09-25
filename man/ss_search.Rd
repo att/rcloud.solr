@@ -5,8 +5,8 @@
 \title{Search a single source}
 \usage{
 ss_search(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
-  source, sortby, orderby, start = 0, pagesize = 10, group.limit = 4,
-  hl.fragsize = 60)
+  source, sortby, orderby, start = 0, pagesize = 10, max_pages = 20,
+  group.limit = 4, hl.fragsize = 60)
 }
 \arguments{
 \item{query}{Search string}
@@ -26,6 +26,8 @@ ss_search(query, solr.url, solr.auth.user = NULL, solr.auth.pwd = NULL,
 \item{start}{Passed to solr}
 
 \item{pagesize}{Passed to solr}
+
+\item{max_pages}{Sets the size of search}
 
 \item{group.limit}{Passed to solr. Controls how many cells to highlight for each notebook hit.}
 

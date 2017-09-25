@@ -10,6 +10,7 @@
 #' @param orderby Passed to solr for sorting
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
+#' @param max_pages Sets the size of search
 #' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
 #' @param hl.fragsize How many characters to return with the highlighting
 #'
@@ -23,6 +24,7 @@ rcloud.search <-
            orderby = "desc",
            start = 0,
            pagesize = 10,
+           max_pages = 20,
            group.limit = 4,
            hl.fragsize = 60) {
     .SC$search(
@@ -32,6 +34,7 @@ rcloud.search <-
       orderby = orderby,
       start = start,
       pagesize = pagesize,
+      max_pages = max_pages,
       group.limit = group.limit,
       hl.fragsize = hl.fragsize
     )
