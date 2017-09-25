@@ -81,8 +81,8 @@ test_that("Global search instance exists", {
 
 test_that("New search two sources", {
 
-  skipifnot(check_solr_instance("http://solr"))
-  skipifnot(check_solr_instance("http://solr2"))
+  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solr2"))
 
   sources <- read_rcloud_conf("rc-two.conf")
 
@@ -115,8 +115,8 @@ test_that("New search two sources", {
 
 test_that("Full search two sources", {
 
-  skipifnot(check_solr_instance("http://solr"))
-  skipifnot(check_solr_instance("http://solr2"))
+  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solr2"))
 
   sources <- read_rcloud_conf("rc-two.conf")
 
