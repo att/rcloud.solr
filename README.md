@@ -57,6 +57,8 @@ I recommend using [Docker](https://www.docker.com/) to setup the development env
 sudo docker build . -t rcsolr-rstudio
 ```
 
+Or you can pull the version that matches the development head from docker hub: `docker pull mangothecat/rcsolr-rstudio`.
+
 The repo also contains a Docker Compose file to bring up the whole environment. This includes the RStudio container and an instance of Solr. To run all this in the background run:
 
 ```sh
