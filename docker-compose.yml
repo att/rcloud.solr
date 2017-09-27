@@ -4,8 +4,12 @@ services:
     image: mangothecat/rcloud-solr:latest
     ports:
       - "8984:8983"
+  solr2:
+    image: mangothecat/rcloud-solr:latest
+    ports:
+      - "8985:8983"
   rstudio:
-    image: rcsolr-rstudio
+    image: mangothecat/rcsolr-rstudio
     ports:
       - "8787:8787"
     volumes:

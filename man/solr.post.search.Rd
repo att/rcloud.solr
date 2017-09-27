@@ -11,11 +11,14 @@
 \arguments{
 \item{query}{Character. The search term.}
 
-\item{solr.url}{Usually from \code{solr.url} config. In testing can be \code{http://solr:8983/solr/rcloudnotebooks}}
+\item{solr.url}{Usually from \code{solr.url} config. In testing can be
+\code{http://solr:8983/solr/rcloudnotebooks}}
 
-\item{solr.auth.user}{Usually from \code{solr.url} config. \code{NULL} in testing}
+\item{solr.auth.user}{Usually from \code{solr.url} config. \code{NULL}
+in testing}
 
-\item{solr.auth.pwd}{Usually from \code{solr.url} config. \code{NULL} in testing}
+\item{solr.auth.pwd}{Usually from \code{solr.url} config. \code{NULL} in
+testing}
 }
 \value{
 The search response
