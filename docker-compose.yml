@@ -9,7 +9,7 @@ services:
     ports:
       - "8985:8983"
   rstudio:
-    image: rcsolr-rstudio
+    image: mangothecat/rcsolr-rstudio
     ports:
       - "8787:8787"
     volumes:
