@@ -19,4 +19,5 @@ Remotes: mangothecat/rcloud.support,
     s-u/ulog
 RoxygenNote: 6.0.1
 Suggests: testthat,
-    jsonlite
+    jsonlite,
+    lubridate

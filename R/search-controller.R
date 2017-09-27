@@ -239,12 +239,57 @@ sc_merge_notebooks <- function(raw_results, sortby, orderby) {
 
   all_notebooks <- do.call(c, unname(raw_notebooks))
 
-  sort_col <- vapply(all_notebooks, `[[`, sortby, FUN.VALUE = numeric(1))
+  if(!is.null(all_notebooks) && length(all_notebooks) > 0) {
+
+  order_col <- switch(sortby,
+                      "updated_at" = sc_order_timestamp(all_notebooks, sortby, orderby),
+                      sc_order_default(all_notebooks, sortby, orderby))
+
+  all_notebooks <- all_notebooks[order_col]
+
+  }
+
+  all_notebooks
+
+}
+
+sc_order_default <- function(all_notebooks, sortby, orderby) {
+
+  sort_col <- sapply(all_notebooks, `[[`, sortby)
+  # should be a vector. If not try to correct it
+  if(is.list(sort_col)) {
+    sort_col <- sc_infer_sort_col(sort_col)
+  }
 
   decreasing <- isTRUE(orderby == "desc")
 
-  order_col <- order(sort_col, decreasing = decreasing)
+  order(sort_col, decreasing = decreasing)
 
-  all_notebooks[order_col]
+}
 
+sc_order_timestamp <- function(all_notebooks, sortby, orderby) {
+
+  sort_col_raw <- vapply(all_notebooks, `[[`, sortby, FUN.VALUE = character(1))
+
+  sort_col <- as.POSIXct(sort_col_raw, format = "%Y-%m-%dT%H:%M:%S")
+
+  decreasing <- isTRUE(orderby == "desc")
+
+  order(sort_col, decreasing = decreasing)
+
+}
+
+# Try to convert to a vector of sortable results
+sc_infer_sort_col <- function(sort_col) {
+  sort_lengths <- vapply(sort_col, length, numeric(1))
+
+  if(any(sort_lengths > 1)) stop("Sort column returned with multiple values")
+
+  #Replace NULLS with NA
+  sort_nulls <- vapply(sort_col, is.null, logical(1))
+  sort_col[sort_nulls] <- NA
+
+  # Convert to char and us conversion (similar to read.table)
+  sort_char <- vapply(sort_col, as.character, character(1))
+  utils::type.convert(sort_char, as.is = TRUE)
 }
