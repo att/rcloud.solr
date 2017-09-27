@@ -101,8 +101,6 @@ ss_search <- function(query,
 
   rows <- max(pagesize * max_pages, 10)
 
-  message("hello", pagesize, " ", max_pages)
-
   solr.query <- list(q=query,
                      start=start,
                      rows=rows,
