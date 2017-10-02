@@ -21,6 +21,10 @@ NULL
 SearchSourceV1 <- R6::R6Class(
   "SearchSourceV1",
 
-  inherit = SearchSource,
+  inherit = SearchSource#,
+
+  # public = list(
+  # )
 
 )
+

@@ -46,7 +46,7 @@ test_that("Solr Responds", {
   expect_equal(names(solr.res), exp_names)
 
   # Normal parse
-  resp <- parse.solr.res(solr.res, 10, "", 0)
+  resp <- ss_parse_result(self = list(), private = list(source = ""), solr.res = solr.res, pagesize = 10, start =  0)
 
   exp_names <- c("QTime", "status", "start", "pagesize", "source", "matches",
                  "n_notebooks", "notebooks")
