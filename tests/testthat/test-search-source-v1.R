@@ -1,11 +1,11 @@
-context("Solr Source")
+context("V1 Solr Source")
 
-if(check_solr_instance("http://solr")) {
+if(check_solr_instance("http://solrv1")) {
 
-  url <- make_solr_url("http://solr", path = "solr/rcloudnotebooks/update", query = list(commit = "true"))
+  url <- make_solr_url("http://solrv1", path = "solr/rcloudnotebooks/update", query = list(commit = "true"))
 
   # Uploads a bunch of notebooks
-  httr::POST(url, body = httr::upload_file("notebooks/allnotebooks.json"))
+  httr::POST(url, body = httr::upload_file("notebooks/allnotebooks_v1.json"))
 
   on.exit({
     httr::POST(url, httr::content_type_xml(), body = "<delete><query>*:*</query></delete>")
@@ -14,7 +14,7 @@ if(check_solr_instance("http://solr")) {
 
 test_that("Initialise source", {
 
-  source <- read_rcloud_conf("rc-one.conf")
+  source <- read_rcloud_conf("rc-one-old.conf")
 
   source_named <- mapply(source, names(source),
                          FUN = function(x,y) c(source=y, x),
@@ -28,9 +28,9 @@ test_that("Initialise source", {
 
 test_that("Search one source", {
 
-  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solrv1"))
 
-  source <- read_rcloud_conf("rc-one.conf")
+  source <- read_rcloud_conf("rc-one-old.conf")
 
   source_named <- mapply(source, names(source),
                          FUN = function(x,y) c(source=y, x),
@@ -51,13 +51,13 @@ test_that("Search one source", {
 
 test_that("make a request", {
 
-  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solrv1"))
 
-  source <- read_rcloud_conf("rc-one.conf")
+  source <- read_rcloud_conf("rc-one-old.conf")
   source_named <- mapply(source, names(source),
                          FUN = function(x,y) c(source=y, x),
                          SIMPLIFY = FALSE)
-  SS <- SearchSource$new(source_named[[1]])
+  SS <- SearchSourceV1$new(source_named[[1]])
 
   solr.query <- list(q="cars",
                      start=0,

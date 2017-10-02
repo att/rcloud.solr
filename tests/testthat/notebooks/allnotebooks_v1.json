@@ -1,0 +1,240 @@
+[
+  {
+    "id": "010b0b4451ff152e6c62",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:42:14Z",
+    "updated_at": "2017-03-03T13:42:38Z",
+    "description": "Test2",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "79",
+    "commited_at": "2017-03-03T13:42:38Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "3",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(mtcars$disp)\\n\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "0c9cf888aac4fe1a82c5",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:52:40Z",
+    "updated_at": "2017-03-03T14:30:58Z",
+    "description": "Test9",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "124",
+    "commited_at": "2017-03-03T14:30:58Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "20",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(iris[iris$Species == \\\"versicolor\\\", \\\"Petal.Length\\\"])\\n#hello\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "0ea1126dec88a06e105d",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:53:50Z",
+    "updated_at": "2017-03-03T13:54:05Z",
+    "description": "Test11",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "80",
+    "commited_at": "2017-03-03T13:54:05Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "9",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(rpois(1000,3))\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "1e53b4edfca6d6c0ba6e",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:52:22Z",
+    "updated_at": "2017-03-03T13:52:36Z",
+    "description": "Test8",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "84",
+    "commited_at": "2017-03-03T13:52:36Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "16",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(iris$Sepal.Length)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "3aeb8d21f2b4c26ecff8",
+    "user": "rcloud",
+    "created_at": "2017-05-09T10:43:16Z",
+    "updated_at": "2017-05-09T10:47:23Z",
+    "description": "AAA Reindex 2",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "730",
+    "commited_at": "2017-05-09T10:47:23Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "8",
+    "content": {
+      "set": "[{\"filename\":\"part11.R\",\"content\":\"?jsonlite::toJSON\"},{\"filename\":\"part2.R\",\"content\":\"users <- rcloud.get.users()\\n\"},{\"filename\":\"part3.R\",\"content\":\"setwd(\\\"/data/rcloud/data\\\")\"},{\"filename\":\"part4.R\",\"content\":\"notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\\\"rcloud\\\"))\"},{\"filename\":\"part5.R\",\"content\":\"for (i in notebooks) {\\n    print(paste0(\\\"Saving \\\", i))\\n    result = tryCatch({\\n    x = rcloud.get.notebook(i)\\n    jx <- jsonlite::toJSON(x, pretty = TRUE, auto_unbox=TRUE)\\n    writeLines(jx, paste0(i,\\\".json\\\"))\\n    }, warning = function(w) {\\n   print(paste0(w,\\\" \\\",i))\\n    }, error = function(e) {\\n   print(paste0(e,\\\" \\\",i))\\n    }, finally = {\\n    print(paste0(\\\"Success \\\",i))\\n    })\\n    Sys.sleep(1)\\n}\"},{\"filename\":\"part6.R\",\"content\":\"x <- rcloud.get.notebook(notebooks[1])\"},{\"filename\":\"part7.R\",\"content\":\"x\"},{\"filename\":\"part8.R\",\"content\":\"#saveRDS(x, file=\\\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\\\")\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "3fbd8409ff4fb50e5120",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:43:57Z",
+    "updated_at": "2017-05-09T10:41:30Z",
+    "description": "AAA Reindex",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "686",
+    "commited_at": "2017-05-09T10:41:30Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "11",
+    "content": {
+      "set": "[{\"filename\":\"part2.R\",\"content\":\"users <- rcloud.get.users()\\n\"},{\"filename\":\"part3.R\",\"content\":\"notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\\\"rcloud\\\"))\"},{\"filename\":\"part4.R\",\"content\":\"for (i in notebooks) {\\n        print(paste0(\\\"Indexing \\\", i))\\n    result = tryCatch({\\n    x = rcloud.get.notebook(i)\\n         rcloud.solr::update_solr(x,rcloud.notebook.star.count(i))\\n    }, warning = function(w) {\\n   print(paste0(w,\\\" \\\",i))\\n    }, error = function(e) {\\n   print(paste0(e,\\\" \\\",i))\\n    }, finally = {\\n    print(paste0(\\\"Success \\\",i))\\n    })\\n    Sys.sleep(1)\\n}\"},{\"filename\":\"part5.R\",\"content\":\"x <- rcloud.get.notebook(notebooks[1])\"},{\"filename\":\"part6.R\",\"content\":\"x\"},{\"filename\":\"part7.R\",\"content\":\"#saveRDS(x, file=\\\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\\\")\"},{\"filename\":\"part9.R\",\"content\":\"setwd(\\\"/data/rcloud/data\\\")\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "710f9d799d84ff04cc83",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:51:21Z",
+    "updated_at": "2017-03-03T13:51:38Z",
+    "description": "Test6",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "84",
+    "commited_at": "2017-03-03T13:51:38Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "4",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(iris$Petal.Length)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "736f7a0bd96de228312a",
+    "user": "rcloud",
+    "created_at": "2017-03-07T16:07:23Z",
+    "updated_at": "2017-03-07T16:08:02Z",
+    "description": "MDHist",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "119",
+    "commited_at": "2017-03-07T16:08:02Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "3",
+    "content": {
+      "set": "[{\"filename\":\"part1.md\",\"content\":\"# A Notebook About Hist\"},{\"filename\":\"part2.md\",\"content\":\"I wonder if hist is case sensitive?\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "846df905503b3499b653",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:50:54Z",
+    "updated_at": "2017-03-03T13:51:14Z",
+    "description": "Test5",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "106",
+    "commited_at": "2017-03-03T13:51:14Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "16",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(mtcars$mpg)\"},{\"filename\":\"part2.R\",\"content\":\"plot(mpg ~ wt, data = mtcars)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "900631f0c7b5e89eac58",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:33:02Z",
+    "updated_at": "2017-04-05T14:55:21Z",
+    "description": "Hist1",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "305",
+    "commited_at": "2017-04-05T14:55:21Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "4",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(rnorm(1000))\"},{\"filename\":\"part2.md\",\"content\":\"# testing solr update\"},{\"filename\":\"part3.R\",\"content\":\"install.packages(\\\"radarchart\\\")\"},{\"filename\":\"part4.R\",\"content\":\"library(radarchart)\"},{\"filename\":\"part5.R\",\"content\":\"install.packages(\\\"gmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()gvis\\\")\"},{\"filename\":\"part6.R\",\"content\":\"install.packages(\\\"ggvis\\\")\"},{\"filename\":\"part7.R\",\"content\":\"library(ggvis)\\nmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "a4839ec392949098f861",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:50:30Z",
+    "updated_at": "2017-03-03T13:50:49Z",
+    "description": "Test4",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "92",
+    "commited_at": "2017-03-03T13:50:49Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "9",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(cars$speed)\"},{\"filename\":\"part2.R\",\"content\":\"hist(cars$dist)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "cfaa873722ec2bfedc28",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:50:09Z",
+    "updated_at": "2017-03-03T13:50:26Z",
+    "description": "Test3",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "79",
+    "commited_at": "2017-03-03T13:50:26Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "0",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(runif(10000))\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "f49f595cce499445f999",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:51:43Z",
+    "updated_at": "2017-03-03T13:52:18Z",
+    "description": "Test7",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "83",
+    "commited_at": "2017-03-03T13:52:18Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "17",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(iris$Petal.Width)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  },
+  {
+    "id": "fc0037a649b022751c46",
+    "user": "rcloud",
+    "created_at": "2017-03-03T13:53:31Z",
+    "updated_at": "2017-03-03T13:53:46Z",
+    "description": "Test10",
+    "user_url": "",
+    "avatar_url": "",
+    "size": "76",
+    "commited_at": "2017-03-03T13:53:46Z",
+    "followers": "0",
+    "public": "FALSE",
+    "starcount": "17",
+    "content": {
+      "set": "[{\"filename\":\"part1.R\",\"content\":\"hist(mtcars$wt)\"},{\"filename\":\"scratch.R\",\"content\":\"# keep snippets here while working with your notebook's cells\"}]"
+    }
+  }
+]
