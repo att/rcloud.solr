@@ -109,7 +109,9 @@ ss_search <- function(self,
                       pagesize = 10,
                       max_pages = 20,
                       group.limit = 4,
-                      hl.fragsize = 60) {
+                      hl.fragsize = 60,
+                      group = "true",
+                      group.field = "notebook_id") {
 
 
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
@@ -123,8 +125,8 @@ ss_search <- function(self,
                      start=start,
                      rows=rows,
                      indent="true",
-                     group="true",
-                     group.field="notebook_id",
+                     group=group,
+                     group.field=group.field,
                      group.limit=group.limit,
                      group.ngroups="true",
                      hl="true",
