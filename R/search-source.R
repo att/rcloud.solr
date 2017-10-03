@@ -69,7 +69,20 @@ SearchSource <- R6::R6Class(
     source = NULL,
     solr.url = NULL,
     solr.auth.user = NULL,
-    solr.auth.pwd = NULL
+    solr.auth.pwd = NULL,
+
+    solr.options = list(
+      group = "true",
+      group.field = "notebook_id",
+      group.ngroups = "true",
+      hl = "true",
+      hl.preserveMulti = "true",
+      hl.maxAnalyzedChars = -1,
+      hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
+      hl.simple.post = "</span>",
+      fl = "description,id,user,updated_at,starcount,filename, doc_type",
+      hl.fl = "content,comments"
+    )
   )
 )
 
@@ -109,9 +122,7 @@ ss_search <- function(self,
                       pagesize = 10,
                       max_pages = 20,
                       group.limit = 4,
-                      hl.fragsize = 60,
-                      group = "true",
-                      group.field = "notebook_id") {
+                      hl.fragsize=60) {
 
 
   ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
@@ -121,23 +132,18 @@ ss_search <- function(self,
 
   rows <- max(pagesize * max_pages, 10)
 
-  solr.query <- list(q=query,
-                     start=start,
-                     rows=rows,
-                     indent="true",
-                     group=group,
-                     group.field=group.field,
-                     group.limit=group.limit,
-                     group.ngroups="true",
-                     hl="true",
-                     hl.preserveMulti="true",
-                     hl.fragsize=hl.fragsize,
-                     hl.maxAnalyzedChars=-1,
-                     hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
-                     hl.simple.post = "</span>",
-                     fl="description,id,user,updated_at,starcount,filename, doc_type",
-                     hl.fl="content,comments",
-                     sort=paste(sortby,orderby))
+  solr.query <- modifyList(
+    list(
+      q = query,
+      start = start,
+      rows = rows,
+      indent = "true",
+      group.limit = group.limit,
+      hl.fragsize = hl.fragsize,
+      sort = paste(sortby, orderby)
+    ),
+    private$solr.options # takes priority
+  )
 
   # Make the request
   solr.res <- .solr.get(

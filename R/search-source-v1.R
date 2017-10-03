@@ -26,7 +26,26 @@ SearchSourceV1 <- R6::R6Class(
   public = list(
     # Methods
     search = function(...)
-      ss_search(self, private, group = "false", ...)
+      ss_search(self, private, ...)
+  ),
+
+  private = list(
+
+    parse_result = function(solr.res, pagesize, start)
+      parse.solr.res(solr.res, pagesize, private$source),
+
+    solr.options = list(
+      group = "false",
+      hl = "true",
+      hl.preserveMulti = "true",
+      hl.maxAnalyzedChars = -1,
+      hl.simple.pre = "span_open_tag",
+      hl.simple.post = "span_close_tag",
+      hl.fragsize=0,
+      fl = "description,id,user,updated_at,starcount,filename, doc_type",
+      hl.fl = "content,comments"
+    )
+
   )
 
 )
@@ -50,11 +69,6 @@ parse.solr.res <- function(solr.res, pagesize, source) {
     return(c("error",solr.res$error$msg))
   }
 
-  # Detect empty response
-  if(length(response.docs) <= 0) {
-    return(solr.res$response$docs)
-  }
-
   # Process the highlighting
   response.high <- lapply(response.high, parse.response.high)
 
@@ -66,31 +80,36 @@ parse.solr.res <- function(solr.res, pagesize, source) {
 
 create.json.output <- function(response.docs, response.high, solr.res, pagesize, source) {
 
-  count <- solr.res$response$numFound
-  rows <- solr.res$params$rows
-
 
   json <- list(
     QTime = solr.res$responseHeader$QTime,
-    source = as.vector(source),
+    status = solr.res$responseHeader$status,
     pagesize = pagesize,
+    start = solr.res$response$start,
+    source = as.vector(source),
     n_notebooks = solr.res$response$numFound
   )
 
   docs <- lapply(response.docs, function(x) {
     list(
-         notebook_id = x$id,
+         id = x$id,
          description = x$description,
+         source = as.vector(source),
          starcount = x$starcount,
          updated_at = x$updated_at,
          user = x$user)
     })
 
+  matches = 0
   for(i in seq_along(docs)){
-    docs[[i]]$parts <- response.high[[i]]
+    numFound <- length(response.high[[i]])
+    docs[[i]]$doclist <- response.high[[i]]
+    docs[[i]]$doclist$numFound <- numFound
+    matches <- matches + numFound
   }
+  json$matches <- matches
 
-  json$docs <- docs
+  json$notebooks <- docs
 
   json
 }

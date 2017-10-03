@@ -1,4 +1,4 @@
-context("V1 Solr Source")
+context("Solr Source V1")
 
 if(check_solr_instance("http://solrv1")) {
 
@@ -30,7 +30,6 @@ test_that("Search one source", {
 
   skip_if_not(check_solr_instance("http://solrv1"))
 
-  skip("TEMP SKIP")
 
   source <- read_rcloud_conf("rc-one-old.conf")
 
@@ -48,6 +47,31 @@ test_that("Search one source", {
 
 
   expect_equal(results$n_notebooks, 12)
+
+})
+
+test_that("Empty searc", {
+
+  skip_if_not(check_solr_instance("http://solrv1"))
+
+
+  source <- read_rcloud_conf("rc-one-old.conf")
+
+  source_named <- mapply(source, names(source),
+                         FUN = function(x,y) c(source=y, x),
+                         SIMPLIFY = FALSE)
+
+  SS <- SearchSourceV1$new(source_named[[1]])
+
+  results <- SS$search("thiswontmatchanything21",
+                       sortby = "starcount",
+                       orderby = "desc",
+                       pagesize = 10,
+                       max_pages = 10)
+
+
+  expect_equal(results$n_notebooks, 0)
+  expect_equal(results$matches, 0)
 
 })
 
@@ -73,8 +97,6 @@ test_that("make a request", {
                      hl.preserveMulti="true",
                      hl.fragsize=0,
                      hl.maxAnalyzedChars=-1,
-                     #hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
-                     #hl.simple.post = "</span>",
                      hl.simple.pre = "span_open_tag",
                      hl.simple.post = "span_close_tag",
                      fl="description,id,user,updated_at,starcount",
