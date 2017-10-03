@@ -169,4 +169,6 @@ test_that("Two mixed sources", {
     group.limit = 4
   )
 
+  expect_equal(response$n_notebooks, 24)
+
 })
