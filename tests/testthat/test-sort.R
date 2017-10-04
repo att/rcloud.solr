@@ -1,4 +1,4 @@
-context("Sort results")
+context("Sort Results")
 
 # sources <- read_rcloud_conf("rc-two.conf")
 #

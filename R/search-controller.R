@@ -100,7 +100,7 @@ sc_set_sources <- function(self, private, sources) {
 
 
   # Create new instances of the SearchSource class
-  private$sources <- lapply(source_named, SearchSource$new)
+  private$sources <- lapply(source_named, sc_create_source)
 }
 
 #' Retrieve Solr Sources From RCloud Config
@@ -111,7 +111,8 @@ sc_get_rcloud_sources <- function() {
   main_source <- list(
     solr.url = rcloud.config("solr.url"),
     solr.auth.user = rcloud.config("solr.auth.user"),
-    solr.auth.pwd = rcloud.config("solr.auth.pwd")
+    solr.auth.pwd = rcloud.config("solr.auth.pwd"),
+    solr.api.version = rcloud.config("solr.api.version")
   )
 
   gist_sources <-
@@ -188,6 +189,13 @@ sc_build_response <- function(self, private, start, pagesize) {
 
 # Internal Functions ------------------------------------------------------
 
+sc_create_source <- function(source) {
+
+  if(exists("solr.api.version", source) && !is.null(source$solr.api.version) && source$solr.api.version == "1.0")
+    SearchSourceV1$new(source)
+  else
+    SearchSource$new(source)
+}
 
 #' Merge Raw Results
 #'

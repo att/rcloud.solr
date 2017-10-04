@@ -5,3 +5,4 @@ notes.md
 Dockerfile
 docker-compose.yml
 ^scripts$
+^data-raw$

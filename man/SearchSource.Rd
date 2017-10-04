@@ -10,21 +10,41 @@
 \description{
 An R6 class to make requests to individual src_params sources.
 }
-\section{Details}{
+\section{Members}{
+
+\describe{
+  \item{source}{The name of the source. This is \code{"main_source"} for the default, otherwise it's pulled from the gist-source.}
+  \item{solr.url}{URL of the solr instance, including the path to the correct core. e.g. \code{http://solr:8983/solr/rcloudnotebooks}.}
+  \item{solr.auth.user}{For authenticated instances, the user name.}
+  \item{solr.auth.pwd}{For authenticated instances, the password.}
+  }
+}
+
+\section{Public Methods}{
 
 \code{$new(src_name, src_params)} starts a new search source
 
 \code{$search(...)} search this source. Parameters are all based on
-  \code{\link{ss_search}}.
+  \code{\link{rcloud.search}}.
+
+
+\code{$get_source} get the \code{source} element
+
+\code{$get_solr_url} get the \code{solr.url} element
+}
+
+\section{Private Methods}{
+
+
+\code{$parse_result(solr.res, pagesize, start)} parse the result of a search. This function can be swapped out for different versions.
 }
 
 \examples{
-\dontrun{
 SS <-
 SearchSource$new(
   src_params = list(source =  "main_source",
                     solr.url = "http://solr:8983/solr/rcloudnotebooks")
 )
-}
 
+SS$get_source()
 }

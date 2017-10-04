@@ -24,6 +24,18 @@ if(check_solr_instance("http://solr2")) {
   }, add = TRUE)
 }
 
+if(check_solr_instance("http://solrv1")) {
+
+  url2 <- make_solr_url("http://solrv1", path = "solr/rcloudnotebooks/update", query = list(commit = "true"))
+
+  # Uploads a bunch of notebooks
+  httr::POST(url2, body = httr::upload_file("notebooks/allnotebooks_v1.json"))
+
+  on.exit({
+    httr::POST(url2, httr::content_type_xml(), body = "<delete><query>*:*</query></delete>")
+  }, add = TRUE)
+}
+
 
 test_that("Initialize", {
   SC <- SearchController$new(sources = list(
@@ -138,4 +150,29 @@ test_that("Full search two sources", {
   # Check the sort order (roughly)
   expect_gte(response$notebooks[[1]]$starcount,
              response$notebooks[[2]]$starcount)
+})
+
+
+test_that("Two mixed sources", {
+
+  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solrv1"))
+
+  sources <- read_rcloud_conf("rc-two-mixed.conf")
+
+  SC <- SearchController$new(sources = sources)
+
+  response <- SC$search(
+    "hist",
+    all_sources = TRUE,
+    sortby = "starcount",
+    orderby = "desc",
+    start = 0,
+    pagesize = 10,
+    max_pages = 10,
+    group.limit = 4
+  )
+
+  expect_equal(response$n_notebooks, 24)
+
 })

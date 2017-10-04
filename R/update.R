@@ -150,10 +150,10 @@ process_metadata_list <- function(li) {
   }
 }
 
-default_scratch_content <- 
+default_scratch_content <-
   "# keep snippets here while working with your notebook's cells"
 
 is_default_scratch <- function(file) {
-  file$filename == "scratch.R" && 
+  file$filename == "scratch.R" &&
   file$content == default_scratch_content
 }
