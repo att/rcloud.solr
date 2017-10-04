@@ -154,6 +154,10 @@ test_that("Full search two sources", {
 
 
 test_that("Two mixed sources", {
+
+  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solrv1"))
+
   sources <- read_rcloud_conf("rc-two-mixed.conf")
 
   SC <- SearchController$new(sources = sources)
