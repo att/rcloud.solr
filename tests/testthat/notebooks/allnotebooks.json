@@ -18,7 +18,8 @@
         "language": "R",
         "raw_url": "",
         "size": 18,
-        "content": "waht if\na document\nis spread over\n a number of lines\nhist(mtcars$disp)\n"
+        "content": "waht if\na document\nis spread over\n a number of lines\nhist(mtcars$disp)\n",
+        "user": "juninho"
       },
       {
         "id": "010b0b4451ff152e6c62scratch.R",
@@ -31,13 +32,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "juninho"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 8
+    "starcount": 8,
+    "user": "juninho"
   },
   {
     "id": "0c9cf888aac4fe1a82c5",
@@ -58,7 +61,8 @@
         "language": "R",
         "raw_url": "",
         "size": 63,
-        "content": "hist(iris[iris$Species == \"versicolor\", \"Petal.Length\"])\n#hello"
+        "content": "hist(iris[iris$Species == \"versicolor\", \"Petal.Length\"])\n#hello",
+        "user": "emerson"
       },
       {
         "id": "0c9cf888aac4fe1a82c5scratch.R",
@@ -71,13 +75,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 24
+    "starcount": 24,
+    "user": "emerson"
   },
   {
     "id": "0ea1126dec88a06e105d",
@@ -98,7 +104,8 @@
         "language": "R",
         "raw_url": "",
         "size": 19,
-        "content": "hist(rpois(1000,3))"
+        "content": "hist(rpois(1000,3))",
+        "user": "ravanelli"
       },
       {
         "id": "0ea1126dec88a06e105dscratch.R",
@@ -111,13 +118,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 12
+    "starcount": 12,
+    "user": "ravanelli"
   },
   {
     "id": "1e53b4edfca6d6c0ba6e",
@@ -138,7 +147,8 @@
         "language": "R",
         "raw_url": "",
         "size": 23,
-        "content": "hist(iris$Sepal.Length)"
+        "content": "hist(iris$Sepal.Length)",
+        "user": "emerson"
       },
       {
         "id": "1e53b4edfca6d6c0ba6escratch.R",
@@ -151,13 +161,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 27
+    "starcount": 27,
+    "user": "emerson"
   },
   {
     "id": "3aeb8d21f2b4c26ecff8",
@@ -178,7 +190,8 @@
         "language": "R",
         "raw_url": "",
         "size": 17,
-        "content": "?jsonlite::toJSON"
+        "content": "?jsonlite::toJSON",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part2.R",
@@ -191,7 +204,8 @@
         "language": "R",
         "raw_url": "",
         "size": 28,
-        "content": "users <- rcloud.get.users()\n"
+        "content": "users <- rcloud.get.users()\n",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part3.R",
@@ -204,7 +218,8 @@
         "language": "R",
         "raw_url": "",
         "size": 26,
-        "content": "setwd(\"/data/rcloud/data\")"
+        "content": "setwd(\"/data/rcloud/data\")",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part4.R",
@@ -217,7 +232,8 @@
         "language": "R",
         "raw_url": "",
         "size": 73,
-        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))"
+        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part5.R",
@@ -230,7 +246,8 @@
         "language": "R",
         "raw_url": "",
         "size": 398,
-        "content": "for (i in notebooks) {\n    print(paste0(\"Saving \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n    jx <- jsonlite::toJSON(x, pretty = TRUE, auto_unbox=TRUE)\n    writeLines(jx, paste0(i,\".json\"))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}"
+        "content": "for (i in notebooks) {\n    print(paste0(\"Saving \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n    jx <- jsonlite::toJSON(x, pretty = TRUE, auto_unbox=TRUE)\n    writeLines(jx, paste0(i,\".json\"))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part6.R",
@@ -243,7 +260,8 @@
         "language": "R",
         "raw_url": "",
         "size": 38,
-        "content": "x <- rcloud.get.notebook(notebooks[1])"
+        "content": "x <- rcloud.get.notebook(notebooks[1])",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part7.R",
@@ -256,7 +274,8 @@
         "language": "R",
         "raw_url": "",
         "size": 1,
-        "content": "x"
+        "content": "x",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8part8.R",
@@ -269,7 +288,8 @@
         "language": "R",
         "raw_url": "",
         "size": 88,
-        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")"
+        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")",
+        "user": "emerson"
       },
       {
         "id": "3aeb8d21f2b4c26ecff8scratch.R",
@@ -282,13 +302,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 29
+    "starcount": 29,
+    "user": "emerson"
   },
   {
     "id": "3fbd8409ff4fb50e5120",
@@ -309,7 +331,8 @@
         "language": "R",
         "raw_url": "",
         "size": 28,
-        "content": "users <- rcloud.get.users()\n"
+        "content": "users <- rcloud.get.users()\n",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part3.R",
@@ -322,7 +345,8 @@
         "language": "R",
         "raw_url": "",
         "size": 73,
-        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))"
+        "content": "notebooks <- unlist(rcloud.config.all.notebooks.multiple.users(\"rcloud\"))",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part4.R",
@@ -335,7 +359,8 @@
         "language": "R",
         "raw_url": "",
         "size": 371,
-        "content": "for (i in notebooks) {\n        print(paste0(\"Indexing \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n         rcloud.solr::update_solr(x,rcloud.notebook.star.count(i))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}"
+        "content": "for (i in notebooks) {\n        print(paste0(\"Indexing \", i))\n    result = tryCatch({\n    x = rcloud.get.notebook(i)\n         rcloud.solr::update_solr(x,rcloud.notebook.star.count(i))\n    }, warning = function(w) {\n   print(paste0(w,\" \",i))\n    }, error = function(e) {\n   print(paste0(e,\" \",i))\n    }, finally = {\n    print(paste0(\"Success \",i))\n    })\n    Sys.sleep(1)\n}",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part5.R",
@@ -348,7 +373,8 @@
         "language": "R",
         "raw_url": "",
         "size": 38,
-        "content": "x <- rcloud.get.notebook(notebooks[1])"
+        "content": "x <- rcloud.get.notebook(notebooks[1])",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part6.R",
@@ -361,7 +387,8 @@
         "language": "R",
         "raw_url": "",
         "size": 1,
-        "content": "x"
+        "content": "x",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part7.R",
@@ -374,7 +401,8 @@
         "language": "R",
         "raw_url": "",
         "size": 88,
-        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")"
+        "content": "#saveRDS(x, file=\"/data/rcloud/rcloud.packages/rcloud.solr/tests/testthat/notebook.rds\")",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120part9.R",
@@ -387,7 +415,8 @@
         "language": "R",
         "raw_url": "",
         "size": 26,
-        "content": "setwd(\"/data/rcloud/data\")"
+        "content": "setwd(\"/data/rcloud/data\")",
+        "user": "juninho"
       },
       {
         "id": "3fbd8409ff4fb50e5120scratch.R",
@@ -400,13 +429,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "juninho"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 1
+    "starcount": 1,
+    "user": "juninho"
   },
   {
     "id": "710f9d799d84ff04cc83",
@@ -427,7 +458,8 @@
         "language": "R",
         "raw_url": "",
         "size": 23,
-        "content": "hist(iris$Petal.Length)"
+        "content": "hist(iris$Petal.Length)",
+        "user": "ravanelli"
       },
       {
         "id": "710f9d799d84ff04cc83scratch.R",
@@ -440,13 +472,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 16
+    "starcount": 16,
+    "user": "ravanelli"
   },
   {
     "id": "736f7a0bd96de228312a",
@@ -467,7 +501,8 @@
         "language": "Markdown",
         "raw_url": "",
         "size": 23,
-        "content": "# A Notebook About Hist"
+        "content": "# A Notebook About Hist",
+        "user": "emerson"
       },
       {
         "id": "736f7a0bd96de228312apart2.md",
@@ -480,7 +515,8 @@
         "language": "Markdown",
         "raw_url": "",
         "size": 35,
-        "content": "I wonder if hist is case sensitive?"
+        "content": "I wonder if hist is case sensitive?",
+        "user": "emerson"
       },
       {
         "id": "736f7a0bd96de228312ascratch.R",
@@ -493,13 +529,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 27
+    "starcount": 27,
+    "user": "emerson"
   },
   {
     "id": "846df905503b3499b653",
@@ -520,7 +558,8 @@
         "language": "R",
         "raw_url": "",
         "size": 16,
-        "content": "hist(mtcars$mpg)"
+        "content": "hist(mtcars$mpg)",
+        "user": "ravanelli"
       },
       {
         "id": "846df905503b3499b653part2.R",
@@ -533,7 +572,8 @@
         "language": "R",
         "raw_url": "",
         "size": 29,
-        "content": "plot(mpg ~ wt, data = mtcars)"
+        "content": "plot(mpg ~ wt, data = mtcars)",
+        "user": "ravanelli"
       },
       {
         "id": "846df905503b3499b653scratch.R",
@@ -546,13 +586,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 17
+    "starcount": 17,
+    "user": "ravanelli"
   },
   {
     "id": "900631f0c7b5e89eac58",
@@ -573,7 +615,8 @@
         "language": "R",
         "raw_url": "",
         "size": 17,
-        "content": "hist(rnorm(1000))"
+        "content": "hist(rnorm(1000))",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part2.md",
@@ -586,7 +629,8 @@
         "language": "Markdown",
         "raw_url": "",
         "size": 21,
-        "content": "# testing solr update"
+        "content": "# testing solr update",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part3.R",
@@ -599,7 +643,8 @@
         "language": "R",
         "raw_url": "",
         "size": 30,
-        "content": "install.packages(\"radarchart\")"
+        "content": "install.packages(\"radarchart\")",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part4.R",
@@ -612,7 +657,8 @@
         "language": "R",
         "raw_url": "",
         "size": 19,
-        "content": "library(radarchart)"
+        "content": "library(radarchart)",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part5.R",
@@ -625,7 +671,8 @@
         "language": "R",
         "raw_url": "",
         "size": 71,
-        "content": "install.packages(\"gmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()gvis\")"
+        "content": "install.packages(\"gmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()gvis\")",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part6.R",
@@ -638,7 +685,8 @@
         "language": "R",
         "raw_url": "",
         "size": 25,
-        "content": "install.packages(\"ggvis\")"
+        "content": "install.packages(\"ggvis\")",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58part7.R",
@@ -651,7 +699,8 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "library(ggvis)\nmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()"
+        "content": "library(ggvis)\nmtcars %>% ggvis(~wt, ~mpg) %>% layer_points()",
+        "user": "ravanelli"
       },
       {
         "id": "900631f0c7b5e89eac58scratch.R",
@@ -664,13 +713,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 14
+    "starcount": 14,
+    "user": "ravanelli"
   },
   {
     "id": "a4839ec392949098f861",
@@ -691,7 +742,8 @@
         "language": "R",
         "raw_url": "",
         "size": 16,
-        "content": "hist(cars$speed)"
+        "content": "hist(cars$speed)",
+        "user": "emerson"
       },
       {
         "id": "a4839ec392949098f861part2.R",
@@ -704,7 +756,8 @@
         "language": "R",
         "raw_url": "",
         "size": 15,
-        "content": "hist(cars$dist)"
+        "content": "hist(cars$dist)",
+        "user": "emerson"
       },
       {
         "id": "a4839ec392949098f861scratch.R",
@@ -717,13 +770,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 29
+    "starcount": 29,
+    "user": "emerson"
   },
   {
     "id": "cfaa873722ec2bfedc28",
@@ -744,7 +799,8 @@
         "language": "R",
         "raw_url": "",
         "size": 18,
-        "content": "hist(runif(10000))"
+        "content": "hist(runif(10000))",
+        "user": "ravanelli"
       },
       {
         "id": "cfaa873722ec2bfedc28scratch.R",
@@ -757,13 +813,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 14
+    "starcount": 14,
+    "user": "ravanelli"
   },
   {
     "id": "f49f595cce499445f999",
@@ -784,7 +842,8 @@
         "language": "R",
         "raw_url": "",
         "size": 22,
-        "content": "hist(iris$Petal.Width)"
+        "content": "hist(iris$Petal.Width)",
+        "user": "emerson"
       },
       {
         "id": "f49f595cce499445f999scratch.R",
@@ -797,13 +856,15 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "emerson"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 21
+    "starcount": 21,
+    "user": "emerson"
   },
   {
     "id": "fc0037a649b022751c46",
@@ -824,7 +885,8 @@
         "language": "R",
         "raw_url": "",
         "size": 15,
-        "content": "hist(mtcars$wt)"
+        "content": "hist(mtcars$wt)",
+        "user": "ravanelli"
       },
       {
         "id": "fc0037a649b022751c46scratch.R",
@@ -837,12 +899,14 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells"
+        "content": "# keep snippets here while working with your notebook's cells",
+        "user": "ravanelli"
       }
     ],
     "avatar_url": "",
     "user_url": "",
     "followers": 0,
-    "starcount": 17
+    "starcount": 17,
+    "user": "ravanelli"
   }
 ]
