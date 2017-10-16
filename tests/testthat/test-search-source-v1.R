@@ -12,6 +12,24 @@ if(check_solr_instance("http://solrv1")) {
   })
 }
 
+test_that("It is really version 1.5", {
+
+  skip_if_not(check_solr_instance("http://solrv1"))
+
+  solr.url <- "http://solrv1:8983/solr/rcloudnotebooks"
+  solr.auth.user <- NULL
+  solr.auth.pwd <- NULL
+
+  version <-
+    .solr.get.version(
+      solr.url = solr.url,
+      solr.auth.user = solr.auth.user,
+      solr.auth.pwd = solr.auth.pwd
+    )
+
+  expect_equal(version, "1.5")
+})
+
 test_that("Initialise source", {
 
   source <- read_rcloud_conf("rc-one-old.conf")

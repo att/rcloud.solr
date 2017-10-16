@@ -160,3 +160,49 @@
   else solr.res$error$msg <- rawToChar(resp$content)
   return(solr.res)
 }
+
+#' Get the schema version
+#'
+#' @param path The GET route
+#' @inheritParams .solr.post
+#'
+#' @return The version as a string
+#'
+.solr.get.version <- function(path = "schema/version",
+                              solr.url = rcloud.support:::getConf("solr.url"),
+                              solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
+                              solr.auth.pwd = rcloud.support:::getConf("solr.auth.pwd")) {
+
+  solr.get.url <- httr::parse_url(solr.url)
+  solr.get.url$path <- paste(solr.get.url$path, path, sep = "/")
+
+  httpConfig <- httr::config()
+  if (!is.null(solr.auth.user)) {
+    httpConfig <-
+      c(httpConfig,
+        httr::authenticate(solr.auth.user, solr.auth.pwd))
+  }
+
+  version <- try({
+
+    resp <- rjson::fromJSON(
+      httr::content(
+        httr::GET(
+          httr::build_url(solr.get.url),
+          httr::content_type_json(),
+          httr::accept_json(),
+          config = httpConfig
+        )
+      )
+    )
+
+    as.character(resp$version)
+  })
+
+  if("try-error" %in% class(version)) {
+    version <- "error"
+  }
+
+  version
+}
+
