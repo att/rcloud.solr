@@ -14,6 +14,8 @@ if(check_solr_instance("http://solr")) {
 
 test_that("Description only search", {
 
+  skip_if_not(check_solr_instance("http://solr"))
+
   resp <- rcloud.search.description("test")
 
   expect_equal(resp$response$numFound, 10)
