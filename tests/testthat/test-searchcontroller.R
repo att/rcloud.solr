@@ -39,7 +39,7 @@ if(check_solr_instance("http://solrv1")) {
 
 test_that("Initialize", {
   SC <- SearchController$new(sources = list(
-    main_source = list(solr.url = "http://example.com:8983")
+    main_source = list(solr.url = "http://example.com")
     ))
 
   sources <- SC$get_sources()
