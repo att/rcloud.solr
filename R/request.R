@@ -161,48 +161,58 @@
   return(solr.res)
 }
 
-#' Get the schema version
+
+#' A generic get request
 #'
-#' @param path The GET route
+#' @param query optional list
+#' @param path the route relative to the solr core
 #' @inheritParams .solr.post
+
+#' @return The response
 #'
-#' @return The version as a string
-#'
-.solr.get.version <- function(path = "schema/version",
+.solr.get.generic <- function(query = NULL,
+                              path = "select",
                               solr.url = rcloud.support:::getConf("solr.url"),
                               solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
                               solr.auth.pwd = rcloud.support:::getConf("solr.auth.pwd")) {
-
   solr.get.url <- httr::parse_url(solr.url)
   solr.get.url$path <- paste(solr.get.url$path, path, sep = "/")
 
+  if (!is.null(query)) {
+    solr.get.url$query <- query
+  }
   httpConfig <- httr::config()
+  solr.res <-
+    list(error = list(code = solr.get.url$hostname, msg = "Unknown Error"))
+
+
   if (!is.null(solr.auth.user)) {
     httpConfig <-
       c(httpConfig,
         httr::authenticate(solr.auth.user, solr.auth.pwd))
   }
 
-  version <- try({
-
-    resp <- rjson::fromJSON(
-      httr::content(
-        httr::GET(
-          httr::build_url(solr.get.url),
-          httr::content_type_json(),
-          httr::accept_json(),
-          config = httpConfig
-        )
-      )
+  resp <- tryCatch({
+    httr::GET(
+      httr::build_url(solr.get.url),
+      httr::content_type_json(),
+      httr::accept_json(),
+      config = httpConfig
     )
-
-    as.character(resp$version)
+  },
+  error = function(e) {
+    solr.res$error$msg = e
+  },
+  warnings = function(w) {
+    solr.res$error$msg = w
   })
 
-  if("try-error" %in% class(version)) {
-    version <- "error"
-  }
-
-  version
+  if (!is.null(resp$message))
+    solr.res$error$msg <-
+    paste0(solr.get.url$hostname, " : ", resp$message)
+  else if (!httr::http_error(resp))
+    solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
+  else
+    solr.res$error$msg <- rawToChar(resp$content)
+  return(solr.res)
 }
-

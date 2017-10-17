@@ -44,7 +44,11 @@ test_that("Initialize", {
 
   sources <- SC$get_sources()
 
-  expect_equal(sources$main_source$get_source(), "main_source")
+  expect_null(sources$main_source)
+
+  bad_search <- SC$search("hist")
+  expect_equal(bad_search$error$msg, "No valid sources")
+
 })
 
 test_that("Set two sources", {

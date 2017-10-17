@@ -12,7 +12,7 @@ if(check_solr_instance("http://solrv1")) {
   })
 }
 
-test_that("It is really version 1.5", {
+test_that("It is really version 1", {
 
   skip_if_not(check_solr_instance("http://solrv1"))
 
@@ -21,13 +21,13 @@ test_that("It is really version 1.5", {
   solr.auth.pwd <- NULL
 
   version <-
-    .solr.get.version(
+    sc_schema_version(
       solr.url = solr.url,
       solr.auth.user = solr.auth.user,
       solr.auth.pwd = solr.auth.pwd
     )
 
-  expect_equal(version, "1.5")
+  expect_equal(version, 1)
 })
 
 test_that("Initialise source", {
