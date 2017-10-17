@@ -118,7 +118,7 @@
         "language": "R",
         "raw_url": "",
         "size": 61,
-        "content": "# keep snippets here while working with your notebook's cells\n orange",
+        "content": "# keep snippets here while working with your notebook's cells\n orange \n iris %>% summary",
         "user": "ravanelli"
       }
     ],
