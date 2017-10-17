@@ -101,6 +101,9 @@ sc_set_sources <- function(self, private, sources) {
 
   # Create new instances of the SearchSource class
   private$sources <- lapply(source_named, sc_create_source)
+
+  # Remove bad sources
+  private$sources <- private$sources[!vapply(private$sources, is.null, logical(1))]
 }
 
 #' Retrieve Solr Sources From RCloud Config
@@ -133,6 +136,15 @@ sc_get_rcloud_sources <- function() {
 #' @param private private members
 #' @param ... arguments to pass to \code{ss_search}
 sc_search <- function(self, private, all_sources, start, pagesize, sortby, orderby, ...) {
+
+  # If things went wrong try not to fall over
+  if(length(private$sources)<1) {
+    return(list(error = list (msg = "No valid sources")))
+  }
+
+  if(!all_sources && !exists("main_source", private$sources)) {
+    return(list(error = list (msg = "Main source not valid")))
+  }
 
   if (start == 0) {
     # Update cached results from all sources
@@ -191,7 +203,23 @@ sc_build_response <- function(self, private, start, pagesize) {
 
 sc_create_source <- function(source) {
 
-  if(exists("solr.api.version", source) && !is.null(source$solr.api.version) && source$solr.api.version == "1.0")
+  if(!exists("solr.auth.user", source)) {
+    source$solr.auth.user <- NULL
+  }
+  if(!exists("solr.auth.pwd", source)) {
+    source$solr.auth.pwd <- NULL
+  }
+
+  schema_version <- sc_schema_version(solr.url = source$solr.url,
+                                      solr.auth.user = source$solr.auth.user,
+                                      solr.auth.pwd = source$solr.auth.pwd)
+
+  if(!is.numeric(schema_version)) {
+    # something bad happened
+    ulog::ulog("ERROR: Failed to retrieve schema for source")
+    NULL
+  }
+  else if(schema_version == 1)
     SearchSourceV1$new(source)
   else
     SearchSource$new(source)
@@ -300,4 +328,33 @@ sc_infer_sort_col <- function(sort_col) {
   # Convert to char and us conversion (similar to read.table)
   sort_char <- vapply(sort_col, as.character, character(1))
   utils::type.convert(sort_char, as.is = TRUE)
+}
+
+#' Get the schema version
+#'
+#' @param path The GET route
+#' @inheritParams .solr.post
+#'
+#' @return The version as a string
+#'
+sc_schema_version <- function(path = "schema/version",
+                              solr.url, solr.auth.user, solr.auth.pwd) {
+
+  resp <- .solr.get.generic(query = NULL, path = path,
+                            solr.url = solr.url,
+                            solr.auth.user = solr.auth.user,
+                            solr.auth.pwd = solr.auth.pwd)
+
+  if(exists("version", resp)) {
+    version <- tryCatch({
+      maj.version <- gsub("(^[0-9]+).*", "\\1", as.character(resp$version))
+      as.numeric(maj.version)
+    },
+    error = function(e) {
+      list(error = e)
+    })
+  } else {
+    version <- resp
+  }
+  version
 }
