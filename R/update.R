@@ -136,7 +136,7 @@ build_one_content_file <- function(file, notebook_info) {
 
   c(list(id = paste0(notebook_info$notebook_id, file$filename)),
     notebook_info,
-    doc_type = "cell",
+    doc_type = if(grepl("^part", file$filename)) "cell" else "asset",
     file[c("filename", "language", "raw_url", "size", "content")])
 
 }
