@@ -216,7 +216,7 @@ sc_create_source <- function(source) {
 
   if(!is.numeric(schema_version)) {
     # something bad happened
-    # ulog?
+    ulog::ulog("ERROR: Failed to retrieve schema for source")
     NULL
   }
   else if(schema_version == 1)
