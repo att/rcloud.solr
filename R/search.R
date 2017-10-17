@@ -20,7 +20,7 @@
 rcloud.search <-
   function(query,
            all_sources = FALSE,
-           sortby = "starcount",
+           sortby = "score",
            orderby = "desc",
            start = 0,
            pagesize = 10,

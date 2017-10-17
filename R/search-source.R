@@ -80,7 +80,7 @@ SearchSource <- R6::R6Class(
       hl.maxAnalyzedChars = -1,
       hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
       hl.simple.post = "</span>",
-      fl = "description,id,user,updated_at,starcount,filename, doc_type",
+      fl = "description,id,user,updated_at,starcount,filename, doc_type, score",
       hl.fl = "content,comments"
     )
   )
@@ -221,7 +221,7 @@ ss_join_one_doc_high <- function(doc, highlight) {
   # Retrieve some notebook
   top_doc <- doc$doclist$docs[[1]]
 
-  select_fields <- c("description", "updated_at", "starcount", "user", "source")
+  select_fields <- c("description", "updated_at", "starcount", "user", "source", "score")
 
   # rename groupValue to id and select items from top_doc
   out_doc <- c(list(id = doc$groupValue),
