@@ -4,7 +4,7 @@
 \alias{rcloud.search}
 \title{Search RCloud Notebooks}
 \usage{
-rcloud.search(query, all_sources = FALSE, sortby = "starcount",
+rcloud.search(query, all_sources = FALSE, sortby = "score",
   orderby = "desc", start = 0, pagesize = 10, max_pages = 20,
   group.limit = 4, hl.fragsize = 60)
 }

@@ -132,7 +132,7 @@ ss_search <- function(self,
 
   rows <- max(pagesize * max_pages, 10)
 
-  solr.query <- modifyList(
+  solr.query <- utils::modifyList(
     list(
       q = query,
       start = start,

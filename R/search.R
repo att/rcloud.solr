@@ -42,10 +42,12 @@ rcloud.search <-
 
 
 
-#' Title
+#' Passthrough Notebook Search
 #'
-#' @param description
-#' @param user
+#' On description and optionally user. This does minimal processing server side to increase speed.
+#'
+#' @param description search string to match against description. Fuzzy matching and wildcarding is used.
+#' @param user optional to specify a user
 #' @inheritParams rcloud.search
 #'
 #' @return Search result direct from solr with no parsing
