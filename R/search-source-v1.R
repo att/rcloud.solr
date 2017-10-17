@@ -42,7 +42,7 @@ SearchSourceV1 <- R6::R6Class(
       hl.simple.pre = "span_open_tag",
       hl.simple.post = "span_close_tag",
       hl.fragsize=0,
-      fl = "description,id,user,updated_at,starcount,filename, doc_type",
+      fl = "description,id,user,updated_at,starcount,filename, doc_type, score",
       hl.fl = "content,comments"
     )
 
@@ -97,13 +97,14 @@ create.json.output <- function(response.docs, response.high, solr.res, pagesize,
          source = as.vector(source),
          starcount = x$starcount,
          updated_at = x$updated_at,
-         user = x$user)
+         user = x$user,
+         score = x$score)
     })
 
   matches = 0
   for(i in seq_along(docs)){
     numFound <- length(response.high[[i]])
-    docs[[i]]$doclist <- response.high[[i]]
+    docs[[i]]$doclist$docs <- response.high[[i]]
     docs[[i]]$doclist$numFound <- numFound
     matches <- matches + numFound
   }

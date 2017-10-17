@@ -58,13 +58,15 @@ test_that("Search one source", {
   SS <- SearchSourceV1$new(source_named[[1]])
 
   results <- SS$search("hist",
-                       sortby = "starcount",
+                       sortby = "score",
                        orderby = "desc",
                        pagesize = 10,
                        max_pages = 10)
 
 
   expect_equal(results$n_notebooks, 12)
+
+  expect_true(exists("docs", where = results$notebooks[[1]]$doclist))
 
 })
 
