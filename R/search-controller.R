@@ -74,7 +74,11 @@ SearchController <- R6::R6Class("SearchController",
 
 sc_initialize <- function(self, private, sources) {
 
-  self$set_sources(sources)
+  # This is called onload so account for situations where rcloud.support
+  # doesn't have a config
+  if(!is.null(rcloud.config("solr.url"))) {
+    self$set_sources(sources)
+  }
 
   invisible(self)
 }
@@ -82,7 +86,11 @@ sc_initialize <- function(self, private, sources) {
 sc_set_sources <- function(self, private, sources) {
   # Get the main config from rcloud.config
   if (is.null(sources)) {
-    sources <- sc_get_rcloud_sources()
+    sources <- try(sc_get_rcloud_sources())
+    if("try-error" %in% class(sources)) {
+      ulog::ulog("ERROR: SOLR source failed to initialise:", gsub("\n", "\\", as.character(sources)))
+      return(NULL)
+    }
   }
 
   # Check the sources

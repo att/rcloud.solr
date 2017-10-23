@@ -37,9 +37,9 @@ if(check_solr_instance("http://solrv1")) {
 }
 
 
-test_that("Initialize", {
+test_that("Initialize Bad", {
   SC <- SearchController$new(sources = list(
-    main_source = list(solr.url = "http://example.com")
+    main_source = list(solr.url = "http://example.com/")
     ))
 
   sources <- SC$get_sources()
@@ -51,7 +51,23 @@ test_that("Initialize", {
 
 })
 
+test_that("Initialize NULL", {
+  SC <- SearchController$new(NULL)
+
+  sources <- SC$get_sources()
+
+  expect_null(sources$main_source)
+
+  bad_search <- SC$search("hist")
+  expect_equal(bad_search$error$msg, "No valid sources")
+
+})
+
+
 test_that("Set two sources", {
+
+  skip_if_not(check_solr_instance("http://solr"))
+  skip_if_not(check_solr_instance("http://solr2"))
 
   sources <- read_rcloud_conf("rc-two.conf")
 
@@ -71,6 +87,8 @@ test_that("Set two sources", {
 })
 
 test_that("Set one source", {
+
+  skip_if_not(check_solr_instance("http://solr"))
 
   sources <- read_rcloud_conf("rc-one.conf")
 

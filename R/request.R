@@ -213,6 +213,6 @@
   else if (!httr::http_error(resp))
     solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
   else
-    solr.res$error$msg <- rawToChar(resp$content)
+    solr.res$error$msg <- httr::http_status(resp)
   return(solr.res)
 }
