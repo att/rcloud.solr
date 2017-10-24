@@ -56,10 +56,21 @@ test_that("Initialize NULL", {
 
   sources <- SC$get_sources()
 
-  expect_null(sources$main_source)
+  if (!check_solr_instance("http://solr")) {
+    expect_null(sources$main_source)
 
-  bad_search <- SC$search("hist")
-  expect_equal(bad_search$error$msg, "No valid sources")
+    bad_search <- SC$search(all_sources = FALSE, query = "hist", start = 0, pagesize = 10,
+                            sortby = "starcount", orderby = "desc")
+    expect_equal(bad_search$error$msg, "No valid sources")
+  }
+  else {
+    expect_named(sources, 'main_source')
+    good_search <- SC$search(all_sources = FALSE, query = "hist", start = 0, pagesize = 10,
+                            sortby = "starcount", orderby = "desc")
+    expect_equal(good_search$n_notebooks, 12)
+  }
+
+
 
 })
 

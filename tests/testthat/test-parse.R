@@ -13,7 +13,7 @@ if(check_solr_instance("http://solr")) {
   })
 }
 
-#
+
 
 test_that("Solr Responds", {
 
@@ -37,21 +37,26 @@ test_that("Solr Responds", {
                      hl.fl="content,comments",
                      sort="starcount desc")
 
-  solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
-                        query=solr.query,
-                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
 
-  exp_names <- c("responseHeader", "grouped", "highlighting")
-  expect_equal(names(solr.res), exp_names)
+  with_mock(`rcloud.support:::getConf` = mock_getConf, {
 
-  # Normal parse
-  resp <- ss_parse_result(self = list(), private = list(source = ""), solr.res = solr.res, pagesize = 10, start =  0)
+    solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
+                          query=solr.query,
+                          solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
+                          solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
 
-  exp_names <- c("QTime", "status", "start", "pagesize", "source", "matches",
-                 "n_notebooks", "notebooks")
+    exp_names <- c("responseHeader", "grouped", "highlighting")
+    expect_equal(names(solr.res), exp_names)
 
-  expect_equal(names(resp), exp_names)
+    # Normal parse
+    resp <- ss_parse_result(self = list(), private = list(source = ""), solr.res = solr.res, pagesize = 10, start =  0)
+
+    exp_names <- c("QTime", "status", "start", "pagesize", "source", "matches",
+                   "n_notebooks", "notebooks")
+
+    expect_equal(names(resp), exp_names)
+
+  })
 
 })
 
@@ -77,14 +82,15 @@ test_that("Bad search", {
                      hl.fl="content,comments",
                      sort="starcount desc")
 
-  solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
-                        query=solr.query,
-                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
+  with_mock(`rcloud.support:::getConf` = mock_getConf, {
+    solr.res <- .solr.get(solr.url=rcloud.support:::getConf("solr.url"),
+                          query=solr.query,
+                          solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
+                          solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
 
-  exp_names <- c("error")
-  expect_equal(names(solr.res), exp_names)
-
+    exp_names <- c("error")
+    expect_equal(names(solr.res), exp_names)
+  })
 })
 
 
