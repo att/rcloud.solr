@@ -211,23 +211,7 @@ sc_build_response <- function(self, private, start, pagesize) {
 
 sc_create_source <- function(source) {
 
-  if(!exists("solr.auth.user", source)) {
-    source$solr.auth.user <- NULL
-  }
-  if(!exists("solr.auth.pwd", source)) {
-    source$solr.auth.pwd <- NULL
-  }
-
-  schema_version <- sc_schema_version(solr.url = source$solr.url,
-                                      solr.auth.user = source$solr.auth.user,
-                                      solr.auth.pwd = source$solr.auth.pwd)
-
-  if(!is.numeric(schema_version)) {
-    # something bad happened
-    ulog::ulog("ERROR: Failed to retrieve schema for source")
-    NULL
-  }
-  else if(schema_version == 1)
+  if(exists("solr.api.version", source) && !is.null(source$solr.api.version) && source$solr.api.version == "1.0")
     SearchSourceV1$new(source)
   else
     SearchSource$new(source)
