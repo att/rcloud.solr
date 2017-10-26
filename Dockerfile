@@ -11,6 +11,7 @@ RUN . /etc/environment \
      --repos $MRAN \
      listviewer \
 # Install direct package dependencies
+  && R -e "devtools::install_github(\"mangothecat/rcloud.support\")" \
   && R -e "devtools::install_dev_deps(\"/rcsolr\", repos = \"${MRAN}\")" \
   && rm -rf /rcsolr
 
