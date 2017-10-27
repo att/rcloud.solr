@@ -4,10 +4,14 @@
 
 #' Search Controller
 #'
-#' An R6 class to control the gathering, sorting and paging of search results.
+#' An R6 class to control the gathering, sorting and paging of search results. This
+#' class controls a number of \code{SearchSource} instances by instantiating them,
+#' and triggering new searches. Results are merged together and stored in the
+#' controller, with pages returned as needed.
 #'
 #' @param sources a named list of sources. Each source must be a list containing
 #' at least \code{solr.url}. The first source must be called \code{main_source}.
+#' To access old solr instances specify \code{solr.api.version}.
 #'
 #' @section Details:
 #' \code{$new(sources = NULL)} starts a new search controller
@@ -17,7 +21,22 @@
 #'  retrieved from \code{rcloud.config} (\code{main_source})
 #'  and \code{.session} (\code{gist_sources}).
 #'
+#' \code{$search(all_sources, start, pagesize, sortby, orderby, ...)}
+#'   Main search interface. Arguments match \code{\link{rcloud.search}}. If start is
+#'   not zero it will read from internal cache, otherwise it will call \code{new_search}.
+#'
+#' \code{$new_search(all_sources, sortby, orderby, ...)}
+#'   This triggers a search on the sources and merges/sorts the results back together into
+#'   the \code{results} internal object.
+#'
+#' \code{$build_response(start, pagesize)}
+#'   Build the response to send back to RCloud. This takes the start point and page size and
+#'   returns the right page from the results.
+#'
 #' \code{$get_sources()} return the config
+#' \code{$get_raw_results()} return the results as returned by sources
+#' \code{$get_results()} return the merged results
+#'
 #'
 #' @importFrom rcloud.support rcloud.config
 #'
@@ -163,7 +182,10 @@ sc_search <- function(self, private, all_sources, start, pagesize, sortby, order
       orderby = orderby,
       ...
     )
+
+    # What if new_search went wrong?
   }
+
 
   self$build_response(start, pagesize)
 
@@ -177,6 +199,9 @@ sc_new_search <- function(self, private, all_sources, sortby, orderby, ...) {
   private$raw_results <- lapply(sources, function(src) {
     src$search(sortby = sortby, orderby = orderby, ...)
   })
+
+  # If there are any problems from solr then this will throw an error
+  sc_check_errors(private$raw_results)
 
   private$results <- sc_merge_results(private$raw_results, sortby = sortby, orderby = orderby)
 
@@ -349,4 +374,28 @@ sc_schema_version <- function(path = "schema/version",
     version <- resp
   }
   version
+}
+
+#' Stop and return errors
+#'
+#' @param raw_results Results from solr sources
+#'
+sc_check_errors <- function(raw_results) {
+
+  is_error <- vapply(raw_results,
+                     function(x)
+                       is.character(x[[1]]) && x[[1]] == "error",
+                     logical(1))
+
+  if(any(is_error)) {
+    error_results <- raw_results[is_error]
+
+    # Crunch down to a single error message
+    error_msgs <- rjson::toJSON(error_results)
+
+    ulog::ulog("ERROR: Search failed: ", error_msgs)
+
+    stop(error_msg)
+  }
+
 }
