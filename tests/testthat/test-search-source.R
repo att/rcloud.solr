@@ -49,6 +49,49 @@ test_that("Search one source", {
 
 })
 
+test_that("Search bad source", {
+
+  source <- read_rcloud_conf("rc-one-bad.conf")
+
+  source_named <- mapply(source, names(source),
+                         FUN = function(x,y) c(source=y, x),
+                         SIMPLIFY = FALSE)
+
+  SS <- SearchSource$new(source_named[[1]])
+
+  results <- SS$search("hist",
+                       sortby = "starcount",
+                       orderby = "desc",
+                       pagesize = 10,
+                       max_pages = 10)
+
+
+  expect_equal(results[1], "error")
+
+})
+
+test_that("Search bad core", {
+
+  skip_if_not(check_solr_instance("http://solr"))
+  source <- read_rcloud_conf("rc-one-bad2.conf")
+
+  source_named <- mapply(source, names(source),
+                         FUN = function(x,y) c(source=y, x),
+                         SIMPLIFY = FALSE)
+
+  SS <- SearchSource$new(source_named[[1]])
+
+  results <- SS$search("hist",
+                       sortby = "starcount",
+                       orderby = "desc",
+                       pagesize = 10,
+                       max_pages = 10)
+
+
+  expect_equal(results[[1]][1], "error")
+
+})
+
 test_that("make a request", {
 
   skip_if_not(check_solr_instance("http://solr"))

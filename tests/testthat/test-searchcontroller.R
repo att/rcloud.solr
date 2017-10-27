@@ -39,8 +39,6 @@ if(check_solr_instance("http://solrv1")) {
 
 test_that("Initialize Bad", {
 
-  skip("Skip until you know what it should do")
-
   SC <- SearchController$new(sources = list(
     main_source = list(solr.url = "http://example.com/")
     ))
@@ -49,9 +47,8 @@ test_that("Initialize Bad", {
 
   expect_named(sources, "main_source")
 
-  bad_search <- SC$search(all_sources = FALSE, query = "hist", start = 0, pagesize = 10,
-                          sortby = "starcount", orderby = "desc")
-  expect_equal(bad_search$error$msg, "No valid sources")
+  expect_error(SC$search(all_sources = FALSE, query = "hist", start = 0, pagesize = 10,
+                          sortby = "starcount", orderby = "desc"))
 
 })
 

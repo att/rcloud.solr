@@ -125,9 +125,7 @@ ss_search <- function(self,
                       hl.fragsize=60) {
 
 
-  ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
   ## Check if search terms are already URL encoded?
-  ## DOUG Move this up to controller?
   if(nchar(query) > nchar(utils::URLdecode(query))) query <- utils::URLdecode(query)
 
   rows <- max(pagesize * max_pages, 10)
