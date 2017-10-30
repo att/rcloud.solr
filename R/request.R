@@ -1,17 +1,24 @@
 # Some intelligent parsing account for basics like /solr/notebook and /solr/notebook/ is essentially the same thing
 # Using httr::parse_url
 
-#' Title
+#' Post Request to Solr
 #'
 #' @param data The body of the request.
-#' @param solr.url Usually from \code{solr.url} config. In testing can be \code{http://solr:8983/solr/rcloudnotebooks}
-#' @param solr.auth.user Usually from \code{solr.url} config. \code{NULL} in testing
-#' @param solr.auth.pwd Usually from \code{solr.url} config. \code{NULL} in testing
-#' @param isXML Logical. If TRUE the data argument directly becomes the body and \code{content_type}  is set to "text/xml"
-#' @param type One of \code{c("async", "sync", "curl")} usually drawn from config file.
-#' @param detach Logical. For mcparallel. Should updates be detached and forgotten about or not?
+#' @param solr.url Usually from \code{solr.url} config. In testing can be
+#'   \code{http://solr:8983/solr/rcloudnotebooks}
+#' @param solr.auth.user Usually from \code{solr.url} config. \code{NULL}
+#'   in testing
+#' @param solr.auth.pwd Usually from \code{solr.url} config. \code{NULL} in
+#'   testing
+#' @param isXML Logical. If TRUE the data argument directly becomes the body
+#'   and \code{content_type}  is set to "text/xml"
+#' @param type One of \code{c("async", "sync", "curl")} usually drawn from
+#'   config file.
+#' @param detach Logical. For mcparallel. Should updates be detached and
+#'   forgotten about or not?
 #'
-#' @return The result of the httr::POST (sync). This needs to be unwrapped with a \code{parallel::mccollect} with async, and curl just returns NULL.
+#' @return The result of the httr::POST (sync). This needs to be unwrapped with
+#'   a \code{parallel::mccollect} with async, and curl just returns \code{NULL}.
 #' @rdname solr.post
 #'
 .solr.post <- function(data,
@@ -28,7 +35,9 @@
   type <- match.arg(type, c("async", "sync", "curl"))
 
   # Check if Authentication info exists in the parameters
-  if(!is.null(solr.auth.user)) httpConfig <- c(httpConfig,httr::authenticate(solr.auth.user,solr.auth.pwd))
+  if(!is.null(solr.auth.user)) {
+    httpConfig <- c(httpConfig,httr::authenticate(solr.auth.user,solr.auth.pwd))
+  }
   if(isXML){
     content_type ="text/xml"
     body=data
@@ -37,7 +46,6 @@
     solr.post.url <- httr::parse_url(solr.url)
     solr.post.url$path <- paste(solr.post.url$path,"update",sep="/")
     solr.post.url$query <- list(commit = "true")
-
 
     switch(type,
            async = parallel::mcparallel(httr::POST(httr::build_url(solr.post.url),
@@ -147,8 +155,67 @@
   warnings = function(w) {solr.res$error$msg = w}
   )
 
-  if(!is.null(resp$message)) solr.res$error$msg <- paste0(solr.get.url$hostname," : ",resp$message)
-  else if(!httr::http_error(resp)) solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
-  else solr.res$error$msg <- rawToChar(resp$content)
+  if(!is.null(resp$message))
+    solr.res$error$msg <- paste0(solr.get.url$hostname," : ",resp$message)
+  else if(!httr::http_error(resp))
+    solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
+  else
+    solr.res$error$msg <- httr::http_status(resp)
+  return(solr.res)
+}
+
+
+#' A generic get request
+#'
+#' @param query optional list
+#' @param path the route relative to the solr core
+#' @inheritParams .solr.post
+
+#' @return The response
+#'
+.solr.get.generic <- function(query = NULL,
+                              path = "select",
+                              solr.url = rcloud.support:::getConf("solr.url"),
+                              solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
+                              solr.auth.pwd = rcloud.support:::getConf("solr.auth.pwd")) {
+  solr.get.url <- httr::parse_url(solr.url)
+  solr.get.url$path <- paste(solr.get.url$path, path, sep = "/")
+
+  if (!is.null(query)) {
+    solr.get.url$query <- query
+  }
+  httpConfig <- httr::config()
+  solr.res <-
+    list(error = list(code = solr.get.url$hostname, msg = "Unknown Error"))
+
+
+  if (!is.null(solr.auth.user)) {
+    httpConfig <-
+      c(httpConfig,
+        httr::authenticate(solr.auth.user, solr.auth.pwd))
+  }
+
+  resp <- tryCatch({
+    httr::GET(
+      httr::build_url(solr.get.url),
+      httr::content_type_json(),
+      httr::accept_json(),
+      config = httpConfig
+    )
+  },
+  error = function(e) {
+    solr.res$error$msg = e
+  },
+  warnings = function(w) {
+    solr.res$error$msg = w
+  })
+
+  if (!is.null(resp$message))
+    solr.res$error$msg <-
+    paste0(solr.get.url$hostname, " : ", resp$message)
+  else if (!httr::http_error(resp))
+    solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
+  else
+    solr.res$error$msg <- httr::http_status(resp)
   return(solr.res)
 }

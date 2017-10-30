@@ -9,27 +9,25 @@ This package provides search capability to [RCloud](https://github.com/att/rclou
 
 ### RCloud
 
-This package must be used alongside an RCloud installation. The branch [feature/refactor-solr](https://github.com/mangothecat/rcloud/tree/feature/solr-refactor) in the mangothecat fork of RCloud works with the `rcloud.solr` package.
-
-Install RCloud normally from the `feature/refactor-solr` branch.
+This package must be used alongside an RCloud version `>=1.9`.
 
 ### rcloud.solr
 
 install `rcloud.solr` with something like:
 
 ```
-source("https://install-github.me/mangothecat/rcloud.solr")
+source("https://install-github.me/att/rcloud.solr")
 ```
 
 or:
 ```
 install.packages("remotes")
-remotes::install_github("mangothecat/rcloud.solr")
+remotes::install_github("att/rcloud.solr")
 ```
 
 ### Solr
 
-Clearly we need solr running to test this out. The solr configuration hasn't been updated in the `feature/refactor-solr` branch yet. Instead the configuration has been added to a Docker image at [mangothecat/docker-rcloud-solr](https://github.com/mangothecat/docker-rcloud-solr) This is also on [Docker hub](https://hub.docker.com/r/mangothecat/rcloud-solr/), so to install it run:
+Clearly we need solr running to test this out.  A Docker image suitable for testing has been produced at [mangothecat/docker-rcloud-solr](https://github.com/mangothecat/docker-rcloud-solr) This is also on [Docker hub](https://hub.docker.com/r/mangothecat/rcloud-solr/), so to install it run:
 
 ```sh
 docker pull mangothecat/rcloud-solr
@@ -56,6 +54,8 @@ I recommend using [Docker](https://www.docker.com/) to setup the development env
 ```sh
 sudo docker build . -t rcsolr-rstudio
 ```
+
+Or you can pull the version that matches the development head from docker hub: `docker pull mangothecat/rcsolr-rstudio`.
 
 The repo also contains a Docker Compose file to bring up the whole environment. This includes the RStudio container and an instance of Solr. To run all this in the background run:
 

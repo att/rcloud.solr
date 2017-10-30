@@ -6,7 +6,11 @@ test_that("Add a document", {
 
   nb <- readRDS("notebooks/notebook01.rds")
 
-  response <- update_solr(nb, 1, detach = FALSE)
+  with_mock(
+    `rcloud.support::rcloud.is.notebook.visible` = function(id) TRUE,
+    `rcloud.support:::is.notebook.encrypted` = function(id) FALSE,
+    response <- update_solr(nb, 1, detach = FALSE)
+  )
 
   on.exit(solr.delete.doc(nb$content$id)) # relies on this function working...
 

@@ -1,4 +1,5 @@
 
+
 #' Search RCloud Notebooks
 #'
 #' Main search function exposed as an OCAP to the client.
@@ -9,83 +10,80 @@
 #' @param orderby Passed to solr for sorting
 #' @param start Passed to solr
 #' @param pagesize Passed to solr
+#' @param max_pages Sets the size of search
 #' @param group.limit Passed to solr. Controls how many cells to highlight for each notebook hit.
-#' @param hl.fragsize How many charachters to return with the highlighting
+#' @param hl.fragsize How many characters to return with the highlighting
 #'
 #' @return Search response after parsing
 #' @export
 #'
-rcloud.search <-function(query, all_sources = FALSE, sortby = "starcount", orderby = "desc",
-                         start = 0, pagesize = 10, group.limit = 4,  hl.fragsize=60) {
+rcloud.search <-
+  function(query,
+           all_sources = FALSE,
+           sortby = "score",
+           orderby = "desc",
+           start = 0,
+           pagesize = 10,
+           max_pages = 20,
+           group.limit = 4,
+           hl.fragsize = 60) {
+    .SC$search(
+      query = query,
+      all_sources = all_sources,
+      sortby = sortby,
+      orderby = orderby,
+      start = start,
+      pagesize = pagesize,
+      max_pages = max_pages,
+      group.limit = group.limit,
+      hl.fragsize = hl.fragsize
+    )
+  }
+
+
+
+#' Passthrough Notebook Search
+#'
+#' On description and optionally user. This does minimal processing server side to increase speed.
+#'
+#' @param description search string to match against description. Fuzzy matching and wildcarding is used.
+#' @param user optional to specify a user
+#' @inheritParams rcloud.search
+#'
+#' @return Search result direct from solr with no parsing
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' rcloud.search.description("test", user = "juninho")
+#' }
+rcloud.search.description <- function(description, user = NULL, start = 0,
+                                      pagesize = 100, sortby = "description",
+                                      orderby = "desc") {
+
 
   url <- rcloud.support:::getConf("solr.url")
-  if (is.null(url)) stop("solr is not enabled")
+  if (is.null(url))
+    stop("solr is not enabled")
 
-  # TESTING REMOVE
-  q0 <- query
+  user <- if (!is.null(user)) paste(" AND user:", user) else " "
+  query <- paste0("description:", description, "*~",
+                  user,
+                  " AND doc_type:notebook")
 
-  ## FIXME: The Query comes URL encoded. From the search box? Replace all spaces with +
-  ## Check if search terms are already URL encoded?
-  if(nchar(query) > nchar(utils::URLdecode(query))) query <- utils::URLdecode(query)
-
-  solr.query <- list(q=query,
-                     start=start,
-                     rows=pagesize,
-                     indent="true",
-                     group="true",
-                     group.field="notebook_id",
-                     group.limit=group.limit,
-                     group.ngroups="true",
-                     hl="true",
-                     hl.preserveMulti="true",
-                     hl.fragsize=hl.fragsize,
-                     hl.maxAnalyzedChars=-1,
-                     hl.simple.pre = "<span class=\"search-result-solr-highlight\">",
-                     hl.simple.post = "</span>",
-                     fl="description,id,user,updated_at,starcount,filename, doc_type",
-                     hl.fl="content,comments",
-                     sort=paste(sortby,orderby))
-
-  ################## TESTING REMOVE #################################
-  if(!requireNamespace("jsonlite", quietly = TRUE)) {
-    stop("Need jsonlite to output search query, response")
-  }
-  qid <- tempfile(pattern = "query", fileext = ".json")
-  res <- list(query = q0,
-              URLdecodequery = query,
-              sol.query = solr.query,
-              pagesize = pagesize,
-              all_sources = all_sources)
-  ###################################################################
-
-  query <- function(solr.url,source='',solr.auth.user=NULL,solr.auth.pwd=NULL) {
-    solr.res <- .solr.get(solr.url=solr.url,query=solr.query,solr.auth.user=solr.auth.user,solr.auth.pwd=solr.auth.pwd)
-
-    res$solr.res <<- solr.res  ######### TESTING_REMOVE
-
-    parse.solr.res(solr.res, pagesize = pagesize, source = source, start = start)
-  }
-  if (isTRUE(all_sources)) {
-    main <- query(url,
-                  solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                  solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
-    l <- lapply(rcloud.support:::.session$gist.sources.conf, function(src)
-      if ("solr.url" %in% names(src)) query(src['solr.url'],
-                                            src['gist.source'],src['solr.auth.user'],src['solr.auth.pwd'])
-      else character(0))
-    resp <- unlist(c(list(main), l))
-  }
-  else {
-    resp <- query(url,
-                  solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
-                  solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"))
-  }
-
-  ######################### TESTING REMOVE ###########################
-  res$response <- resp
-  json <- jsonlite::toJSON(res, pretty = TRUE, auto_unbox = TRUE)
-  writeLines(json, qid)
-  ####################################################################
-
-  resp
+  solr.query <- list(
+    q = query,
+    start = start,
+    rows = pagesize,
+    indent = "true",
+    fl = "description,id,user,updated_at,starcount",
+    sort = paste(sortby, orderby)
+  )
+  # pass it straight back no post-processing
+  .solr.get(
+    solr.url = url,
+    query = solr.query,
+    solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
+    solr.auth.pwd = rcloud.support:::getConf("solr.auth.pwd")
+  )
 }

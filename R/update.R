@@ -1,7 +1,3 @@
-# Some intelligent parsing account for basics like /solr/notebook and /solr/notebook/ is essentially the same thing
-# Using httr::parse_url
-
-
 #' Retrieve notebook by id and update solr
 #'
 #' Thin wrapper around \code{update_solr}
@@ -46,12 +42,13 @@ build_update_metadata <- function(notebook, starcount) {
 
   ## FIXME: gracefully handle unavailability
   content.files <- notebook$content$files
+
+  # Remove default scratch.R but leave ones that changed
+  default_scratch <- vapply(content.files, is_default_scratch, logical(1))
+
   ## Remove binary assets by removing elements with .b64 extention
-
   content_ext <- tools::file_ext(names(content.files)) # What's more reliable? Names or filename element?
-  content.files <- content.files[content_ext != "b64"]
-
-  # Previous comment suggested scratch.R not indexed but it was. scratch.R *is* indexed.
+  content.files <- content.files[content_ext != "b64" & !(default_scratch)]
 
   if (!length(content.files)) return(NULL)
 
@@ -75,10 +72,13 @@ build_update_metadata <- function(notebook, starcount) {
   )
 
   # We add a lot of info about the notebook to each cell because
-  # otherwise we'd need a second query after the grouping to reattach notebook information.
+  # otherwise we'd need a second query after the grouping to reattach notebook
+  # information.
 
-  # Ideally I'd like to use block join queries but the problem (in solr 5 at least) is that
-  # we can't get the right highlighting. Explore this as future solr releases become available
+  # Ideally I'd like to use block join queries but the problem
+  # (in solr 5 at least) is that we can't get the right highlighting.
+  # Explore this as future solr releases become available.
+
   notebook_info <- build_notebook_info(notebook, starcount = starcount)
 
   comments <- build_comments(notebook_info)
@@ -131,12 +131,12 @@ build_json_content_files <- function(content.files, notebook_info) {
 
 # Add a reference to parent document for grouping purposes
 # Each cell goes in as a separate document so it must have all
-# required fields
+# required fields.
 build_one_content_file <- function(file, notebook_info) {
 
   c(list(id = paste0(notebook_info$notebook_id, file$filename)),
     notebook_info,
-    doc_type = "cell",
+    doc_type = if(grepl("^part", file$filename)) "cell" else "asset",
     file[c("filename", "language", "raw_url", "size", "content")])
 
 }
@@ -150,3 +150,10 @@ process_metadata_list <- function(li) {
   }
 }
 
+default_scratch_content <-
+  "# keep snippets here while working with your notebook's cells"
+
+is_default_scratch <- function(file) {
+  file$filename == "scratch.R" &&
+  file$content == default_scratch_content
+}
