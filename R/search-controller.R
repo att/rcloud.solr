@@ -394,7 +394,7 @@ sc_check_errors <- function(raw_results) {
 
     ulog::ulog("ERROR: Search failed: ", error_msgs)
 
-    stop(error_msg)
+    stop(error_msgs)
   }
 
 }

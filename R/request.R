@@ -170,6 +170,7 @@
 #' @param query optional list
 #' @param path the route relative to the solr core
 #' @inheritParams .solr.post
+#' @rdname solr.get.generic
 
 #' @return The response
 #'
