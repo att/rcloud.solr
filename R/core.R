@@ -52,6 +52,9 @@ solr_core_create <- function(solr.url = "http://localhost:8983",
   # Create the data directory
   dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
 
+  # @TODO Call the API
+  # ...
+
   # Can we do this for you?
   # #RCloud Conf
   # HOST=`hostname -f`
