@@ -26,6 +26,7 @@ solr_core_create <- function(solr.url = "http://localhost:8983",
                              data_dir = "data",
                              conf_dir = "conf") {
 
+  # Expand directories
   instance_dir = file.path(solr_dir, "solr", name)
   if(!overwrite) {
     if(dir.exists(instance_dir)) {
@@ -52,16 +53,28 @@ solr_core_create <- function(solr.url = "http://localhost:8983",
   # Create the data directory
   dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
 
-  # @TODO Call the API
-  # ...
+  # Call the core create API
+  url_bits <- httr::parse_url(solr.url)
+  url_bits$path <- "solr/admin/cores"
+  url_bits$query <- list(action = "CREATE",
+                         name = name,
+                         instanceDir=instance_dir,
+                         config="solrconfig.xml",
+                         schema="schema.xml",
+                         dataDir=data_dir)
+  url <- httr::build_url(url_bits)
+  get_config <- httr::config()
 
-  # Can we do this for you?
-  # #RCloud Conf
-  # HOST=`hostname -f`
-  # echo "#############################################################\n"
-  # echo "add the below line to the rcloud conf\n"
-  # echo "#------------------------------------------------------------\n"
-  # echo "solr.url: http://$HOST:8983/solr/rcloudnotebooks\n"
-  # echo "#------------------------------------------------------------\n"
+  httr::GET(url, config = get_config)
 
+
+  host <- Sys.info()["nodename"]
+  output_msg <- paste(
+    "#############################################################",
+    "add the below line to the rcloud conf",
+    "#------------------------------------------------------------",
+    paste0("solr.url: http://", host,":8983/solr/rcloudnotebooks"),
+    "#------------------------------------------------------------",
+    sep = "\n")
+  message(output_msg)
 }
