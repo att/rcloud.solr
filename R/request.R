@@ -157,7 +157,7 @@
 
   if(!is.null(resp$message))
     solr.res$error$msg <- paste0(solr.get.url$hostname," : ",resp$message)
-  else if(!httr::http_error(resp))
+  else if(httr::status_code(resp) < 400L) ## same as http_error() in more recent httr
     solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
   else
     solr.res$error$msg <- httr::http_status(resp)
@@ -170,6 +170,7 @@
 #' @param query optional list
 #' @param path the route relative to the solr core
 #' @inheritParams .solr.post
+#' @rdname solr.get.generic
 
 #' @return The response
 #'
@@ -213,7 +214,7 @@
   if (!is.null(resp$message))
     solr.res$error$msg <-
     paste0(solr.get.url$hostname, " : ", resp$message)
-  else if (!httr::http_error(resp))
+  else if (httr::status_code(resp) < 400L) ## same as http_error() in more recent httr
     solr.res <- rjson::fromJSON(httr::content(resp, "parsed"))
   else
     solr.res$error$msg <- httr::http_status(resp)

@@ -1,7 +1,6 @@
 # rcloud.solr
 
-[![Travis-CI Build Status](https://travis-ci.org/MangoTheCat/rcloud.solr.svg?branch=master)](https://travis-ci.org/MangoTheCat/rcloud.solr)
-![Work in Progress](https://img.shields.io/badge/Status-WIP-green.svg)
+[![Travis-CI Build Status](https://travis-ci.org/att/rcloud.solr.svg?branch=develop)](https://travis-ci.org/att/rcloud.solr)
 
 This package provides search capability to [RCloud](https://github.com/att/rcloud/) by taking functionality that was previously provided by [search.R](https://github.com/att/rcloud/blob/develop/rcloud.support/R/search.R) from the rcloud.support package.
 
