@@ -235,10 +235,18 @@ sc_build_response <- function(self, private, start, pagesize) {
 
 sc_create_source <- function(source) {
 
-  if(exists("solr.api.version", source) && !is.null(source$solr.api.version) && source$solr.api.version == "1.0")
-    SearchSourceV1$new(source)
-  else
-    SearchSource$new(source)
+  api_major <- "2"
+
+  if(exists("solr.api.version", source) && !is.null(source$solr.api.version)) {
+    api_version_split <- strsplit(source$solr.api.version, split = "\\.")[[1]]
+    api_major <- api_version_split[1]
+  }
+
+  switch(api_major,
+         "1" = SearchSourceV1$new(source),
+         "2" = SearchSource$new(source),
+         SearchSource$new(source) #default
+  )
 }
 
 #' Merge Raw Results
