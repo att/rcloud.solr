@@ -185,6 +185,8 @@ test_that("Full search two sources", {
   # Check the sort order (roughly)
   expect_gte(response$notebooks[[1]]$starcount,
              response$notebooks[[2]]$starcount)
+
+  check_response_docs(response)
 })
 
 
@@ -209,5 +211,7 @@ test_that("Two mixed sources", {
   )
 
   expect_equal(response$n_notebooks, 24)
+
+  check_response_docs(response)
 
 })

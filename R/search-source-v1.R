@@ -156,11 +156,23 @@ parse.response.high <- function(high) {
       i1 <- pmax(1, regexpr("<span ", cont) - 15)
       i2 <- pmin(nchar(cont), regexpr("span>", parts.content[[i]]$content) + 20)
       parts.content[[i]]$content <- substr(cont, i1, i2)
+
+      # Add some elements for forwards compatibility
+      parts.content[[i]]$id <- parts.content[[i]]$file
+      parts.content[[i]]$highlighting <- list(content = parts.content[[i]]$content)
+
+      if(grepl("^part", parts.content[[i]]$file))
+        parts.content[[i]]$doc_type <- "cell"
+      else if (grepl("^comment", parts.content[[i]]$file))
+        parts.content[[i]]$doc_type <- "comment"
+      else
+        parts.content[[i]]$doc_type <- "asset"
     }
 
 
   } else
-    parts.content <- list(file = "part1.R", content = "")
+    parts.content <- list(file = "part1.R", id = "part1.R", content = "", highlighting = list(content = ""))
+
 
   parts.content
 }
