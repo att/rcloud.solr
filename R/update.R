@@ -4,22 +4,25 @@
 #'
 #' @param id Character vector. The notebook id
 #' @param detach Logical. Passed on to \code{update_solr}
+#' @param ... Extra arguments passed on to \code{\link{.solr.post}}.
 #'
 #' @export
-update_solr_id <- function(id, detach = TRUE) {
+update_solr_id <- function(id, detach = TRUE, ...) {
   update_solr(rcloud.support::rcloud.get.notebook(id,raw=TRUE),
               rcloud.support::rcloud.notebook.star.count(id),
-              detach = detach)
+              detach = detach,
+              ...)
 }
 
 #' Update the index after a notebook change
 #'
 #' @param notebook [notebook] The notebook object as stored by rcloud.support
 #' @param starcount [numeric] notebook starcount
-#' @param detach [logical] Should parallel process be detached? Use FALSE for testing
+#' @param detach [logical] Should parallel process be detached? Use FALSE for testing or batch.
+#' @param ... Extra arguments passed on to \code{\link{.solr.post}}.
 #'
 #' @export
-update_solr <- function(notebook, starcount, detach = TRUE){
+update_solr <- function(notebook, starcount, detach = TRUE, ...){
   #Update only notebooks which are visible
   if(!rcloud.support::rcloud.is.notebook.visible(notebook$content$id) ||
      (rcloud.support:::is.notebook.encrypted(notebook$content$id))){
@@ -28,8 +31,38 @@ update_solr <- function(notebook, starcount, detach = TRUE){
 
   metadata.list <- build_update_metadata(notebook, starcount)
 
-  .solr.post(data=metadata.list, detach = detach)
+  .solr.post(data=metadata.list, detach = detach, ...)
 
+}
+
+
+#' Update index for a batch of notebooks
+#'
+#' @param batch A character vector of notebook IDs
+#' @inheritParams update_solr
+#'
+#' @return response from .solr.post
+#' @export
+update_batch <- function(batch, detach = FALSE, ...) {
+
+  # Remove notebooks that should not be indexed
+  visible <- vapply(batch, rcloud.support::rcloud.is.notebook.visible, logical(1))
+  encrypted <- vapply(batch, rcloud.support:::is.notebook.encrypted, logical(1))
+  batch <- batch[visible & !encrypted]
+
+  if (length(batch) < 1) return(NULL)
+
+  notebooks <- lapply(batch, rcloud.support::rcloud.get.notebook, raw = TRUE)
+  starcounts <- lapply(batch, rcloud.support::rcloud.notebook.star.count)
+
+  documents <- mapply(build_update_metadata,
+                      notebook = notebooks,
+                      starcount = starcounts,
+                      SIMPLIFY = FALSE)
+
+  resp <- .solr.post(data=documents, detach = detach, isMulti = TRUE, ...)
+
+  invisible(resp)
 }
 
 #' Build the Metadata for a Notebook Update
