@@ -4,14 +4,16 @@
 \alias{update_solr}
 \title{Update the index after a notebook change}
 \usage{
-update_solr(notebook, starcount, detach = TRUE)
+update_solr(notebook, starcount, detach = TRUE, ...)
 }
 \arguments{
 \item{notebook}{[notebook] The notebook object as stored by rcloud.support}
 
 \item{starcount}{[numeric] notebook starcount}
 
-\item{detach}{[logical] Should parallel process be detached? Use FALSE for testing}
+\item{detach}{[logical] Should parallel process be detached? Use FALSE for testing or batch.}
+
+\item{...}{Extra arguments passed on to \code{\link{.solr.post}}.}
 }
 \description{
 Update the index after a notebook change

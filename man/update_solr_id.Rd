@@ -4,12 +4,14 @@
 \alias{update_solr_id}
 \title{Retrieve notebook by id and update solr}
 \usage{
-update_solr_id(id, detach = TRUE)
+update_solr_id(id, detach = TRUE, ...)
 }
 \arguments{
 \item{id}{Character vector. The notebook id}
 
 \item{detach}{Logical. Passed on to \code{update_solr}}
+
+\item{...}{Extra arguments passed on to \code{\link{.solr.post}}.}
 }
 \description{
 Thin wrapper around \code{update_solr}

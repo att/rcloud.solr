@@ -7,7 +7,8 @@
 .solr.post(data, solr.url = rcloud.support:::getConf("solr.url"),
   solr.auth.user = rcloud.support:::getConf("solr.auth.user"),
   solr.auth.pwd = rcloud.support:::getConf("solr.auth.pwd"), isXML = FALSE,
-  type = rcloud.support:::getConf("solr.post.method"), detach = TRUE)
+  isMulti = FALSE, type = rcloud.support:::getConf("solr.post.method"),
+  detach = TRUE, query = list(commit = "true"))
 }
 \arguments{
 \item{data}{The body of the request.}
@@ -24,11 +25,16 @@ testing}
 \item{isXML}{Logical. If TRUE the data argument directly becomes the body
 and \code{content_type}  is set to "text/xml"}
 
+\item{isMulti}{Logical. If TRUE it is assumed to be a list of notebooks
+and will not be wrapped in a list.}
+
 \item{type}{One of \code{c("async", "sync", "curl")} usually drawn from
 config file.}
 
 \item{detach}{Logical. For mcparallel. Should updates be detached and
 forgotten about or not?}
+
+\item{query}{Named list. Arguments to be added to the query in the POST request to Solr.}
 }
 \value{
 The result of the httr::POST (sync). This needs to be unwrapped with
