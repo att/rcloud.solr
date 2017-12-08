@@ -4,13 +4,16 @@
 \alias{index_all}
 \title{Index all RCloud Notebooks}
 \usage{
-index_all(pause = 0.5)
+index_all(pause = 1, batch_size = 10, commitWithin = 10000, ...)
 }
 \arguments{
 \item{pause}{time in seconds between updateseturn with the highlighting}
-}
-\value{
-Search response after parsing
+
+\item{batch_size}{number of documents per update}
+
+\item{commitWithin}{Number of milliseconds before solr forces commit}
+
+\item{...}{Extra arguments passed to \code{.solr.post}}
 }
 \description{
 Sends all notebooks from all users to solr

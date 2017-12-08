@@ -12,11 +12,13 @@
 #'   testing
 #' @param isXML Logical. If TRUE the data argument directly becomes the body
 #'   and \code{content_type}  is set to "text/xml"
+#'@param isMulti Logical. If TRUE it is assumed to be a list of notebooks
+#'  and will not be wrapped in a list.
 #' @param type One of \code{c("async", "sync", "curl")} usually drawn from
 #'   config file.
 #' @param detach Logical. For mcparallel. Should updates be detached and
 #'   forgotten about or not?
-#'
+#' @param query Named list. Arguments to be added to the query in the POST request to Solr.
 #' @return The result of the httr::POST (sync). This needs to be unwrapped with
 #'   a \code{parallel::mccollect} with async, and curl just returns \code{NULL}.
 #' @rdname solr.post
@@ -25,11 +27,14 @@
                        solr.url=rcloud.support:::getConf("solr.url"),
                        solr.auth.user=rcloud.support:::getConf("solr.auth.user"),
                        solr.auth.pwd=rcloud.support:::getConf("solr.auth.pwd"),
-                       isXML=FALSE,
+                       isXML = FALSE,
+                       isMulti = FALSE,
                        type=rcloud.support:::getConf("solr.post.method"),
-                       detach = TRUE) {
+                       detach = TRUE,
+                       query = list(commit = "true")) {
   content_type <- "application/json"
-  body <- rjson::toJSON(list(data))
+  if(!isMulti) data <- list(data)
+  body <- rjson::toJSON(data)
   httpConfig <- httr::config()
 
   type <- match.arg(type, c("async", "sync", "curl"))
@@ -45,7 +50,7 @@
   if(!is.null(solr.url)){
     solr.post.url <- httr::parse_url(solr.url)
     solr.post.url$path <- paste(solr.post.url$path,"update",sep="/")
-    solr.post.url$query <- list(commit = "true")
+    solr.post.url$query <- query
 
     switch(type,
            async = parallel::mcparallel(httr::POST(httr::build_url(solr.post.url),
