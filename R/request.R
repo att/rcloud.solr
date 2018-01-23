@@ -32,21 +32,25 @@
                        type=rcloud.support:::getConf("solr.post.method"),
                        detach = TRUE,
                        query = list(commit = "true")) {
-  content_type <- "application/json"
-  if(!isMulti) data <- list(data)
-  body <- rjson::toJSON(data)
-  httpConfig <- httr::config()
 
+  if(isXML) {
+    content_type <- "text/xml"
+    body <- data
+  } else {
+    content_type <- "application/json"
+    if (!isMulti)
+      data <- list(data)
+    body <- rjson::toJSON(data)
+  }
+
+  httpConfig <- httr::config()
   type <- match.arg(type, c("async", "sync", "curl"))
 
   # Check if Authentication info exists in the parameters
   if(!is.null(solr.auth.user)) {
     httpConfig <- c(httpConfig,httr::authenticate(solr.auth.user,solr.auth.pwd))
   }
-  if(isXML){
-    content_type ="text/xml"
-    body=data
-  }
+
   if(!is.null(solr.url)){
     solr.post.url <- httr::parse_url(solr.url)
     solr.post.url$path <- paste(solr.post.url$path,"update",sep="/")
