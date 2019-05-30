@@ -67,7 +67,8 @@
                                       config=httpConfig),
                            error = function(e) {
                              ulog::ulog("WARN: SOLR POST failed with",
-                                  gsub("\n", "\\", as.character(e), fixed=TRUE))
+                                        gsub("\n", "\\", as.character(e), fixed=TRUE))
+                             e
                            }),
            curl = parallel::mcparallel(tryCatch({
              curl <- rcloud.support:::getConf("solr.curl.cmd")
@@ -79,7 +80,8 @@
              close(f)
              parallel:::mcexit()
            }, error = function(e) {
-             ulog::ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
+               ulog::ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
+               e
            }),detach=detach)
     )
   }
