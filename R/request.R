@@ -66,7 +66,7 @@
                                       httr::content_type(content_type),
                                       config=httpConfig),
                            error = function(e) {
-                             ulog::ulog("WARN: SOLR POST failed with",
+                             ulog("WARN: SOLR POST failed with",
                                         gsub("\n", "\\", as.character(e), fixed=TRUE))
                              e
                            }),
@@ -80,7 +80,7 @@
              close(f)
              parallel:::mcexit()
            }, error = function(e) {
-               ulog::ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
+               ulog("WARN: SOLR POST failed with", gsub("\n", "\\", as.character(e), fixed=TRUE))
                e
            }),detach=detach)
     )

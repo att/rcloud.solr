@@ -107,7 +107,7 @@ sc_set_sources <- function(self, private, sources) {
   if (is.null(sources)) {
     sources <- try(sc_get_rcloud_sources())
     if("try-error" %in% class(sources)) {
-      ulog::ulog("ERROR: SOLR source failed to initialise:", gsub("\n", "\\", as.character(sources)))
+      ulog("ERROR: SOLR source failed to initialise:", gsub("\n", "\\", as.character(sources)))
       return(NULL)
     }
   }
@@ -400,7 +400,7 @@ sc_check_errors <- function(raw_results) {
     # Crunch down to a single error message
     error_msgs <- rjson::toJSON(error_results)
 
-    ulog::ulog("ERROR: Search failed: ", error_msgs)
+    ulog("ERROR: Search failed: ", error_msgs)
 
     stop(error_msgs)
   }
