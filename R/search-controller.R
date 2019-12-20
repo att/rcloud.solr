@@ -172,26 +172,25 @@ sc_search <- function(self, private, all_sources, start, pagesize, sortby, order
     return(list(error = list (msg = "Main source not valid")))
   }
 
-  if (start == 0) {
-    # Update cached results from all sources
-    self$new_search(
-      all_sources = all_sources,
-      start = start,
-      sortby = sortby,
-      orderby = orderby,
-      ...
-    )
-
-    # What if new_search went wrong?
-  }
-
+    ## Update cached results from all sources if page 1 is
+    ## requested (FIXME: is that a good logic?)
+    ## or if we have no cached results (see #91 and rcloud #2631)
+    if (start == 0 || is.null(private$results$header$n_notebooks)) {
+        self$new_search(
+                 all_sources = all_sources,
+                 start = start,
+                 sortby = sortby,
+                 orderby = orderby,
+                 ...
+             )
+        ## What if new_search went wrong?
+    }
 
   self$build_response(start, pagesize)
 
 }
 
 sc_new_search <- function(self, private, all_sources, sortby, orderby, ...) {
-
   sources <- if(all_sources) private$sources else private$sources[1]
 
   # This can be parallelised
@@ -211,6 +210,9 @@ sc_new_search <- function(self, private, all_sources, sortby, orderby, ...) {
 sc_build_response <- function(self, private, start, pagesize) {
 
   nn <- private$results$header$n_notebooks
+
+    if (!length(nn)) ## FIXME: is there a way to report errors?
+        stop("ERROR: rcloud.solr: results requested, but there are no results")
 
   header <- private$results$header
   header$start <- start
@@ -388,7 +390,6 @@ sc_schema_version <- function(path = "schema/version",
 #' @param raw_results Results from solr sources
 #'
 sc_check_errors <- function(raw_results) {
-
   is_error <- vapply(raw_results,
                      function(x)
                        is.character(x[[1]]) && x[[1]] == "error",
